@@ -95,6 +95,11 @@ textarea{resize:vertical}
 .bed.free{background:var(--good-soft);color:var(--good);border-color:var(--good)}
 .bed.lock{background:transparent;border-style:dashed;color:var(--faint);cursor:not-allowed}
 .bed.sel{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
+.bed.pend{background:var(--warn-soft);color:var(--warn);border-color:var(--warn)}
+.meter{height:8px;background:var(--surface-2);border-radius:4px;overflow:hidden}
+.meter>i{display:block;height:100%;background:var(--good)}
+.rules{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:14px}
+.rules b{font-family:var(--mono);font-size:12px;color:var(--muted)}
 .bed svg{width:18px;height:18px}
 .corridor{margin:8px 0;padding:4px;text-align:center;font-size:11px;letter-spacing:.06em;color:var(--faint);border-block:1px dashed var(--line)}
 .rule{border:1px solid var(--bad);background:var(--bad-soft);color:var(--bad);border-radius:10px;padding:8px 12px;font-size:13px;display:flex;gap:8px;align-items:center}
@@ -267,12 +272,13 @@ input[type=email]{width:100%;background:var(--surface);border:1px solid var(--li
     <div class="wrap">
       <div class="top">
         <h1 id="pageTitle">Otaqlar</h1>
+        <span class="chip" id="quietPill" style="margin-left:auto"></span>
         <button class="who focusable" id="whoBtn" style="border-radius:999px"><span id="whoTxt"></span><span class="av" id="whoAv">D</span></button>
       </div>
 
       <!-- ROOMS -->
       <section id="s-rooms" class="stack">
-        <div class="rule"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span><b>Qayda:</b> qız yalnız qızla, oğlan yalnız oğlanla qala bilər. Boş otağın cinsini ilk yerləşən müəyyən edir.</span></div>
+        <div class="rule"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span><b>Qaydalar:</b> yeri administrator təyin edir, ona görə köçmək üçün müraciət göndərilir (bənd 10). Qızlar və oğlanlar ayrı otaqlarda qalır, istisna yalnız Tələbə Nümayəndəliyinin icazəsi ilə mümkündür (bənd 14).</span></div>
         <div class="ai" id="rec"></div>
         <div>
           <div class="sel-line"><span>Bina</span><div class="row" id="bld"></div></div>
@@ -349,8 +355,24 @@ input[type=email]{width:100%;background:var(--surface);border:1px solid var(--li
       <section id="s-report" class="stack" hidden>
         <div class="card row" style="justify-content:space-between">
           <div class="row"><span class="av">RK</span><div><b>3 nömrəli bina komendantı</b><div class="faint">Demo kontakt · iş saatları 08:00–17:00 · təcili hallarda resepsiya</div></div></div>
-          <button id="newRep" class="primary">+ Yeni müraciət</button>
+          <div class="row"><button id="newRep" class="primary">+ Şikayət</button><button id="newGuest">+ Qonaq ərizəsi</button></div>
         </div>
+        <form class="card stack" id="guestForm" hidden style="border-color:var(--brand)" novalidate>
+          <div class="row" style="justify-content:space-between"><h3 style="font-size:17px">Qonaq ərizəsi</h3><button class="small" type="button" id="gCancel">Bağla</button></div>
+          <p class="faint" style="margin:0">Qonaqlar 07:00–22:00 arası buraxılır və növbətçidə qeydiyyatdan keçir. Gecə qalmaq üçün administrasiyanın icazəsi lazımdır (bənd 16). Bu ərizə kağız əvəzinə onlayn gedir.</p>
+          <div class="grid2">
+            <div><label class="lbl" for="gName">Qonağın adı və soyadı</label><input type="text" id="gName" placeholder="Aysel Məmmədova"><div class="err" id="eGName"></div></div>
+            <div><label class="lbl" for="gDate">Tarix</label><select id="gDate"><option>Bu gün</option><option>Sabah</option><option>Birigün</option></select></div>
+          </div>
+          <div class="grid2">
+            <div><label class="lbl" for="gFrom">Gəlir</label><select id="gFrom"></select></div>
+            <div><label class="lbl" for="gTo">Gedir</label><select id="gTo"></select><div class="err" id="eGTime"></div></div>
+          </div>
+          <label class="switch"><input type="checkbox" id="gNight"><span>Qonaq gecə qalacaq (22:00–07:00)<br><span class="faint">Administrasiya təsdiqləməlidir.</span></span></label>
+          <label class="switch"><input type="checkbox" id="gGuar"><span>Qonağımın yataqxana qaydalarına əməl edəcəyinə zəmanət verirəm</span></label>
+          <div class="err" id="eGuar"></div>
+          <div class="row"><button class="primary" type="submit">Göndər</button></div>
+        </form>
         <form class="card stack" id="repForm" hidden style="border-color:var(--brand)" novalidate>
           <div class="row" style="justify-content:space-between"><h3 style="font-size:17px">Komendanta müraciət</h3><button class="small" type="button" id="repCancel">Bağla</button></div>
           <div><span class="lbl">Nə problemdir?</span><div class="row" id="repCats"></div><div class="err" id="eCat"></div></div>
@@ -384,6 +406,25 @@ input[type=email]{width:100%;background:var(--surface);border:1px solid var(--li
           <label class="row" style="gap:8px"><input type="checkbox" id="pShow" checked> Ölkəmi digər tələbələrə göstər</label>
           <div class="faint">Bu prototipdə profil dəyişəndə otaq xəritəsi dərhal yenilənir. Bütün adlar və məlumatlar test məlumatıdır.</div>
         </div>
+        <div class="card stack">
+          <div class="row" style="justify-content:space-between"><b>Qayda pozuntusu xalı</b><span id="ptsTxt" style="font-variant-numeric:tabular-nums">0,00 / 1,00</span></div>
+          <div class="meter"><i id="ptsBar" style="width:0%"></i></div>
+          <div class="faint">Hər pozuntunun xalı var (0,25–1,0). Cəmi 1,0-a çatanda administrator yataqxanadan çıxarılmanı təklif edir (bənd 26).</div>
+        </div>
+        <div class="card stack">
+          <b>Yataqxana qaydaları (qısa)</b>
+          <ul class="rules">
+            <li><b>§10</b> Konkret otaqdakı yeri administrator təyin edir. Özbaşına köçmək olmaz, köçmə müraciəti göndərilir.</li>
+            <li><b>§14</b> Fərqli cinsdən tələbələr birlikdə yalnız Tələbə Nümayəndəliyinə ərizə və hər iki tərəfin razılığı ilə qala bilər.</li>
+            <li><b>§16</b> Qonaqlar 07:00–22:00, növbətçidə qeydiyyatla. Gecə qalmaq ərizə ilə.</li>
+            <li><b>§17</b> Sakitlik saatları 22:00–07:00.</li>
+            <li><b>§24</b> Qadağandır: spirtli içki, xüsusi yerlər xaricində siqaret, heyvan, ticarət, qeydiyyatsız qonaq, otaqda 3 kW-dan güclü cihazlar.</li>
+            <li><b>§26</b> Pozuntu xalları cəmi 1,0 olanda çıxarılma təklif olunur.</li>
+          </ul>
+          <div class="faint">Mənbə: VILNIUS TECH bendrabučių vidaus tvarkos taisyklės (2020). Sənədin son versiyasını administratordan dəqiqləşdirin.</div>
+          <label class="switch"><input type="checkbox" id="quietRem" checked><span>22:00-da sakitlik xatırlatması göndər</span></label>
+          <div class="row"><button class="small" id="quietDemo">Demo: 22:00 bildirişini göstər</button></div>
+        </div>
       </section>
     </div>
   </main>
@@ -408,7 +449,7 @@ const ICON={
 const svg=(k,w)=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"'+(w?' width="'+w+'" height="'+w+'"':'')+'>'+ICON[k]+'</svg>';
 
 /* ---------- navigation ---------- */
-const PAGES=[["rooms","Otaqlar"],["laundry","Laundry"],["team","Komanda tap"],["chat","Çat"],["report","Şikayət"],["profile","Profil"]];
+const PAGES=[["rooms","Otaqlar"],["laundry","Laundry"],["team","Komanda tap"],["chat","Çat"],["report","Müraciətlər"],["profile","Profil"]];
 let page="rooms";
 function buildNav(){
   const rail=$('rail');rail.querySelectorAll('.nav').forEach(n=>n.remove());$('tabbar').innerHTML='';
@@ -451,9 +492,11 @@ let cb=2,ck=0,cf=1,selB=null;
 const others=rm=>rm.ppl.filter(x=>x.n!=="Sən");
 const roomG=rm=>{const o=others(rm);return o.length?o[0].g:rm.fixed};
 const GN={F:"qızlar",M:"oğlanlar"};
+const allowMixed=new Set();let pendingMove=null;
+const genderOnly=rm=>{const g=roomG(rm);return g&&g!==me().g&&!allowMixed.has(rm.num)&&!rm.tags.includes('rep')&&!(rm.tags.includes('intl')&&me().c==='LT')};
 function why(rm){const m=me(),r=[];if(rm.tags.includes('rep'))r.push('otaq təmirdədir');
   if(rm.tags.includes('intl')&&m.c==='LT')r.push('beynəlxalq tələbələr üçündür');
-  const g=roomG(rm);if(g&&g!==m.g)r.push('bu otaqda '+GN[g]+' qalır — '+(m.g==='F'?'qız yalnız qızla':'oğlan yalnız oğlanla')+' qala bilər');return r}
+  const g=roomG(rm);if(g&&g!==m.g&&!allowMixed.has(rm.num))r.push('bu otaqda '+GN[g]+' qalır — '+(m.g==='F'?'qız yalnız qızla':'oğlan yalnız oğlanla')+' qala bilər');return r}
 const cps=rm=>others(rm).filter(x=>x.c===me().c).length;
 const openBeds=rooms=>rooms.reduce((a,rm)=>a+(why(rm).length||rm===myRoom?0:rm.cap-rm.ppl.length),0);
 function sbtn(par,html,on,fn){const x=document.createElement('button');x.className='sb'+(on?' on':'');x.innerHTML=html;x.onclick=fn;par.appendChild(x)}
@@ -483,12 +526,18 @@ function rRender(){const m=me();whoLine();recommend();
       for(let k=0;k<rm.cap;k++){const d=document.createElement('button');const key=rm.num+'-'+k;
         if(k<rm.ppl.length){const p=rm.ppl[k],isMe=p.n==="Sən";d.className='bed'+(isMe?' me':(p.c===m.c?' cp':''));d.textContent=isMe?'Sən':p.c;d.setAttribute('aria-label',(isMe?'Sən':p.n)+', '+C[p.c]);
           d.onclick=()=>{$('rInfo').innerHTML=personCard(p,rm)}}
+        else if(pendingMove&&pendingMove.room===rm&&k===rm.ppl.length){d.className='bed pend';d.textContent='?';d.setAttribute('aria-label',rm.num+' müraciət gözləyir');
+          d.onclick=()=>{$('rInfo').innerHTML='<b style="color:var(--warn)">Bu yer üçün köçmə müraciətin (#'+pendingMove.no+') administratorda gözləyir.</b> Statusu Müraciətlər bölməsində izlə.'}}
         else if(bad.length||rm===myRoom){d.className='bed lock';d.innerHTML=svg('lock');d.setAttribute('aria-label',rm.num+' bağlı çarpayı');
-          d.onclick=()=>{$('rInfo').innerHTML=rm===myRoom?'Bu sənin otağındır.':'<b style="color:var(--warn)">'+rm.num+' sənin üçün bağlıdır:</b> '+bad.join(', ')+'.'}}
+          d.onclick=()=>{const info=$('rInfo');info.innerHTML=rm===myRoom?'Bu sənin otağındır.':'<b style="color:var(--warn)">'+rm.num+' sənin üçün bağlıdır:</b> '+bad.join(', ')+'. ';
+            if(rm!==myRoom&&genderOnly(rm)){const t=tickets.find(x=>x.type==='mixed'&&x.to===rm.num&&!x.done&&!x.rejected);
+              if(t){info.innerHTML+='Bu otaq üçün ərizən (#'+t.no+') baxılır.'}
+              else{info.innerHTML+='Birlikdə qalmaq istəyirsinizsə, Tələbə Nümayəndəliyinə ərizə verə bilərsən (§14). ';const b=document.createElement('button');b.className='small';b.textContent='Ərizə ver (§14)';b.onclick=()=>requestMixed(rm);info.appendChild(b)}}}}
         else{d.className='bed '+(selB===key?'sel':'free');d.innerHTML=svg('bed');d.setAttribute('aria-label',rm.num+' boş çarpayı');
           d.onclick=()=>{selB=key;rRender();const info=$('rInfo');
             info.innerHTML='<b>Seçildi: '+rm.num+'.</b> '+(rm.ppl.length?'Otaq yoldaşların: '+rm.ppl.map(x=>esc(x.n)+' ('+C[x.c]+')').join(', ')+'. ':'Otaq boşdur — təsdiq etsən, '+GN[m.g]+' otağı olacaq. ')+'Hazırkı yerin: '+myRoom.num+'. ';
-            const ok=document.createElement('button');ok.className='primary small';ok.textContent='Bu yerə köç';ok.onclick=()=>confirmBed(rm);info.appendChild(ok)}}
+            info.appendChild(document.createTextNode('Yeri administrator təyin edir (§10), ona görə əvvəlcə müraciət göndərilir. '));
+            const ok=document.createElement('button');ok.className='primary small';ok.textContent='Köçmə müraciəti göndər';ok.onclick=()=>requestMove(rm);info.appendChild(ok)}}
         w.appendChild(d)}
       r.appendChild(w);el.appendChild(r)})})}
 function confirmBed(rm){const m=me();const bad=why(rm);
@@ -623,7 +672,7 @@ function ltText(){const cat=CATS.find(c=>c[0]===repCat),place=$('repPlace').valu
 $('repAi').onclick=()=>{if(!repCat){$('eCat').textContent='Əvvəlcə problemin növünü seç.';return}const r=ltText();$('repLt').hidden=false;$('repAz').hidden=false;$('repLt').textContent=r.lt;$('repAz').textContent=r.az};
 $('repPhoto').onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{$('repThumb').src=rd.result;$('repThumb').hidden=false};rd.readAsDataURL(f)};
 $('repDesc').oninput=()=>$('eDesc').textContent='';
-$('newRep').onclick=()=>{$('repForm').hidden=false;$('newRep').hidden=true;fillPlaces();drawCats()};
+$('newRep').onclick=()=>{$('guestForm').hidden=true;$('repForm').hidden=false;$('newRep').hidden=true;fillPlaces();drawCats()};
 $('repCancel').onclick=()=>{$('repForm').hidden=true;$('newRep').hidden=false};
 $('repForm').addEventListener('submit',e=>{e.preventDefault();let ok=true;
   if(!repCat){$('eCat').textContent='Problemin növünü seç.';ok=false}
@@ -632,8 +681,37 @@ $('repForm').addEventListener('submit',e=>{e.preventDefault();let ok=true;
   repCat=null;$('repDesc').value='';$('repPhoto').value='';$('repThumb').hidden=true;$('repLt').hidden=true;$('repAz').hidden=true;$('repUrg').value='n';
   $('repForm').hidden=true;$('newRep').hidden=false;drawTickets();toast('Müraciət #'+ticketNo+' komendanta göndərildi')});
 const STAGES=["Göndərildi","Baxılır","Həll olundu"];
+const RSTAGES={move:["Göndərildi","Administrator baxır","Təsdiqləndi"],mixed:["Göndərildi","Otaq yoldaşlarının razılığı","Tələbə Nümayəndəliyinin qərarı"],guest:["Göndərildi","Administrasiya baxır","Təsdiqləndi"],guestDay:["Qeydiyyatda"]};
+function requestMove(rm){if(pendingMove){pendingMove.rejected=true;pendingMove.note='Yeni müraciətlə əvəzləndi.'}
+  ticketNo++;const t={type:'move',no:ticketNo,from:myRoom.num,to:rm.num,room:rm,stage:1,date:'bu gün'};tickets.unshift(t);pendingMove=t;selB=null;rRender();drawTickets();
+  $('rInfo').innerHTML='<b style="color:var(--good)">✓ Köçmə müraciəti #'+t.no+' göndərildi: '+t.from+' → '+t.to+'.</b> Administrator təsdiqləyəndən sonra köçəcəksən. Bu yer sənin üçün saxlanılır.';toast('Müraciət #'+t.no+' administratora getdi')}
+function requestMixed(rm){ticketNo++;const t={type:'mixed',no:ticketNo,to:rm.num,room:rm,stage:1,consents:others(rm).map(x=>x.n),date:'bu gün'};tickets.unshift(t);drawTickets();
+  $('rInfo').innerHTML='<b style="color:var(--good)">✓ Ərizə #'+t.no+' Tələbə Nümayəndəliyinə göndərildi.</b> Əvvəlcə otaqdakıların razılığı istənir: '+t.consents.map(esc).join(', ')+'.';toast('Ərizə #'+t.no+' göndərildi')}
+function finalize(t){
+  if(t.type==='move'){const rm=t.room;if(why(rm).length||rm.ppl.length>=rm.cap){t.rejected=true;t.note='Yer artıq tutulub və ya sənə uyğun deyil.';pendingMove=null;return}
+    pendingMove=null;confirmBed(rm);t.note='Köçdün: yeni yerin '+rm.num+'. Köhnə otağın açarını administratora təhvil ver.'}
+  else if(t.type==='mixed'){allowMixed.add(t.to);t.note=t.to+' indi sənin üçün açıqdır. Köçmək üçün ayrıca köçmə müraciəti göndər.';rRender()}
+  else if(t.type==='guest'){t.code='Q-'+Math.floor(1000+Math.random()*9000);t.note='Növbətçiyə bu kodu göstər: '+t.code+'.'}}
+function reqCard(t){const d=document.createElement('div');d.className='card stack';d.style.gap='8px';
+  const st=t.type==='guest'&&!t.night?RSTAGES.guestDay:RSTAGES[t.type];
+  const title={move:'Köçmə müraciəti · '+t.from+' → '+t.to,mixed:'Birlikdə qalma ərizəsi · '+t.to,guest:'Qonaq · '+t.guest}[t.type];
+  const rule={move:'§10',mixed:'§14',guest:'§16'}[t.type];
+  const who={move:'Administrator',mixed:'Tələbə Nümayəndəliyi',guest:t.night?'Administrasiya':'Növbətçi'}[t.type];
+  let info=t.type==='mixed'?'Razılıq istənənlər: '+t.consents.map(esc).join(', '):t.type==='guest'?esc(t.when)+(t.night?' · gecə qalır':''):t.done?'Yeni yer: '+t.to:t.rejected?'Yer artıq saxlanılmır':'Yer sənin üçün saxlanılır';
+  d.innerHTML='<div class="row" style="justify-content:space-between"><b>#'+t.no+' · '+esc(title)+'</b><span class="faint">'+t.date+'</span></div>'+
+    '<div class="row" style="gap:4px"><span class="chip">'+rule+'</span><span class="chip">'+who+'</span>'+(t.rejected?'<span class="chip c-bad">Rədd edildi</span>':t.done?'<span class="chip c-good">Tamamlandı</span>':'')+'</div>'+
+    '<div style="font-size:14px">'+info+'</div>'+
+    '<div class="steps">'+st.map((s,i)=>'<span class="step '+(t.rejected?'':i+1<t.stage||t.done?'done':i+1===t.stage?'cur':'')+'">'+((i+1<t.stage||t.done)&&!t.rejected?'✓ ':'')+s+'</span>').join('')+'</div>'+
+    (t.note?'<div class="lt">'+esc(t.note)+'</div>':'');
+  if(!t.done&&!t.rejected){const row=document.createElement('div');row.className='row';
+    const b=document.createElement('button');b.className='small';b.textContent='Demo: növbəti addım';
+    b.onclick=()=>{t.stage++;if(t.stage>=st.length){t.done=true;finalize(t);toast('#'+t.no+' tamamlandı')}drawTickets()};row.appendChild(b);
+    const r=document.createElement('button');r.className='small';r.textContent='Demo: rədd et';
+    r.onclick=()=>{t.rejected=true;t.note={move:'Administrator: bu yer başqa tələbəyə ayrılıb.',mixed:'Tələbə Nümayəndəliyi: otaq yoldaşlarından biri razılıq vermədi.',guest:'Administrasiya: bu tarixdə gecə qonaq qəbul edilmir.'}[t.type];if(t===pendingMove){pendingMove=null;rRender()}drawTickets()};row.appendChild(r);
+    d.appendChild(row)}
+  return d}
 function drawTickets(){const el=$('tickets');el.innerHTML='';
-  tickets.forEach(t=>{const cat=CATS.find(c=>c[0]===t.cat);const d=document.createElement('div');d.className='card stack';d.style.gap='8px';
+  tickets.forEach(t=>{if(t.type&&t.type!=='complaint'){el.appendChild(reqCard(t));return}const cat=CATS.find(c=>c[0]===t.cat);const d=document.createElement('div');d.className='card stack';d.style.gap='8px';
     d.innerHTML='<div class="row" style="justify-content:space-between"><b>#'+t.no+' · '+cat[1]+'</b><span class="faint">'+t.date+'</span></div>'+
       '<div class="row" style="gap:4px"><span class="chip">'+esc(t.place)+'</span>'+(t.urg?'<span class="chip c-bad">Təcili</span>':'')+'</div>'+
       '<div style="display:flex;gap:10px;align-items:flex-start">'+(t.photo?'<img class="thumb" alt="Müraciətin şəkli" src="'+t.photo+'">':'')+'<div style="font-size:14px;min-width:0">'+esc(t.desc)+'</div></div>'+
@@ -644,6 +722,33 @@ function drawTickets(){const el=$('tickets');el.innerHTML='';
     el.appendChild(d)})}
 
 /* ---------- boot ---------- */
+/* ---------- guests (§16) ---------- */
+(function(){for(let h=7;h<=22;h++){const v=String(h).padStart(2,'0')+':00';if(h<22){const o=document.createElement('option');o.value=h;o.textContent=v;$('gFrom').appendChild(o)}if(h>7){const o=document.createElement('option');o.value=h;o.textContent=v;$('gTo').appendChild(o)}}
+  $('gFrom').value=18;$('gTo').value=21})();
+$('gNight').onchange=()=>{$('gTo').disabled=$('gNight').checked;$('eGTime').textContent=''};
+['gName','gFrom','gTo'].forEach(id=>$(id).addEventListener('input',()=>{$('eGName').textContent='';$('eGTime').textContent=''}));
+$('gGuar').onchange=()=>$('eGuar').textContent='';
+$('newGuest').onclick=()=>{$('guestForm').hidden=false;$('repForm').hidden=true;$('newRep').hidden=false;$('gName').focus()};
+$('gCancel').onclick=()=>{$('guestForm').hidden=true};
+$('guestForm').addEventListener('submit',e=>{e.preventDefault();let ok=true;const n=$('gName').value.trim(),night=$('gNight').checked,f=+$('gFrom').value,to=+$('gTo').value;
+  if(n.length<3){$('eGName').textContent='Qonağın adını və soyadını yaz.';ok=false}
+  if(!night&&to<=f){$('eGTime').textContent='Gediş vaxtı gəlişdən sonra olmalıdır.';ok=false}
+  if(!$('gGuar').checked){$('eGuar').textContent='Qaydalara görə qonağına zəmanət verməlisən (§16).';ok=false}if(!ok)return;
+  ticketNo++;const when=$('gDate').value+' · '+String(f).padStart(2,'0')+':00'+(night?' → səhər':'–'+String(to).padStart(2,'0')+':00');
+  const t={type:'guest',no:ticketNo,guest:n,when,night,stage:1,date:'bu gün'};
+  if(!night){t.done=true;finalize(t)}tickets.unshift(t);
+  $('guestForm').reset();$('gFrom').value=18;$('gTo').value=21;$('gTo').disabled=false;$('guestForm').hidden=true;drawTickets();
+  toast(night?'Gecə qonaq ərizəsi #'+t.no+' administrasiyaya getdi':'Qonaq qeydiyyatdan keçdi · kod '+t.code)});
+
+/* ---------- quiet hours (§17) ---------- */
+let quietWas=null;
+function quietUpdate(force){const h=new Date().getHours(),q=h>=22||h<7,p=$('quietPill');
+  p.textContent=q?'🌙 Sakitlik saatı · 07:00-a qədər':'Sakitlik 22:00–07:00';p.className='chip '+(q?'c-warn':'');
+  $('cInput').placeholder=q?'Mesaj yaz · sakitlik saatıdır, səsli zəng etmə':'Mesaj yaz';
+  if((force||(quietWas===false&&q))&&$('quietRem').checked)toast('🌙 Saat 22:00 — sakitlik saatları başladı. 07:00-a qədər səs-küy qadağandır (§17).');quietWas=q}
+setInterval(()=>quietUpdate(false),30000);
+$('quietDemo').onclick=()=>quietUpdate(true);
+
 /* ---------- auth ---------- */
 const ALLOWED=["stud.vilniustech.lt","vilniustech.lt"];
 const LANGS=["Azərbaycan","Türk","İngilis","Litva","Rus","Ukrayna"];
@@ -701,7 +806,7 @@ function enterApp(msg){try{localStorage.setItem('cl-session',user.mail)}catch(e)
   go(start);if(msg)toast(msg)}
 $('logout').onclick=()=>{try{localStorage.removeItem('cl-session')}catch(e){}$('appRoot').hidden=true;$('auth').hidden=false;$('aMail').value='';$('eMail').textContent='';step(1);window.scrollTo(0,0)};
 
-drawCats();drawTickets();filters();list();lRender();drawThreads();
+drawCats();drawTickets();filters();list();lRender();drawThreads();quietUpdate(false);
 (function boot(){let mail=null,prof=null;try{mail=localStorage.getItem('cl-session');if(mail)prof=JSON.parse(localStorage.getItem('cl-profile:'+mail)||'null')}catch(e){}
   if(mail&&prof){user.mail=mail;applyProfile(prof);enterApp()}else{$('auth').hidden=false;step(1)}})();
 </script>
