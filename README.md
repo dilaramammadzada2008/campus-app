@@ -5,7 +5,7 @@ AI-powered app for VILNIUS TECH dormitory residents (Saulėtekis campus).
 ## Features (prototype)
 
 - **Rooms** — pick your bed like an airplane seat: building → block → floor → room. Rules are enforced automatically (girls with girls, boys with boys; international rooms; rooms under repair). Shows citizenship and suggests rooms with compatriots.
-- **Room registration** — after picking a bed, download a prefilled application form in Lithuanian and English (PDF), sign it by hand, upload the scan or photo and send it; the registration is confirmed. Moving between rooms is not offered: the administrator assigns places (dormitory rules, point 10).
+- **Room registration** — after picking a bed, download a prefilled application form (PDF) in Lithuanian or English, chosen by the student, sign it by hand, upload the scan or photo and send it; the registration is confirmed. Moving between rooms is not offered: the administrator assigns places (dormitory rules, point 10).
 - **Dormitory rules** — mixed-gender request to the Student Representation (point 14), online guest registration with overnight approval (point 16), quiet-hours reminder (point 17), violation points meter (point 26).
 - **Laundry** — see whether washers and dryers are free without going to the basement, get notified when one frees up. Status comes from Primus and QR scans; AI reads the remaining time from a photo of the machine display.
 - **Team finder** — post or find teammates for hackathons, olympiads and course projects. AI fills the post from one sentence and matches people by skills.
