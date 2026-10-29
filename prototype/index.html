@@ -95,6 +95,11 @@ textarea{resize:vertical}
 .bed.free{background:var(--good-soft);color:var(--good);border-color:var(--good)}
 .bed.lock{background:transparent;border-style:dashed;color:var(--faint);cursor:not-allowed}
 .bed.sel{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
+.regsteps{display:flex;flex-direction:column;gap:14px}
+.rs{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px}
+.rs .n{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px;color:var(--muted)}
+.rs.done .n{background:var(--good);border-color:var(--good);color:#fff}
+.rs.cur .n{background:var(--brand);border-color:var(--brand);color:var(--brand-ink)}
 .bed.pend{background:var(--warn-soft);color:var(--warn);border-color:var(--warn)}
 .meter{height:8px;background:var(--surface-2);border-radius:4px;overflow:hidden}
 .meter>i{display:block;height:100%;background:var(--good)}
@@ -278,7 +283,7 @@ input[type=email]{width:100%;background:var(--surface);border:1px solid var(--li
 
       <!-- ROOMS -->
       <section id="s-rooms" class="stack">
-        <div class="rule"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span><b>Qaydalar:</b> yeri administrator təyin edir, ona görə köçmək üçün müraciət göndərilir (bənd 10). Qızlar və oğlanlar ayrı otaqlarda qalır, istisna yalnız Tələbə Nümayəndəliyinin icazəsi ilə mümkündür (bənd 14).</span></div>
+        <div class="rule"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span><b>Qaydalar:</b> qeydiyyat imzalı ərizə ilə olur: yeri seç, formanı (LT/EN) yüklə, imzala, skan edib göndər. Tətbiqdə otaq dəyişmək yoxdur, yeri administrator təyin edir (bənd 10). Qızlar və oğlanlar ayrı otaqlarda qalır, istisna yalnız Tələbə Nümayəndəliyinin icazəsi ilə mümkündür (bənd 14).</span></div>
         <div class="ai" id="rec"></div>
         <div>
           <div class="sel-line"><span>Bina</span><div class="row" id="bld"></div></div>
@@ -292,6 +297,21 @@ input[type=email]{width:100%;background:var(--surface);border:1px solid var(--li
           <div class="rooms" id="rBot"></div>
         </div>
         <div class="card" id="rInfo">Boş (yaşıl) çarpayını seç. Dolu çarpayıya klikləsən, orada kimin qaldığını görəcəksən.</div>
+        <div class="card stack" id="regBox" hidden style="border-color:var(--brand)">
+          <div class="row" style="justify-content:space-between;align-items:flex-start"><div><h3 style="font-size:17px">Qeydiyyat ərizəsi</h3><div class="faint" id="regMeta"></div></div><button class="small" id="regCancel">Ləğv et</button></div>
+          <div class="regsteps">
+            <div class="rs" id="rs1"><span class="n">1</span><div class="b"><b>Ərizə formasını yüklə</b><div class="faint">Litva və ingilis dilində, məlumatların doldurulub. PDF.</div>
+              <div class="row" style="margin-top:8px"><button class="primary small" id="regDl">Formanı yüklə (PDF)</button><button class="small" id="regPrev">Önizləmə</button></div><div class="err" id="eDl"></div>
+              <img id="regImg" alt="Ərizə formasının önizləməsi" hidden style="margin-top:10px;width:100%;max-width:420px;border:1px solid var(--line);border-radius:8px;background:#fff"></div></div>
+            <div class="rs" id="rs2"><span class="n">2</span><div class="b"><b>Çap et, adını və soyadını yaz, imzala</b><div class="faint">"Paslaugos gavėjas" xanasına adını, soyadını yaz və imza at. "Paslaugos teikėjas" xanasını administrator dolduracaq.</div></div></div>
+            <div class="rs" id="rs3"><span class="n">3</span><div class="b"><b>Skan et və ya şəklini çək, yüklə</b><div class="faint">Şəkil (JPG, PNG) və ya PDF. Bütün səhifə və imza aydın görünsün.</div>
+              <div class="row" style="margin-top:8px"><input type="file" id="regFile" accept="image/*,application/pdf"></div><div class="err" id="eFile"></div>
+              <div id="regFilePrev" class="row" style="margin-top:8px"></div></div></div>
+            <div class="rs" id="rs4"><span class="n">4</span><div class="b"><b>Göndər və təsdiqlə</b><div class="faint">İmzalı ərizə administratora gedir və qeydiyyatın təsdiqlənir.</div>
+              <label class="switch" style="margin-top:8px"><input type="checkbox" id="regAgree"><span>Ərizəni özüm imzaladım. Yataqxana daxili qaydaları və yanğın təhlükəsizliyi tələbləri ilə tanış oldum (§11).</span></label><div class="err" id="eAgree"></div>
+              <div class="row" style="margin-top:8px"><button class="primary" id="regSend">Göndər və təsdiqlə</button></div></div></div>
+          </div>
+        </div>
       </section>
 
       <!-- LAUNDRY -->
@@ -414,7 +434,7 @@ input[type=email]{width:100%;background:var(--surface);border:1px solid var(--li
         <div class="card stack">
           <b>Yataqxana qaydaları (qısa)</b>
           <ul class="rules">
-            <li><b>§10</b> Konkret otaqdakı yeri administrator təyin edir. Özbaşına köçmək olmaz, köçmə müraciəti göndərilir.</li>
+            <li><b>§10–11</b> Konkret otaqdakı yeri administrator təyin edir. Qeydiyyat imzalı ərizə ilə olur və imza ilə qaydalarla tanış olduğunu təsdiqləyirsən. Tətbiqdə otaq dəyişmək yoxdur.</li>
             <li><b>§14</b> Fərqli cinsdən tələbələr birlikdə yalnız Tələbə Nümayəndəliyinə ərizə və hər iki tərəfin razılığı ilə qala bilər.</li>
             <li><b>§16</b> Qonaqlar 07:00–22:00, növbətçidə qeydiyyatla. Gecə qalmaq ərizə ilə.</li>
             <li><b>§17</b> Sakitlik saatları 22:00–07:00.</li>
@@ -431,6 +451,7 @@ input[type=email]{width:100%;background:var(--surface);border:1px solid var(--li
   <nav class="tabbar" id="tabbar"></nav>
 </div>
 <div class="toast" id="toast" hidden></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script>
 const $=id=>document.getElementById(id);
@@ -485,8 +506,9 @@ const B=[1,2,3].map(b=>({b,blocks:BL.map((bl,j)=>Array.from({length:10},(_,f)=>A
   let n=0;for(let k=0;k<cap;k++)if(rnd()<pr)n++;if(r===5&&(f+b)%4===0){tags.push('rep');n=0}
   return{num:bl+'-'+((f+1)*100+r+1),cap,tags,fixed,ppl:Array.from({length:n},()=>person(fixed||g,tags.includes('intl')))}})))}));
 const r1=B[2].blocks[0][2][0];r1.ppl=[{n:"Əli",g:"M",c:"AZ",y:2,f:"Kompüter elmləri"},{n:"Vəli",g:"M",c:"AZ",y:2,f:"İnşaat"},{n:"Samir",g:"M",c:"AZ",y:1,f:"Biznes"}];r1.fixed=null;r1.tags=[];
-let myRoom=B[2].blocks[0][1][0];myRoom.cap=3;myRoom.fixed=null;myRoom.tags=[];
-myRoom.ppl=[{n:"Nigar",g:"F",c:"AZ",y:2,f:"Memarlıq"},{n:"Alsu",g:"F",c:"KZ",y:3,f:"Elektronika"},{n:"Sən",g:"F",c:"AZ",y:1,f:"Kompüter elmləri"}];
+const a201=B[2].blocks[0][1][0];a201.cap=3;a201.fixed=null;a201.tags=[];
+a201.ppl=[{n:"Nigar",g:"F",c:"AZ",y:2,f:"Memarlıq"},{n:"Alsu",g:"F",c:"KZ",y:3,f:"Elektronika"}];
+let myRoom=null,reg=null;
 const findRoom=num=>{for(const x of B)for(const blk of x.blocks)for(const fl of blk)for(const rm of fl)if(rm.num===num&&x===B[2])return rm};
 let cb=2,ck=0,cf=1,selB=null;
 const others=rm=>rm.ppl.filter(x=>x.n!=="Sən");
@@ -526,8 +548,8 @@ function rRender(){const m=me();whoLine();recommend();
       for(let k=0;k<rm.cap;k++){const d=document.createElement('button');const key=rm.num+'-'+k;
         if(k<rm.ppl.length){const p=rm.ppl[k],isMe=p.n==="Sən";d.className='bed'+(isMe?' me':(p.c===m.c?' cp':''));d.textContent=isMe?'Sən':p.c;d.setAttribute('aria-label',(isMe?'Sən':p.n)+', '+C[p.c]);
           d.onclick=()=>{$('rInfo').innerHTML=personCard(p,rm)}}
-        else if(pendingMove&&pendingMove.room===rm&&k===rm.ppl.length){d.className='bed pend';d.textContent='?';d.setAttribute('aria-label',rm.num+' müraciət gözləyir');
-          d.onclick=()=>{$('rInfo').innerHTML='<b style="color:var(--warn)">Bu yer üçün köçmə müraciətin (#'+pendingMove.no+') administratorda gözləyir.</b> Statusu Müraciətlər bölməsində izlə.'}}
+        else if(reg&&reg.room===rm&&k===rm.ppl.length){d.className='bed pend';d.textContent='?';d.setAttribute('aria-label',rm.num+' qeydiyyat ərizən üçün saxlanılır');
+          d.onclick=()=>{$('rInfo').innerHTML='<b style="color:var(--warn)">Bu yer qeydiyyat ərizən ('+reg.no+') üçün saxlanılır.</b> Aşağıda ərizəni yüklə, imzala və göndər.';$('regBox').scrollIntoView({behavior:'smooth',block:'start'})}}
         else if(bad.length||rm===myRoom){d.className='bed lock';d.innerHTML=svg('lock');d.setAttribute('aria-label',rm.num+' bağlı çarpayı');
           d.onclick=()=>{const info=$('rInfo');info.innerHTML=rm===myRoom?'Bu sənin otağındır.':'<b style="color:var(--warn)">'+rm.num+' sənin üçün bağlıdır:</b> '+bad.join(', ')+'. ';
             if(rm!==myRoom&&genderOnly(rm)){const t=tickets.find(x=>x.type==='mixed'&&x.to===rm.num&&!x.done&&!x.rejected);
@@ -535,14 +557,15 @@ function rRender(){const m=me();whoLine();recommend();
               else{info.innerHTML+='Birlikdə qalmaq istəyirsinizsə, Tələbə Nümayəndəliyinə ərizə verə bilərsən (§14). ';const b=document.createElement('button');b.className='small';b.textContent='Ərizə ver (§14)';b.onclick=()=>requestMixed(rm);info.appendChild(b)}}}}
         else{d.className='bed '+(selB===key?'sel':'free');d.innerHTML=svg('bed');d.setAttribute('aria-label',rm.num+' boş çarpayı');
           d.onclick=()=>{selB=key;rRender();const info=$('rInfo');
-            info.innerHTML='<b>Seçildi: '+rm.num+'.</b> '+(rm.ppl.length?'Otaq yoldaşların: '+rm.ppl.map(x=>esc(x.n)+' ('+C[x.c]+')').join(', ')+'. ':'Otaq boşdur — təsdiq etsən, '+GN[m.g]+' otağı olacaq. ')+'Hazırkı yerin: '+myRoom.num+'. ';
-            info.appendChild(document.createTextNode('Yeri administrator təyin edir (§10), ona görə əvvəlcə müraciət göndərilir. '));
-            const ok=document.createElement('button');ok.className='primary small';ok.textContent='Köçmə müraciəti göndər';ok.onclick=()=>requestMove(rm);info.appendChild(ok)}}
+            info.innerHTML='<b>Seçildi: '+rm.num+'.</b> '+(rm.ppl.length?'Otaq yoldaşların: '+rm.ppl.map(x=>esc(x.n)+' ('+C[x.c]+')').join(', ')+'. ':'Otaq boşdur — təsdiq etsən, '+GN[m.g]+' otağı olacaq. ')+'';
+            if(myRoom){info.innerHTML+='Sən artıq <b>'+myRoom.num+'</b> otağında qeydiyyatdasan. Tətbiqdə otaq dəyişmək yoxdur: yeri administrator təyin edir (§10), lazım olsa ona müraciət et.';return}
+            info.appendChild(document.createTextNode('Qeydiyyat imzalı ərizə ilə olur: formanı yüklə, adını yaz, imzala, skan edib göndər. '));
+            const ok=document.createElement('button');ok.className='primary small';ok.textContent='Qeydiyyat ərizəsi hazırla';ok.onclick=()=>startReg(rm,k);info.appendChild(ok)}}
         w.appendChild(d)}
       r.appendChild(w);el.appendChild(r)})})}
 function confirmBed(rm){const m=me();const bad=why(rm);
   if(bad.length||rm.ppl.length>=rm.cap){$('rInfo').innerHTML='<b style="color:var(--bad)">Qeydiyyat rədd edildi:</b> '+(bad.join(', ')||'otaq doludur')+'.';return}
-  myRoom.ppl=myRoom.ppl.filter(x=>x.n!=="Sən");const first=!rm.ppl.length;
+  if(myRoom)myRoom.ppl=myRoom.ppl.filter(x=>x.n!=="Sən");const first=!rm.ppl.length;
   rm.ppl.push({n:"Sən",g:m.g,c:m.c,y:1,f:"Kompüter elmləri"});myRoom=rm;selB=null;rRender();fillPlaces();
   $('rInfo').innerHTML='<b style="color:var(--good)">✓ Qeydiyyat tamamlandı: '+rm.num+'.</b> '+(first?'Otaqda ilk sən oldun, ona görə bu otaq indi '+GN[m.g]+' otağıdır. ':'')+'Komendanta avtomatik bildiriş getdi.';toast('Yeni yerin: '+rm.num)}
 
@@ -617,7 +640,7 @@ $('aiBtn').onclick=()=>{const s=$('aiTxt').value.toLowerCase(),msg=$('aiMsg');
 $('pub').onclick=()=>{let ok=true;const title=$('fTitle').value.trim(),date=$('fDate').value.trim();
   if(!title){$('eTitle').textContent='Yarışın adını yaz.';ok=false}if(!date){$('eDate').textContent='Tarixi yaz.';ok=false}
   if(!st.need.size){$('eNeed').textContent='Ən azı bir lazım olan rol seç.';ok=false}if(!ok)return;
-  posts.unshift({t:st.t,title,date,who:"Sən",c:me().c,room:"3 · "+myRoom.num,have:[...st.have],need:[...st.need],slots:"1/"+$('fSize').value,desc:$('fDesc').value.trim(),near:true,mine:true,match:3+st.need.size*2});
+  posts.unshift({t:st.t,title,date,who:"Sən",c:me().c,room:myRoom?"3 · "+myRoom.num:"qeydiyyat yoxdur",have:[...st.have],need:[...st.need],slots:"1/"+$('fSize').value,desc:$('fDesc').value.trim(),near:true,mine:true,match:3+st.need.size*2});
   st={t:"hack",have:new Set(),need:new Set()};['fTitle','fDate','fDesc','aiTxt'].forEach(id=>$(id).value='');$('aiMsg').textContent='';
   $('form').hidden=true;$('newBtn').hidden=false;flt="all";filters();list();toast('Elan dərc edildi')};
 $('ask1').onclick=()=>startDm('Murad','VILNIUS TECH AI Hakatonu');
@@ -663,11 +686,11 @@ const CATS=[["plumb","Santexnika","santechnikos gedimas"],["elec","Elektrik","el
 const PLACES_LT={room:"kambaryje",kitchen:"bendroje virtuvėje",bath:"vonios kambaryje",hall:"koridoriuje",laundry:"skalbykloje"};
 let repCat=null,ticketNo=1041;
 const tickets=[{no:1038,cat:"wifi",place:"Mənim otağım",desc:"Axşamlar Wi-Fi tez-tez kəsilir.",stage:3,reply:"Maršrutizatorius pakeistas. Praneškite, jei problema kartosis.",replyAz:"Router dəyişdirildi. Problem təkrarlansa, xəbər verin.",date:"21 oktyabr"}];
-function fillPlaces(){const s=$('repPlace');const v=s.value;s.innerHTML='';[["room","Mənim otağım ("+myRoom.num+")"],["kitchen","Mətbəx"],["bath","Hamam / duş"],["hall","Dəhliz"],["laundry","Laundry otağı"]].forEach(([k,t])=>{const o=document.createElement('option');o.value=k;o.textContent=t;s.appendChild(o)});if(v)s.value=v}
+function fillPlaces(){const s=$('repPlace');const v=s.value;s.innerHTML='';[["room",myRoom?"Mənim otağım ("+myRoom.num+")":"Mənim otağım (qeydiyyat hələ yoxdur)"],["kitchen","Mətbəx"],["bath","Hamam / duş"],["hall","Dəhliz"],["laundry","Laundry otağı"]].forEach(([k,t])=>{const o=document.createElement('option');o.value=k;o.textContent=t;s.appendChild(o)});if(v)s.value=v}
 function drawCats(){const el=$('repCats');el.innerHTML='';CATS.forEach(([k,v])=>{const b=document.createElement('button');b.type='button';b.className='opt'+(repCat===k?' on':'');b.textContent=v;b.onclick=()=>{repCat=k;$('eCat').textContent='';drawCats()};el.appendChild(b)})}
 function ltText(){const cat=CATS.find(c=>c[0]===repCat),place=$('repPlace').value,urg=$('repUrg').value==='u';
-  const where=place==='room'?myRoom.num+' '+PLACES_LT.room:'3 bendrabučio '+PLACES_LT[place];
-  return{lt:'Laba diena,\n\npranešu apie problemą: '+(cat?cat[2]:'problema')+' ('+where+').'+(urg?' Prašau sutvarkyti skubiai.':'')+'\nAprašymas: „'+($('repDesc').value.trim()||'—')+'“\n\nAčiū,\n'+user.name+', '+myRoom.num,
+  const rn=myRoom?myRoom.num:'—';const where=place==='room'?rn+' '+PLACES_LT.room:'3 bendrabučio '+PLACES_LT[place];
+  return{lt:'Laba diena,\n\npranešu apie problemą: '+(cat?cat[2]:'problema')+' ('+where+').'+(urg?' Prašau sutvarkyti skubiai.':'')+'\nAprašymas: „'+($('repDesc').value.trim()||'—')+'“\n\nAčiū,\n'+user.name+', '+rn,
     az:'Azərbaycanca: Salam, problem barədə məlumat verirəm: '+(cat?cat[1].toLowerCase():'problem')+' ('+($('repPlace').selectedOptions[0]||{}).textContent+').'+(urg?' Zəhmət olmasa təcili həll edin.':'')+' Təsvir sənin sözlərinlə əlavə olunur — real tətbiqdə AI onu da litvacaya tərcümə edir.'}}
 $('repAi').onclick=()=>{if(!repCat){$('eCat').textContent='Əvvəlcə problemin növünü seç.';return}const r=ltText();$('repLt').hidden=false;$('repAz').hidden=false;$('repLt').textContent=r.lt;$('repAz').textContent=r.az};
 $('repPhoto').onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{$('repThumb').src=rd.result;$('repThumb').hidden=false};rd.readAsDataURL(f)};
@@ -681,10 +704,7 @@ $('repForm').addEventListener('submit',e=>{e.preventDefault();let ok=true;
   repCat=null;$('repDesc').value='';$('repPhoto').value='';$('repThumb').hidden=true;$('repLt').hidden=true;$('repAz').hidden=true;$('repUrg').value='n';
   $('repForm').hidden=true;$('newRep').hidden=false;drawTickets();toast('Müraciət #'+ticketNo+' komendanta göndərildi')});
 const STAGES=["Göndərildi","Baxılır","Həll olundu"];
-const RSTAGES={move:["Göndərildi","Administrator baxır","Təsdiqləndi"],mixed:["Göndərildi","Otaq yoldaşlarının razılığı","Tələbə Nümayəndəliyinin qərarı"],guest:["Göndərildi","Administrasiya baxır","Təsdiqləndi"],guestDay:["Qeydiyyatda"]};
-function requestMove(rm){if(pendingMove){pendingMove.rejected=true;pendingMove.note='Yeni müraciətlə əvəzləndi.'}
-  ticketNo++;const t={type:'move',no:ticketNo,from:myRoom.num,to:rm.num,room:rm,stage:1,date:'bu gün'};tickets.unshift(t);pendingMove=t;selB=null;rRender();drawTickets();
-  $('rInfo').innerHTML='<b style="color:var(--good)">✓ Köçmə müraciəti #'+t.no+' göndərildi: '+t.from+' → '+t.to+'.</b> Administrator təsdiqləyəndən sonra köçəcəksən. Bu yer sənin üçün saxlanılır.';toast('Müraciət #'+t.no+' administratora getdi')}
+const RSTAGES={reg:["Ərizə yükləndi","İmzalandı və göndərildi","Qeydiyyat təsdiqləndi"],move:["Göndərildi","Administrator baxır","Təsdiqləndi"],mixed:["Göndərildi","Otaq yoldaşlarının razılığı","Tələbə Nümayəndəliyinin qərarı"],guest:["Göndərildi","Administrasiya baxır","Təsdiqləndi"],guestDay:["Qeydiyyatda"]};
 function requestMixed(rm){ticketNo++;const t={type:'mixed',no:ticketNo,to:rm.num,room:rm,stage:1,consents:others(rm).map(x=>x.n),date:'bu gün'};tickets.unshift(t);drawTickets();
   $('rInfo').innerHTML='<b style="color:var(--good)">✓ Ərizə #'+t.no+' Tələbə Nümayəndəliyinə göndərildi.</b> Əvvəlcə otaqdakıların razılığı istənir: '+t.consents.map(esc).join(', ')+'.';toast('Ərizə #'+t.no+' göndərildi')}
 function finalize(t){
@@ -694,10 +714,10 @@ function finalize(t){
   else if(t.type==='guest'){t.code='Q-'+Math.floor(1000+Math.random()*9000);t.note='Növbətçiyə bu kodu göstər: '+t.code+'.'}}
 function reqCard(t){const d=document.createElement('div');d.className='card stack';d.style.gap='8px';
   const st=t.type==='guest'&&!t.night?RSTAGES.guestDay:RSTAGES[t.type];
-  const title={move:'Köçmə müraciəti · '+t.from+' → '+t.to,mixed:'Birlikdə qalma ərizəsi · '+t.to,guest:'Qonaq · '+t.guest}[t.type];
-  const rule={move:'§10',mixed:'§14',guest:'§16'}[t.type];
-  const who={move:'Administrator',mixed:'Tələbə Nümayəndəliyi',guest:t.night?'Administrasiya':'Növbətçi'}[t.type];
-  let info=t.type==='mixed'?'Razılıq istənənlər: '+t.consents.map(esc).join(', '):t.type==='guest'?esc(t.when)+(t.night?' · gecə qalır':''):t.done?'Yeni yer: '+t.to:t.rejected?'Yer artıq saxlanılmır':'Yer sənin üçün saxlanılır';
+  const title={reg:'Otaq qeydiyyatı · '+t.to,mixed:'Birlikdə qalma ərizəsi · '+t.to,guest:'Qonaq · '+t.guest}[t.type];
+  const rule={reg:'§8–11',mixed:'§14',guest:'§16'}[t.type];
+  const who={reg:'Administrator',mixed:'Tələbə Nümayəndəliyi',guest:t.night?'Administrasiya':'Növbətçi'}[t.type];
+  let info=t.type==='reg'?'Ərizə '+esc(t.appNo)+' · imzalı fayl: '+esc(t.file):t.type==='mixed'?'Razılıq istənənlər: '+t.consents.map(esc).join(', '):t.type==='guest'?esc(t.when)+(t.night?' · gecə qalır':''):t.done?'Yeni yer: '+t.to:t.rejected?'Yer artıq saxlanılmır':'Yer sənin üçün saxlanılır';
   d.innerHTML='<div class="row" style="justify-content:space-between"><b>#'+t.no+' · '+esc(title)+'</b><span class="faint">'+t.date+'</span></div>'+
     '<div class="row" style="gap:4px"><span class="chip">'+rule+'</span><span class="chip">'+who+'</span>'+(t.rejected?'<span class="chip c-bad">Rədd edildi</span>':t.done?'<span class="chip c-good">Tamamlandı</span>':'')+'</div>'+
     '<div style="font-size:14px">'+info+'</div>'+
@@ -722,6 +742,70 @@ function drawTickets(){const el=$('tickets');el.innerHTML='';
     el.appendChild(d)})}
 
 /* ---------- boot ---------- */
+/* ---------- room registration (§8–11) ---------- */
+const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+function startReg(rm,bed){const fl=Math.floor(parseInt(rm.num.slice(2))/100);
+  reg={room:rm,bed:rm.ppl.length+1,no:'CL-'+new Date().getFullYear()+'-'+Math.floor(1000+Math.random()*9000),bld:cb+1,blk:rm.num[0],floor:fl,date:today(),downloaded:false,file:null};
+  selB=null;rRender();drawReg();$('regImg').hidden=true;$('regBox').scrollIntoView({behavior:'smooth',block:'start'});
+  $('rInfo').innerHTML='<b>'+rm.num+' səndə saxlanılır.</b> Aşağıdakı 4 addımı tamamla.'}
+function drawReg(){const box=$('regBox');box.hidden=!reg;if(!reg)return;
+  $('regMeta').textContent=reg.no+' · '+reg.bld+' nömrəli bina · '+reg.blk+' bloku · '+reg.room.num+' · '+reg.bed+'-ci çarpayı';
+  const s=[reg.downloaded,reg.downloaded,!!reg.file,false];const cur=s.indexOf(false);
+  [1,2,3,4].forEach(i=>$('rs'+i).className='rs'+(s[i-1]?' done':i-1===cur?' cur':''))}
+function wrapText(x,t,x0,y,maxW,lh){const words=t.split(' ');let line='';for(const w of words){const test=line?line+' '+w:w;if(x.measureText(test).width>maxW&&line){x.fillText(line,x0,y);y+=lh;line=w}else line=test}if(line){x.fillText(line,x0,y);y+=lh}return y}
+function formCanvas(r){const W=1240,H=1754,c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');
+  const F=(s,w,it)=>(it?'italic ':'')+(w||400)+' '+s+'px "Noto Sans", Arial, sans-serif';const L=120,R=W-120;
+  x.fillStyle='#fff';x.fillRect(0,0,W,H);
+  x.fillStyle='#8a5a00';x.font=F(17);x.fillText('PAVYZDYS / SAMPLE — Campus Life demonstracinė forma, ne oficialus VILNIUS TECH dokumentas',L,62);x.fillText('Demo form, not an official VILNIUS TECH document',L,88);
+  x.fillStyle='#111';x.font=F(34,700);x.fillText('PRAŠYMAS DĖL APGYVENDINIMO BENDRABUTYJE',L,150);
+  x.font=F(26,400);x.fillStyle='#444';x.fillText('APPLICATION FOR DORMITORY ACCOMMODATION',L,192);
+  x.font=F(20);x.fillStyle='#111';x.fillText('Prašymo Nr. / Application No.: '+r.no,L,250);x.textAlign='right';x.fillText('Data / Date: '+r.date,R,250);x.textAlign='left';
+  x.strokeStyle='#111';x.lineWidth=2;x.beginPath();x.moveTo(L,272);x.lineTo(R,272);x.stroke();
+  const rows=[["Studento el. paštas","Student e-mail",user.mail],["Pilietybė","Citizenship",C[$('pC').value]],["Lytis","Gender",$('pG').value==='F'?'Moteris / Female':'Vyras / Male'],
+    ["Bendrabutis","Dormitory","Nr. "+r.bld],["Blokas","Block",r.blk],["Aukštas","Floor",String(r.floor)],["Kambarys","Room",r.room.num+"  ("+r.room.cap+" vietų / "+r.room.cap+"-bed)"],["Vieta kambaryje","Bed",String(r.bed)]];
+  let y=330;rows.forEach(([lt,en,v])=>{x.font=F(22,600);x.fillStyle='#111';x.fillText(lt,L,y);const w=x.measureText(lt).width;x.font=F(20,400,true);x.fillStyle='#555';x.fillText(' / '+en,L+w,y);
+    x.font=F(22,500);x.fillStyle='#111';x.fillText(v,620,y);x.strokeStyle='#bbb';x.lineWidth=1;x.beginPath();x.moveTo(610,y+10);x.lineTo(R,y+10);x.stroke();y+=56});
+  y+=20;x.font=F(21);x.fillStyle='#111';
+  y=wrapText(x,'Prašau apgyvendinti mane aukščiau nurodytoje vietoje. Patvirtinu, kad esu susipažinęs (-usi) su VILNIUS TECH bendrabučių vidaus tvarkos taisyklėmis ir priešgaisrinės saugos reikalavimais (11 p.) ir įsipareigoju jų laikytis.',L,y,R-L,32);
+  y+=10;x.font=F(20,400,true);x.fillStyle='#444';
+  y=wrapText(x,'I ask to be accommodated in the place stated above. I confirm that I have read the VILNIUS TECH Dormitory Internal Rules and the fire safety requirements (point 11) and undertake to follow them.',L,y,R-L,30);
+  y+=70;const hl=(label,yy)=>{x.font=F(22,600);x.fillStyle='#111';x.fillText(label,L,yy);x.strokeStyle='#111';x.lineWidth=1.5;x.beginPath();x.moveTo(L+430,yy+6);x.lineTo(R,yy+6);x.stroke()};
+  hl('Vardas, pavardė / Name, surname:',y);y+=80;hl('Parašas / Signature:',y);y+=110;
+  const colW=(R-L-80)/2,c2=L+colW+80;
+  x.font=F(24,700);x.fillStyle='#111';x.fillText('Paslaugos gavėjas:',L,y);x.fillText('Paslaugos teikėjas:',c2,y);y+=110;
+  x.lineWidth=1.5;x.beginPath();x.moveTo(L,y);x.lineTo(L+colW,y);x.moveTo(c2,y);x.lineTo(c2+colW,y);x.stroke();y+=36;
+  x.font=F(20,400,true);x.fillStyle='#333';['(vardas, pavardė, parašas/name, surname,','signature)'].forEach((t,i)=>{x.fillText(t,L,y+i*28);x.fillText(t,c2,y+i*28)});
+  x.font=F(18);x.fillStyle='#666';x.fillText('Pasirašytą prašymą nufotografuokite arba nuskenuokite ir įkelkite į Campus Life.',L,H-120);
+  x.fillText('Photograph or scan the signed form and upload it in Campus Life.  ·  '+r.no,L,H-92);
+  return c}
+async function saveFile(name,blob){let dl=null;try{dl=window.claude&&window.claude.use?await window.claude.use('downloads'):null}catch(e){}
+  if(dl){try{await dl.save({filename:name,data:blob});return 'saved'}catch(e){return e&&e.code==='declined'?'declined':'error'}}
+  try{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();return 'saved'}catch(e){return 'error'}}
+async function makePdf(){if(document.fonts&&document.fonts.ready)await document.fonts.ready;const c=formCanvas(reg);
+  if(window.jspdf&&window.jspdf.jsPDF){const pdf=new window.jspdf.jsPDF({unit:'mm',format:'a4'});pdf.addImage(c.toDataURL('image/jpeg',0.92),'JPEG',0,0,210,297);return{blob:pdf.output('blob'),ext:'pdf',canvas:c}}
+  return await new Promise(res=>c.toBlob(b=>res({blob:b,ext:'png',canvas:c}),'image/png'))}
+$('regPrev').onclick=async()=>{const c=formCanvas(reg);$('regImg').src=c.toDataURL('image/png');$('regImg').hidden=!$('regImg').hidden};
+$('regDl').onclick=async()=>{$('eDl').textContent='';const f=await makePdf();const r=await saveFile('Prasymas_'+reg.no+'.'+f.ext,f.blob);
+  if(r==='saved'){reg.downloaded=true;drawReg();toast('Forma yükləndi: Prasymas_'+reg.no+'.'+f.ext)}
+  else if(r==='declined'){$('eDl').textContent='Yükləməni ləğv etdin. Formanı almaq üçün yenidən bas.'}
+  else{$('eDl').textContent='Bu görünüşdə fayl yükləmək mümkün olmadı. "Önizləmə" ilə formanı aç və ekran şəklini çap et.';reg.downloaded=true;drawReg()}};
+$('regFile').onchange=e=>{const f=e.target.files[0];$('eFile').textContent='';$('regFilePrev').innerHTML='';if(!f){reg.file=null;drawReg();return}
+  if(!/^image\//.test(f.type)&&f.type!=='application/pdf'){$('eFile').textContent='Yalnız şəkil (JPG, PNG) və ya PDF yüklə.';e.target.value='';reg.file=null;drawReg();return}
+  if(f.size>15*1024*1024){$('eFile').textContent='Fayl 15 MB-dan böyükdür. Daha kiçik şəkil çək.';e.target.value='';reg.file=null;drawReg();return}
+  reg.file=f;drawReg();
+  if(/^image\//.test(f.type)){const rd=new FileReader();rd.onload=()=>{$('regFilePrev').innerHTML='<img class="thumb" alt="İmzalı ərizənin şəkli" src="'+rd.result+'"><span class="faint">'+esc(f.name)+'</span>'};rd.readAsDataURL(f)}
+  else $('regFilePrev').innerHTML='<span class="chip">PDF</span><span class="faint">'+esc(f.name)+'</span>'};
+$('regAgree').onchange=()=>$('eAgree').textContent='';
+$('regSend').onclick=()=>{let ok=true;
+  if(!reg.downloaded){$('eDl').textContent='Əvvəlcə formanı yüklə.';ok=false}
+  if(!reg.file){$('eFile').textContent='İmzalanmış formanın şəklini və ya PDF-ini yüklə.';ok=false}
+  if(!$('regAgree').checked){$('eAgree').textContent='Ərizəni özün imzaladığını təsdiqlə.';ok=false}if(!ok)return;
+  const rm=reg.room;if(why(rm).length||rm.ppl.length>=rm.cap){$('eAgree').textContent='Bu yer artıq tutulub. Başqa yer seç.';return}
+  ticketNo++;tickets.unshift({type:'reg',no:ticketNo,to:rm.num,appNo:reg.no,file:reg.file.name,stage:3,done:true,date:'bu gün',note:'İmzalı ərizə administratora göndərildi. Qeydiyyatın təsdiqləndi: '+rm.num+', '+reg.bed+'-ci çarpayı. Açar kartını resepsiyadan götür.'});
+  const no=reg.no;reg=null;$('regFile').value='';$('regAgree').checked=false;$('regFilePrev').innerHTML='';confirmBed(rm);drawReg();drawTickets();whoLine();
+  $('rInfo').innerHTML='<b style="color:var(--good)">✓ Qeydiyyat təsdiqləndi: '+rm.num+'.</b> Ərizə '+no+' administratora getdi. Statusu Müraciətlər bölməsində görə bilərsən.';toast('Qeydiyyat təsdiqləndi: '+rm.num)};
+$('regCancel').onclick=()=>{reg=null;$('regFile').value='';$('regFilePrev').innerHTML='';drawReg();rRender();$('rInfo').textContent='Ərizə ləğv edildi. Yer artıq saxlanılmır.'};
+
 /* ---------- guests (§16) ---------- */
 (function(){for(let h=7;h<=22;h++){const v=String(h).padStart(2,'0')+':00';if(h<22){const o=document.createElement('option');o.value=h;o.textContent=v;$('gFrom').appendChild(o)}if(h>7){const o=document.createElement('option');o.value=h;o.textContent=v;$('gTo').appendChild(o)}}
   $('gFrom').value=18;$('gTo').value=21})();
@@ -791,8 +875,9 @@ $('aProfile').addEventListener('submit',e=>{e.preventDefault();let ok=true;const
   if(!oG){$('eG').textContent='Seç: otaq qaydası buna görə işləyir.';ok=false}if(!ok)return;
   const prof={name:n,c:$('oC').value,g:oG,show:$('oShow').checked,langs:[...oLangs],skills:[...oSkills]};
   try{localStorage.setItem('cl-profile:'+user.mail,JSON.stringify(prof))}catch(err){}
-  applyProfile(prof);enterApp('Xoş gəldin, '+n+'! Yerin: '+myRoom.num)});
+  applyProfile(prof);enterApp('Xoş gəldin, '+n+'! İndi yataqxanada yerini seç.')});
 function applyProfile(p){user.name=p.name;user.langs=p.langs||[];user.skills=p.skills||[];$('pC').value=p.c;$('pG').value=p.g;$('pShow').checked=p.show!==false;
+  if(!myRoom)return;
   const meP=myRoom.ppl.find(x=>x.n==="Sən");if(meP){meP.g=p.g;meP.c=p.c}
   const g=roomG(myRoom);if(g&&g!==p.g){let target=null;
     for(const blk of B[2].blocks)for(const fl of blk)for(const rm of fl)if(!target&&rm!==myRoom&&!why(rm).length&&rm.ppl.length<rm.cap)target=rm;
@@ -801,7 +886,7 @@ function enterApp(msg){try{localStorage.setItem('cl-session',user.mail)}catch(e)
   $('auth').hidden=true;$('appRoot').hidden=false;
   $('whoAv').textContent=$('profAv').textContent=user.name[0].toUpperCase();$('profName').textContent=user.name;$('profMail').textContent=user.mail;
   $('profLangs').textContent=user.langs.length?'Dillər: '+user.langs.join(', ')+(user.skills.length?' · Bacarıqlar: '+user.skills.join(', '):''):'';
-  fillPlaces();cb=2;ck=BL.indexOf(myRoom.num[0]);cf=Math.floor(parseInt(myRoom.num.slice(2))/100)-1;
+  fillPlaces();cb=2;ck=myRoom?BL.indexOf(myRoom.num[0]):0;cf=myRoom?Math.floor(parseInt(myRoom.num.slice(2))/100)-1:1;
   let start="rooms";try{const s=localStorage.getItem('dm-page');if(s&&PAGES.some(p=>p[0]===s))start=s}catch(e){}
   go(start);if(msg)toast(msg)}
 $('logout').onclick=()=>{try{localStorage.removeItem('cl-session')}catch(e){}$('appRoot').hidden=true;$('auth').hidden=false;$('aMail').value='';$('eMail').textContent='';step(1);window.scrollTo(0,0)};
