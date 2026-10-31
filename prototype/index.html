@@ -1,3 +1,4 @@
+<html lang="en">
 <title>Campus Life</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -223,17 +224,17 @@ input[type=email]{width:100%;background:var(--surface);border:1px solid var(--li
   <div class="facade">
     <div class="logo"><i aria-hidden="true"><b></b><b></b><b></b><b></b></i>Campus Life</div>
     <div class="copy">
-      <h2>Saulėtekisdə hər pəncərənin arxasında bir qonşu var.</h2>
-      <p>Yerini seç, paltaryuyanın boşaldığını otağından gör, hakaton komandanı eyni binada tap, komendanta öz dilində yaz.</p>
+      <h2>In Saulėtekis, there's a neighbour behind every window.</h2>
+      <p>Pick your bed, see when a washer is free from your room, find your hackathon team in the same building, and write to the building administrator in your own language.</p>
     </div>
     <div>
       <div class="skyline" id="skyline" aria-hidden="true"></div>
       <div class="ground"></div>
     </div>
     <div class="feats">
-      <div><b>3 bina · 360 otaq</b>Çarpayını təyyarədə yer seçən kimi seç</div>
-      <div><b>Laundry canlı</b>Zirzəmiyə getmədən statusu gör</div>
-      <div><b>Öz dilində</b>AI litvaca yazır, sənə tərcümə edir</div>
+      <div><b>3 buildings · 360 rooms</b>Pick your bed like an airplane seat</div>
+      <div><b>Live laundry</b>Check the status without going to the basement</div>
+      <div><b>Your language</b>AI writes in Lithuanian and translates for you</div>
     </div>
   </div>
   <div class="authside">
@@ -241,34 +242,36 @@ input[type=email]{width:100%;background:var(--surface);border:1px solid var(--li
       <div class="stepper" aria-hidden="true"><span id="st1"></span><span id="st2"></span><span id="st3"></span></div>
 
       <form id="aEmail" class="big" novalidate style="display:flex;flex-direction:column;gap:18px">
-        <div><h1>Xoş gəldin</h1><p class="lead">Universitetin verdiyi e-poçtla daxil ol. Şifrə yoxdur: hər dəfə poçtuna birdəfəlik kod gəlir.</p></div>
+        <div class="seg" id="aMode" role="tablist" style="grid-template-columns:1fr 1fr"><button type="button" role="tab" data-m="signup">Sign up</button><button type="button" role="tab" data-m="signin">Sign in</button></div>
+        <div><h1 id="aTitle">Create your account</h1><p class="lead" id="aLead">Sign up with your university e-mail. No password: we send a one-time code to your inbox.</p></div>
         <div class="field">
-          <label class="lbl" for="aMail">VILNIUS TECH e-poçtu</label>
+          <label class="lbl" for="aMail">VILNIUS TECH e-mail</label>
           <input type="email" id="aMail" placeholder="vardas.pavarde@stud.vilniustech.lt" autocomplete="email" inputmode="email">
           <div class="err" id="eMail"></div>
         </div>
-        <button class="primary" type="submit">Kodu göndər</button>
-        <p class="faint" style="margin:0">Hesab yoxdursa, eyni addımla yaranır. Yalnız VILNIUS TECH tələbələri və əməkdaşları qoşula bilər.</p>
+        <button class="primary" type="submit" id="aSend">Send code</button>
+        <p class="faint" style="margin:0" id="aFoot">Only VILNIUS TECH students and staff can join.</p>
       </form>
 
       <form id="aCode" class="big" novalidate hidden style="display:flex;flex-direction:column;gap:18px">
-        <div><h1>Poçtunu yoxla</h1><p class="lead"><span id="aSentTo"></span> ünvanına 6 rəqəmli kod göndərdik.</p></div>
+        <div><h1>Check your inbox</h1><p class="lead">We sent a 6-digit code to <span id="aSentTo"></span>. It expires in 10 minutes.</p></div>
         <div class="otp" id="otp"></div>
         <div class="err" id="eCode"></div>
-        <div class="demo-code"><span>Demo: real tətbiqdə kod poçta gəlir. Bu sessiyanın kodu</span><b id="demoCode"></b></div>
-        <button class="primary" type="submit">Təsdiqlə</button>
-        <div class="row" style="justify-content:space-between;font-size:14px"><button type="button" class="ghost" id="aBack">E-poçtu dəyiş</button><button type="button" class="ghost" id="aResend"></button></div>
+        <div class="demo-code" id="demoBox" hidden><span>Dev mode: e-mail sending isn't set up yet. Your code is</span><b id="demoCode"></b></div>
+        <button class="primary" type="submit">Verify</button>
+        <div class="row" style="justify-content:space-between;font-size:14px"><button type="button" class="ghost" id="aBack">Change e-mail</button><button type="button" class="ghost" id="aResend"></button></div>
       </form>
 
       <form id="aProfile" class="big" novalidate hidden style="display:flex;flex-direction:column;gap:16px">
-        <div><h1>Özün haqqında</h1><p class="lead">Bunlar otaq qaydaları, tövsiyələr və komanda axtarışı üçün lazımdır. Sonra Profil bölməsində dəyişə bilərsən.</p></div>
-        <div class="field"><label class="lbl" for="oName">Necə görünsün? (ad və ya ləqəb)</label><input type="text" id="oName" placeholder="Dilarə"><div class="err" id="eName"></div></div>
-        <div class="field"><label class="lbl" for="oC">Vətəndaşlıq</label><select id="oC"></select></div>
-        <div class="field"><span class="lbl">Cins</span><div class="seg" id="oG"><button type="button" data-g="F">Qız<small>Qız otaqları açılır</small></button><button type="button" data-g="M">Oğlan<small>Oğlan otaqları açılır</small></button></div><div class="err" id="eG"></div></div>
-        <div class="field"><span class="lbl">Danışdığın dillər</span><div class="row" id="oLang"></div></div>
-        <div class="field"><span class="lbl">Bacarıqlar (Komanda tap üçün, istəyə görə)</span><div class="row" id="oSkills"></div></div>
-        <label class="switch"><input type="checkbox" id="oShow" checked><span>Ölkəmi digər tələbələrə göstər<br><span class="faint">Söndürsən də, həmyerlilərinlə yerləşdirmə işləyir, amma ölkən görünmür.</span></span></label>
-        <button class="primary" type="submit">Campus Life-a daxil ol</button>
+        <div><h1>About you</h1><p class="lead">We use this for room rules, suggestions and the team finder. You can change it later in Profile.</p></div>
+        <div class="field"><label class="lbl" for="oName">Display name (name or nickname)</label><input type="text" id="oName" placeholder="Dilara"><div class="err" id="eName"></div></div>
+        <div class="field"><label class="lbl" for="oC">Citizenship</label><select id="oC"></select></div>
+        <div class="field"><span class="lbl">Gender</span><div class="seg" id="oG"><button type="button" data-g="F">Female<small>Opens girls' rooms</small></button><button type="button" data-g="M">Male<small>Opens boys' rooms</small></button></div><div class="err" id="eG"></div></div>
+        <div class="field"><span class="lbl">Languages you speak</span><div class="row" id="oLang"></div></div>
+        <div class="field"><span class="lbl">Skills (for Team finder, optional)</span><div class="row" id="oSkills"></div></div>
+        <label class="switch"><input type="checkbox" id="oShow" checked><span>Show my country to other students<br><span class="faint">If you turn this off, we can still place you with compatriots, but your country stays hidden.</span></span></label>
+        <div class="err" id="eProf"></div>
+        <button class="primary" type="submit">Create account</button>
       </form>
     </div>
   </div>
@@ -276,45 +279,45 @@ input[type=email]{width:100%;background:var(--surface);border:1px solid var(--li
 
 <div class="app" id="appRoot" hidden>
   <aside class="rail" id="rail">
-    <div class="brand">Campus Life<small>VILNIUS TECH yataqxanaları</small></div>
+    <div class="brand">Campus Life<small>VILNIUS TECH dormitories</small></div>
   </aside>
   <main class="main">
     <div class="wrap">
       <div class="top">
-        <h1 id="pageTitle">Otaqlar</h1>
+        <h1 id="pageTitle">Rooms</h1>
         <span class="chip" id="quietPill" style="margin-left:auto"></span>
         <button class="who focusable" id="whoBtn" style="border-radius:999px"><span id="whoTxt"></span><span class="av" id="whoAv">D</span></button>
       </div>
 
       <!-- ROOMS -->
       <section id="s-rooms" class="stack">
-        <div class="rule"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span><b>Qaydalar:</b> qeydiyyat imzalı ərizə ilə olur: yeri seç, formanı (LT/EN) yüklə, imzala, skan edib göndər. Tətbiqdə otaq dəyişmək yoxdur, yeri administrator təyin edir (bənd 10). Qızlar və oğlanlar ayrı otaqlarda qalır, istisna yalnız Tələbə Nümayəndəliyinin icazəsi ilə mümkündür (bənd 14).</span></div>
+        <div class="rule"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span><b>Rules:</b> you register with a signed application: pick a bed, download the form (LT/EN), sign it, scan it and send it. You can't switch rooms in the app; the administrator assigns places (point 10). Girls and boys live in separate rooms; exceptions need the Student Representation's approval (point 14).</span></div>
         <div class="ai" id="rec"></div>
         <div>
-          <div class="sel-line"><span>Bina</span><div class="row" id="bld"></div></div>
-          <div class="sel-line"><span>Blok</span><div class="row" id="blk"></div></div>
-          <div class="sel-line"><span>Mərtəbə</span><div class="row" id="floors"></div></div>
+          <div class="sel-line"><span>Building</span><div class="row" id="bld"></div></div>
+          <div class="sel-line"><span>Block</span><div class="row" id="blk"></div></div>
+          <div class="sel-line"><span>Floor</span><div class="row" id="floors"></div></div>
         </div>
         <h3 id="where" style="font-size:16px"></h3>
         <div>
           <div class="rooms" id="rTop"></div>
-          <div class="corridor">DƏHLİZ</div>
+          <div class="corridor">CORRIDOR</div>
           <div class="rooms" id="rBot"></div>
         </div>
-        <div class="card" id="rInfo">Boş (yaşıl) çarpayını seç. Dolu çarpayıya klikləsən, orada kimin qaldığını görəcəksən.</div>
+        <div class="card" id="rInfo">Pick a free (green) bed. Click a taken bed to see who lives there.</div>
         <div class="card stack" id="regBox" hidden style="border-color:var(--brand)">
-          <div class="row" style="justify-content:space-between;align-items:flex-start"><div><h3 style="font-size:17px">Qeydiyyat ərizəsi</h3><div class="faint" id="regMeta"></div></div><button class="small" id="regCancel">Ləğv et</button></div>
+          <div class="row" style="justify-content:space-between;align-items:flex-start"><div><h3 style="font-size:17px">Registration application</h3><div class="faint" id="regMeta"></div></div><button class="small" id="regCancel">Cancel</button></div>
           <div class="regsteps">
-            <div class="rs" id="rs1"><span class="n">1</span><div class="b"><b>Ərizə formasını yüklə</b><div class="faint">Dili seç: litva və ya ingilis. Məlumatların artıq doldurulub. PDF.</div>
-              <div class="row" style="margin-top:8px"><label class="lbl" for="regLang" style="margin:0">Dil</label><select id="regLang" style="width:auto"><option value="lt">Lietuvių (LT)</option><option value="en">English (EN)</option></select><button class="primary small" id="regDl">Formanı yüklə (PDF)</button><button class="small" id="regPrev">Önizləmə</button></div><div class="err" id="eDl"></div>
-              <img id="regImg" alt="Ərizə formasının önizləməsi" hidden style="margin-top:10px;width:100%;max-width:420px;border:1px solid var(--line);border-radius:8px;background:#fff"></div></div>
-            <div class="rs" id="rs2"><span class="n">2</span><div class="b"><b>Çap et, adını və soyadını yaz, imzala</b><div class="faint">"Paslaugos gavėjas" xanasına adını, soyadını yaz və imza at. "Paslaugos teikėjas" xanasını administrator dolduracaq.</div></div></div>
-            <div class="rs" id="rs3"><span class="n">3</span><div class="b"><b>Skan et və ya şəklini çək, yüklə</b><div class="faint">Şəkil (JPG, PNG) və ya PDF. Bütün səhifə və imza aydın görünsün.</div>
+            <div class="rs" id="rs1"><span class="n">1</span><div class="b"><b>Download the application form</b><div class="faint">Choose the language: Lithuanian or English. Your details are already filled in. PDF.</div>
+              <div class="row" style="margin-top:8px"><label class="lbl" for="regLang" style="margin:0">Language</label><select id="regLang" style="width:auto"><option value="lt">Lietuvių (LT)</option><option value="en">English (EN)</option></select><button class="primary small" id="regDl">Download form (PDF)</button><button class="small" id="regPrev">Preview</button></div><div class="err" id="eDl"></div>
+              <img id="regImg" alt="Application form preview" hidden style="margin-top:10px;width:100%;max-width:420px;border:1px solid var(--line);border-radius:8px;background:#fff"></div></div>
+            <div class="rs" id="rs2"><span class="n">2</span><div class="b"><b>Print it, write your name and sign</b><div class="faint">Write your name and surname in the "Service recipient" box and sign. The administrator fills in "Service provider".</div></div></div>
+            <div class="rs" id="rs3"><span class="n">3</span><div class="b"><b>Scan or photograph it and upload</b><div class="faint">Image (JPG, PNG) or PDF. The whole page and your signature must be clearly visible.</div>
               <div class="row" style="margin-top:8px"><input type="file" id="regFile" accept="image/*,application/pdf"></div><div class="err" id="eFile"></div>
               <div id="regFilePrev" class="row" style="margin-top:8px"></div></div></div>
-            <div class="rs" id="rs4"><span class="n">4</span><div class="b"><b>Göndər və təsdiqlə</b><div class="faint">İmzalı ərizə administratora gedir və qeydiyyatın təsdiqlənir.</div>
-              <label class="switch" style="margin-top:8px"><input type="checkbox" id="regAgree"><span>Ərizəni özüm imzaladım. Yataqxana daxili qaydaları və yanğın təhlükəsizliyi tələbləri ilə tanış oldum (§11).</span></label><div class="err" id="eAgree"></div>
-              <div class="row" style="margin-top:8px"><button class="primary" id="regSend">Göndər və təsdiqlə</button></div></div></div>
+            <div class="rs" id="rs4"><span class="n">4</span><div class="b"><b>Send and confirm</b><div class="faint">The signed application goes to the administrator and your registration is confirmed.</div>
+              <label class="switch" style="margin-top:8px"><input type="checkbox" id="regAgree"><span>I signed the application myself. I have read the dormitory internal rules and fire safety requirements (§11).</span></label><div class="err" id="eAgree"></div>
+              <div class="row" style="margin-top:8px"><button class="primary" id="regSend">Send and confirm</button></div></div></div>
           </div>
         </div>
       </section>
@@ -324,61 +327,61 @@ input[type=email]{width:100%;background:var(--surface);border:1px solid var(--li
         <div class="row" style="justify-content:space-between"><span class="muted" id="lWhere"></span><span id="lSum" class="chip c-good"></span></div>
         <div class="card stack" id="qrCard" style="border-color:var(--brand)">
           <div class="row" style="justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px">
-            <div style="min-width:0;flex:1 1 260px"><b>Maşını QR kodla başlat</b><div class="muted" style="font-size:14px">Hər maşının üzərində QR stiker var. Paltarı qoy, telefonla kodu skan et, proqramın vaxtını seç. Bundan sonra hamı maşının dolu olduğunu və nə vaxt boşalacağını görür.</div></div>
-            <button class="primary" id="qrOpen">📷 QR kodu skan et</button>
+            <div style="min-width:0;flex:1 1 260px"><b>Start a machine with its QR code</b><div class="muted" style="font-size:14px">Every machine has a QR sticker. Load your clothes, scan the code with your phone and pick the programme length. Everyone then sees that the machine is busy and when it will be free.</div></div>
+            <button class="primary" id="qrOpen">📷 Scan QR code</button>
           </div>
           <div id="qrScan" hidden class="stack">
             <div id="qrStepA" class="stack">
-              <div class="faint">Demo: real tətbiqdə telefonun kamerası açılır. Burada stikerə klikləmək skan etmək deməkdir.</div>
+              <div class="faint">Demo: in the real app your phone camera opens. Here, clicking a sticker counts as scanning it.</div>
               <div class="qrfind" id="qrStickersView"></div>
             </div>
             <div id="qrStepB" hidden class="stack">
               <div id="qrFound"></div>
-              <div><span class="lbl">Proqramın vaxtı (maşının ekranında yazılan)</span><div class="row" id="qrDur"></div></div>
+              <div><span class="lbl">Programme length (as shown on the machine)</span><div class="row" id="qrDur"></div></div>
               <div class="err" id="eQr"></div>
-              <div class="row"><button class="primary" id="qrStart">Başlat</button><button id="qrBack">Başqa maşın</button></div>
+              <div class="row"><button class="primary" id="qrStart">Start</button><button id="qrBack">Another machine</button></div>
             </div>
           </div>
-          <div class="row"><button class="small" id="qrPdf">QR stikerlərini yüklə (PDF, administrator üçün)</button><span class="faint" id="qrPdfMsg"></span></div>
+          <div class="row"><button class="small" id="qrPdf">Download QR stickers (PDF, for the administrator)</button><span class="faint" id="qrPdfMsg"></span></div>
         </div>
-        <div><span class="lbl">Paltaryuyan</span><div class="machines" id="wash"></div></div>
-        <div><span class="lbl">Quruducu</span><div class="machines" id="dry"></div></div>
-        <div class="card" id="lMsg">Maşına kliklə. Dolu maşında "boşalanda xəbər ver" seçə bilərsən. Qırıq xətli "Boş?" maşınları bir müddətdir heç kim təsdiqləməyib.</div>
-        <div class="row"><button id="bestTime">✦ Ən boş vaxt nə vaxtdır?</button><button id="openPrimus">Primus-da ödə ↗</button></div>
+        <div><span class="lbl">Washers</span><div class="machines" id="wash"></div></div>
+        <div><span class="lbl">Dryers</span><div class="machines" id="dry"></div></div>
+        <div class="card" id="lMsg">Click a machine. On a busy one you can choose "notify me when free". Dashed "Free?" machines haven't been confirmed by anyone for a while.</div>
+        <div class="row"><button id="bestTime">✦ When is it least busy?</button><button id="openPrimus">Pay in Primus ↗</button></div>
         <div id="bestBox" class="ai" hidden></div>
         <div class="demo">
-          <span class="lbl">Demo: zirzəmidə başqa tələbələr</span>
-          <div class="row"><button class="small" id="dA">Əli Yuyan 1-i başlatdı</button><button class="small" id="dB">Kənan Quruducu 2-ni QR-sız başlatdı</button><button class="small" id="dC">Leyla Yuyan 2-dən paltarı götürdü</button></div>
-          <div class="faint" style="margin-top:6px">Demoda vaxt sürətlidir: 1 saniyə = 1 dəqiqə. Status real tətbiqdə Primus-dan və QR skanlardan gəlir.</div>
+          <span class="lbl">Demo: other students in the basement</span>
+          <div class="row"><button class="small" id="dA">Ali started Washer 1</button><button class="small" id="dB">Kanan started Dryer 2 without QR</button><button class="small" id="dC">Leyla took her clothes from Washer 2</button></div>
+          <div class="faint" style="margin-top:6px">Time runs fast in the demo: 1 second = 1 minute. In the real app the status comes from Primus and QR scans.</div>
         </div>
       </section>
 
       <!-- TEAM -->
       <section id="s-team" class="stack" hidden>
-        <div class="row" style="justify-content:space-between"><div class="row" id="filters"></div><button class="primary" id="newBtn">+ Elan yarat</button></div>
+        <div class="row" style="justify-content:space-between"><div class="row" id="filters"></div><button class="primary" id="newBtn">+ New post</button></div>
         <div class="card stack" id="form" hidden style="border-color:var(--brand)">
-          <div class="row" style="justify-content:space-between"><h3 style="font-size:17px">Yeni elan</h3><button class="small" id="cancel">Bağla</button></div>
+          <div class="row" style="justify-content:space-between"><h3 style="font-size:17px">New post</h3><button class="small" id="cancel">Close</button></div>
           <div class="ai">
-            <label class="lbl" for="aiTxt" style="color:var(--brand)">✦ AI ilə doldur — bir cümlə yaz</label>
-            <textarea id="aiTxt" rows="2" placeholder="15 noyabr AI hakatonu üçün frontend və dizayner axtarıram, mən backend və python bilirəm, 4 nəfərlik komanda"></textarea>
-            <div class="row" style="margin-top:6px"><button class="small" id="aiBtn">Sahələri doldur</button><span id="aiMsg" style="font-size:13px"></span></div>
+            <label class="lbl" for="aiTxt" style="color:var(--brand)">✦ Fill with AI — write one sentence</label>
+            <textarea id="aiTxt" rows="2" placeholder="Looking for a frontend dev and a designer for the AI hackathon on 15 November, I know backend and python, team of 4"></textarea>
+            <div class="row" style="margin-top:6px"><button class="small" id="aiBtn">Fill the fields</button><span id="aiMsg" style="font-size:13px"></span></div>
           </div>
-          <div><span class="lbl">Yarışın növü</span><div class="row" id="types"></div></div>
-          <div><label class="lbl" for="fTitle">Yarışın adı</label><input type="text" id="fTitle" placeholder="VILNIUS TECH AI Hakatonu"><div class="err" id="eTitle"></div></div>
+          <div><span class="lbl">Competition type</span><div class="row" id="types"></div></div>
+          <div><label class="lbl" for="fTitle">Competition name</label><input type="text" id="fTitle" placeholder="VILNIUS TECH AI Hackathon"><div class="err" id="eTitle"></div></div>
           <div class="grid2">
-            <div><label class="lbl" for="fDate">Tarix</label><input type="text" id="fDate" placeholder="15–16 noyabr"><div class="err" id="eDate"></div></div>
-            <div><label class="lbl" for="fSize">Komanda ölçüsü</label><select id="fSize"><option>2</option><option>3</option><option selected>4</option><option>5</option><option>6</option></select></div>
+            <div><label class="lbl" for="fDate">Date</label><input type="text" id="fDate" placeholder="15–16 November"><div class="err" id="eDate"></div></div>
+            <div><label class="lbl" for="fSize">Team size</label><select id="fSize"><option>2</option><option>3</option><option selected>4</option><option>5</option><option>6</option></select></div>
           </div>
-          <div><span class="lbl">Məndə olan bacarıqlar</span><div class="row" id="have"></div></div>
-          <div><span class="lbl">Komandaya lazım olanlar</span><div class="row" id="need"></div><div class="err" id="eNeed"></div></div>
-          <div><label class="lbl" for="fDesc">Qısa təsvir (istəyə görə)</label><textarea id="fDesc" rows="2" placeholder="Kampus üçün AI tətbiqi qururuq, gecələr yataqxanada işləyəcəyik"></textarea></div>
-          <div class="row"><button class="primary" id="pub">Dərc et</button></div>
+          <div><span class="lbl">Skills I have</span><div class="row" id="have"></div></div>
+          <div><span class="lbl">Skills the team needs</span><div class="row" id="need"></div><div class="err" id="eNeed"></div></div>
+          <div><label class="lbl" for="fDesc">Short description (optional)</label><textarea id="fDesc" rows="2" placeholder="We're building an AI app for the campus, we'll work in the dorm in the evenings"></textarea></div>
+          <div class="row"><button class="primary" id="pub">Publish</button></div>
         </div>
         <div class="ai">
-          <b>✦ AI sənin üçün tapdı</b>
-          <div style="font-size:14px;margin-top:2px">"VILNIUS TECH AI Hakatonu" komandasına <b>frontend</b> lazımdır. Murad sənin binandadır (B-504). Uyğunluq 92%.</div>
-          <div class="row" style="margin-top:8px"><button class="small" id="ask1">Qoşulmaq istəyirəm</button><button class="small" id="why1">Niyə uyğundur?</button></div>
-          <div id="whyBox" style="font-size:13px;margin-top:6px" hidden>Sənin bacarığın (Frontend) onlarda çatmır · eyni binada qalırsınız · hər ikiniz ingiliscə danışırsınız.</div>
+          <b>✦ AI found a match for you</b>
+          <div style="font-size:14px;margin-top:2px">The "VILNIUS TECH AI Hackathon" team needs a <b>frontend</b> developer. Murad lives in your building (B-504). 92% match.</div>
+          <div class="row" style="margin-top:8px"><button class="small" id="ask1">I want to join</button><button class="small" id="why1">Why a match?</button></div>
+          <div id="whyBox" style="font-size:13px;margin-top:6px" hidden>They're missing your skill (Frontend) · you live in the same building · you both speak English.</div>
         </div>
         <div class="stack" id="list"></div>
       </section>
@@ -390,7 +393,7 @@ input[type=email]{width:100%;background:var(--surface);border:1px solid var(--li
           <div class="conv">
             <div class="conv-h"><h3 id="cTitle" style="font-size:16px"></h3><div class="faint" id="cSub"></div></div>
             <div class="msgs" id="msgs" aria-live="polite"></div>
-            <form class="compose" id="compose"><input type="text" id="cInput" placeholder="Mesaj yaz" autocomplete="off"><button class="primary" type="submit">Göndər</button></form>
+            <form class="compose" id="compose"><input type="text" id="cInput" placeholder="Write a message" autocomplete="off"><button class="primary" type="submit">Send</button></form>
           </div>
         </div>
       </section>
@@ -398,76 +401,76 @@ input[type=email]{width:100%;background:var(--surface);border:1px solid var(--li
       <!-- COMPLAINTS -->
       <section id="s-report" class="stack" hidden>
         <div class="card row" style="justify-content:space-between">
-          <div class="row"><span class="av">RK</span><div><b>3 nömrəli bina komendantı</b><div class="faint">Demo kontakt · iş saatları 08:00–17:00 · təcili hallarda resepsiya</div></div></div>
-          <div class="row"><button id="newRep" class="primary">+ Şikayət</button><button id="newGuest">+ Qonaq ərizəsi</button></div>
+          <div class="row"><span class="av">RK</span><div><b>Building 3 administrator</b><div class="faint">Demo contact · office hours 08:00–17:00 · reception for emergencies</div></div></div>
+          <div class="row"><button id="newRep" class="primary">+ Complaint</button><button id="newGuest">+ Guest request</button></div>
         </div>
         <form class="card stack" id="guestForm" hidden style="border-color:var(--brand)" novalidate>
-          <div class="row" style="justify-content:space-between"><h3 style="font-size:17px">Qonaq ərizəsi</h3><button class="small" type="button" id="gCancel">Bağla</button></div>
-          <p class="faint" style="margin:0">Qonaqlar 07:00–22:00 arası buraxılır və növbətçidə qeydiyyatdan keçir. Gecə qalmaq üçün administrasiyanın icazəsi lazımdır (bənd 16). Bu ərizə kağız əvəzinə onlayn gedir.</p>
+          <div class="row" style="justify-content:space-between"><h3 style="font-size:17px">Guest request</h3><button class="small" type="button" id="gCancel">Close</button></div>
+          <p class="faint" style="margin:0">Guests are allowed 07:00–22:00 and must register at the front desk. Overnight stays need the administration's approval (point 16). This request goes online instead of on paper.</p>
           <div class="grid2">
-            <div><label class="lbl" for="gName">Qonağın adı və soyadı</label><input type="text" id="gName" placeholder="Aysel Məmmədova"><div class="err" id="eGName"></div></div>
-            <div><label class="lbl" for="gDate">Tarix</label><select id="gDate"><option>Bu gün</option><option>Sabah</option><option>Birigün</option></select></div>
+            <div><label class="lbl" for="gName">Guest's name and surname</label><input type="text" id="gName" placeholder="Aysel Mammadova"><div class="err" id="eGName"></div></div>
+            <div><label class="lbl" for="gDate">Date</label><select id="gDate"><option>Today</option><option>Tomorrow</option><option>Day after tomorrow</option></select></div>
           </div>
           <div class="grid2">
-            <div><label class="lbl" for="gFrom">Gəlir</label><select id="gFrom"></select></div>
-            <div><label class="lbl" for="gTo">Gedir</label><select id="gTo"></select><div class="err" id="eGTime"></div></div>
+            <div><label class="lbl" for="gFrom">Arrives</label><select id="gFrom"></select></div>
+            <div><label class="lbl" for="gTo">Leaves</label><select id="gTo"></select><div class="err" id="eGTime"></div></div>
           </div>
-          <label class="switch"><input type="checkbox" id="gNight"><span>Qonaq gecə qalacaq (22:00–07:00)<br><span class="faint">Administrasiya təsdiqləməlidir.</span></span></label>
-          <label class="switch"><input type="checkbox" id="gGuar"><span>Qonağımın yataqxana qaydalarına əməl edəcəyinə zəmanət verirəm</span></label>
+          <label class="switch"><input type="checkbox" id="gNight"><span>Guest stays overnight (22:00–07:00)<br><span class="faint">The administration must approve.</span></span></label>
+          <label class="switch"><input type="checkbox" id="gGuar"><span>I guarantee that my guest will follow the dormitory rules</span></label>
           <div class="err" id="eGuar"></div>
-          <div class="row"><button class="primary" type="submit">Göndər</button></div>
+          <div class="row"><button class="primary" type="submit">Send</button></div>
         </form>
         <form class="card stack" id="repForm" hidden style="border-color:var(--brand)" novalidate>
-          <div class="row" style="justify-content:space-between"><h3 style="font-size:17px">Komendanta müraciət</h3><button class="small" type="button" id="repCancel">Bağla</button></div>
-          <div><span class="lbl">Nə problemdir?</span><div class="row" id="repCats"></div><div class="err" id="eCat"></div></div>
+          <div class="row" style="justify-content:space-between"><h3 style="font-size:17px">Message to the administrator</h3><button class="small" type="button" id="repCancel">Close</button></div>
+          <div><span class="lbl">What's the problem?</span><div class="row" id="repCats"></div><div class="err" id="eCat"></div></div>
           <div class="grid2">
-            <div><label class="lbl" for="repPlace">Harada?</label><select id="repPlace"></select></div>
-            <div><label class="lbl" for="repUrg">Təcililik</label><select id="repUrg"><option value="n">Adi</option><option value="u">Təcili (su axır, işıq yoxdur)</option></select></div>
+            <div><label class="lbl" for="repPlace">Where?</label><select id="repPlace"></select></div>
+            <div><label class="lbl" for="repUrg">Urgency</label><select id="repUrg"><option value="n">Normal</option><option value="u">Urgent (water leak, no power)</option></select></div>
           </div>
-          <div><label class="lbl" for="repDesc">Təsvir</label><textarea id="repDesc" rows="3" placeholder="Hamamda kran damcılayır, iki gündür dayanmır"></textarea><div class="err" id="eDesc"></div></div>
-          <div class="row"><label class="lbl" for="repPhoto" style="margin:0">Şəkil (istəyə görə)</label><input type="file" id="repPhoto" accept="image/*"><img id="repThumb" class="thumb" alt="Yüklənmiş şəkil" hidden></div>
+          <div><label class="lbl" for="repDesc">Description</label><textarea id="repDesc" rows="3" placeholder="The bathroom tap has been dripping for two days"></textarea><div class="err" id="eDesc"></div></div>
+          <div class="row"><label class="lbl" for="repPhoto" style="margin:0">Photo (optional)</label><input type="file" id="repPhoto" accept="image/*"><img id="repThumb" class="thumb" alt="Uploaded photo" hidden></div>
           <div class="ai stack">
-            <div class="row" style="justify-content:space-between"><b>✦ Komendant üçün litvaca rəsmi mətn</b><button class="small" type="button" id="repAi">AI ilə yaz</button></div>
+            <div class="row" style="justify-content:space-between"><b>✦ Formal Lithuanian text for the administrator</b><button class="small" type="button" id="repAi">Write with AI</button></div>
             <div id="repLt" class="lt" hidden></div>
             <div id="repAz" class="faint" hidden></div>
           </div>
-          <div class="row"><button class="primary" type="submit">Göndər</button></div>
+          <div class="row"><button class="primary" type="submit">Send</button></div>
         </form>
-        <h3 style="font-size:16px">Mənim müraciətlərim</h3>
+        <h3 style="font-size:16px">My requests</h3>
         <div class="stack" id="tickets"></div>
       </section>
 
       <!-- PROFILE -->
       <section id="s-profile" class="stack" hidden>
         <div class="card stack">
-          <div class="row" style="justify-content:space-between"><div class="row"><span class="av" id="profAv">D</span><div><b id="profName">Dilarə</b><div class="faint"><span id="profMail"></span> · təsdiqlənib</div></div></div><button class="small" id="logout">Çıxış</button></div>
+          <div class="row" style="justify-content:space-between"><div class="row"><span class="av" id="profAv">D</span><div><b id="profName">Dilara</b><div class="faint"><span id="profMail"></span> · verified</div></div></div><button class="small" id="logout">Sign out</button></div>
           <div class="faint" id="profLangs"></div>
           <div class="grid2">
-            <div><label class="lbl" for="pC">Vətəndaşlıq</label><select id="pC"></select></div>
-            <div><label class="lbl" for="pG">Cins</label><select id="pG"><option value="F">Qız</option><option value="M">Oğlan</option></select></div>
+            <div><label class="lbl" for="pC">Citizenship</label><select id="pC"></select></div>
+            <div><label class="lbl" for="pG">Gender</label><select id="pG"><option value="F">Female</option><option value="M">Male</option></select></div>
           </div>
-          <label class="row" style="gap:8px"><input type="checkbox" id="pP" checked> Həmyerlilərimlə qalmaq istəyirəm</label>
-          <label class="row" style="gap:8px"><input type="checkbox" id="pShow" checked> Ölkəmi digər tələbələrə göstər</label>
-          <div class="faint">Bu prototipdə profil dəyişəndə otaq xəritəsi dərhal yenilənir. Bütün adlar və məlumatlar test məlumatıdır.</div>
+          <label class="row" style="gap:8px"><input type="checkbox" id="pP" checked> I'd like to live with compatriots</label>
+          <label class="row" style="gap:8px"><input type="checkbox" id="pShow" checked> Show my country to other students</label>
+          <div class="faint">In this prototype the room map updates as soon as you change your profile. All names and data are test data.</div>
         </div>
         <div class="card stack">
-          <div class="row" style="justify-content:space-between"><b>Qayda pozuntusu xalı</b><span id="ptsTxt" style="font-variant-numeric:tabular-nums">0,00 / 1,00</span></div>
+          <div class="row" style="justify-content:space-between"><b>Rule violation points</b><span id="ptsTxt" style="font-variant-numeric:tabular-nums">0.00 / 1.00</span></div>
           <div class="meter"><i id="ptsBar" style="width:0%"></i></div>
-          <div class="faint">Hər pozuntunun xalı var (0,25–1,0). Cəmi 1,0-a çatanda administrator yataqxanadan çıxarılmanı təklif edir (bənd 26).</div>
+          <div class="faint">Each violation has points (0.25–1.0). When the total reaches 1.0, the administrator proposes eviction from the dormitory (point 26).</div>
         </div>
         <div class="card stack">
-          <b>Yataqxana qaydaları (qısa)</b>
+          <b>Dormitory rules (short)</b>
           <ul class="rules">
-            <li><b>§10–11</b> Konkret otaqdakı yeri administrator təyin edir. Qeydiyyat imzalı ərizə ilə olur və imza ilə qaydalarla tanış olduğunu təsdiqləyirsən. Tətbiqdə otaq dəyişmək yoxdur.</li>
-            <li><b>§14</b> Fərqli cinsdən tələbələr birlikdə yalnız Tələbə Nümayəndəliyinə ərizə və hər iki tərəfin razılığı ilə qala bilər.</li>
-            <li><b>§16</b> Qonaqlar 07:00–22:00, növbətçidə qeydiyyatla. Gecə qalmaq ərizə ilə.</li>
-            <li><b>§17</b> Sakitlik saatları 22:00–07:00.</li>
-            <li><b>§24</b> Qadağandır: spirtli içki, xüsusi yerlər xaricində siqaret, heyvan, ticarət, qeydiyyatsız qonaq, otaqda 3 kW-dan güclü cihazlar.</li>
-            <li><b>§26</b> Pozuntu xalları cəmi 1,0 olanda çıxarılma təklif olunur.</li>
+            <li><b>§10–11</b> The administrator assigns your exact place in a room. You register with a signed application, and by signing you confirm you've read the rules. You can't switch rooms in the app.</li>
+            <li><b>§14</b> Students of different genders can share a room only with an application to the Student Representation and both sides' consent.</li>
+            <li><b>§16</b> Guests 07:00–22:00, registered at the front desk. Overnight stays by application.</li>
+            <li><b>§17</b> Quiet hours 22:00–07:00.</li>
+            <li><b>§24</b> Not allowed: alcohol, smoking outside designated areas, pets, trading, unregistered guests, appliances over 3 kW in rooms.</li>
+            <li><b>§26</b> Eviction is proposed when violation points total 1.0.</li>
           </ul>
-          <div class="faint">Mənbə: VILNIUS TECH bendrabučių vidaus tvarkos taisyklės (2020). Sənədin son versiyasını administratordan dəqiqləşdirin.</div>
-          <label class="switch"><input type="checkbox" id="quietRem" checked><span>22:00-da sakitlik xatırlatması göndər</span></label>
-          <div class="row"><button class="small" id="quietDemo">Demo: 22:00 bildirişini göstər</button></div>
+          <div class="faint">Source: VILNIUS TECH bendrabučių vidaus tvarkos taisyklės (2020). Check the latest version with the administrator.</div>
+          <label class="switch"><input type="checkbox" id="quietRem" checked><span>Send a quiet-hours reminder at 22:00</span></label>
+          <div class="row"><button class="small" id="quietDemo">Demo: show the 22:00 notification</button></div>
         </div>
       </section>
     </div>
@@ -495,7 +498,7 @@ const ICON={
 const svg=(k,w)=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"'+(w?' width="'+w+'" height="'+w+'"':'')+'>'+ICON[k]+'</svg>';
 
 /* ---------- navigation ---------- */
-const PAGES=[["rooms","Otaqlar"],["laundry","Laundry"],["team","Komanda tap"],["chat","Çat"],["report","Müraciətlər"],["profile","Profil"]];
+const PAGES=[["rooms","Rooms"],["laundry","Laundry"],["team","Team finder"],["chat","Chat"],["report","Requests"],["profile","Profile"]];
 let page="rooms";
 function buildNav(){
   const rail=$('rail');rail.querySelectorAll('.nav').forEach(n=>n.remove());$('tabbar').innerHTML='';
@@ -512,16 +515,16 @@ function go(p){page=p;PAGES.forEach(([k])=>$('s-'+k).hidden=k!==p);$('pageTitle'
 $('whoBtn').onclick=()=>go('profile');
 
 /* ---------- profile ---------- */
-const C={AZ:"Azərbaycan",TR:"Türkiyə",LT:"Litva",UA:"Ukrayna",GE:"Gürcüstan",KZ:"Qazaxıstan",DE:"Almaniya",ES:"İspaniya",IN:"Hindistan"};
+const C={AZ:"Azerbaijan",TR:"Türkiye",LT:"Lithuania",UA:"Ukraine",GE:"Georgia",KZ:"Kazakhstan",DE:"Germany",ES:"Spain",IN:"India"};
 Object.entries(C).forEach(([k,v])=>{const o=document.createElement('option');o.value=k;o.textContent=v;$('pC').appendChild(o)});
 const me=()=>({c:$('pC').value,g:$('pG').value,p:$('pP').checked});
-let user={name:"Dilarə",mail:"",skills:[],langs:[]};
-function whoLine(){const m=me();$('whoTxt').textContent=user.name+' · '+C[m.c]+' · '+(m.g==='F'?'qız':'oğlan')+(myRoom?' · '+myRoom.num:'')}
+let user={name:"Dilara",mail:"",skills:[],langs:[]};
+function whoLine(){const m=me();$('whoTxt').textContent=user.name+' · '+C[m.c]+' · '+(m.g==='F'?'female':'male')+(myRoom?' · '+myRoom.num:'')}
 ['pC','pG','pP'].forEach(id=>$(id).onchange=()=>{selB=null;whoLine();rRender()});
 
 /* ---------- rooms data ---------- */
-const P=[["Əli","M","AZ"],["Vəli","M","AZ"],["Samir","M","AZ"],["Kənan","M","AZ"],["Orxan","M","AZ"],["Nicat","M","AZ"],["Rauf","M","AZ"],["Murad","M","TR"],["Emre","M","TR"],["Burak","M","TR"],["Tomas","M","LT"],["Jonas","M","LT"],["Lukas","M","LT"],["Mantas","M","LT"],["Paulius","M","LT"],["Dmytro","M","UA"],["Arjun","M","IN"],["Giorgi","M","GE"],["Daniyar","M","KZ"],["Nigar","F","AZ"],["Aysel","F","AZ"],["Alsu","F","KZ"],["Aida","F","KZ"],["Leyla","F","TR"],["Zeynep","F","TR"],["Elif","F","TR"],["Rūta","F","LT"],["Ieva","F","LT"],["Gabija","F","LT"],["Emma","F","DE"],["Mia","F","DE"],["Lina","F","UA"],["Oksana","F","UA"],["Sara","F","ES"],["Ana","F","GE"],["Priya","F","IN"]];
-const FAC=["Kompüter elmləri","İnşaat","Biznes","Memarlıq","Elektronika","Mexanika"];
+const P=[["Ali","M","AZ"],["Vali","M","AZ"],["Samir","M","AZ"],["Kanan","M","AZ"],["Orkhan","M","AZ"],["Nicat","M","AZ"],["Rauf","M","AZ"],["Murad","M","TR"],["Emre","M","TR"],["Burak","M","TR"],["Tomas","M","LT"],["Jonas","M","LT"],["Lukas","M","LT"],["Mantas","M","LT"],["Paulius","M","LT"],["Dmytro","M","UA"],["Arjun","M","IN"],["Giorgi","M","GE"],["Daniyar","M","KZ"],["Nigar","F","AZ"],["Aysel","F","AZ"],["Alsu","F","KZ"],["Aida","F","KZ"],["Leyla","F","TR"],["Zeynep","F","TR"],["Elif","F","TR"],["Rūta","F","LT"],["Ieva","F","LT"],["Gabija","F","LT"],["Emma","F","DE"],["Mia","F","DE"],["Lina","F","UA"],["Oksana","F","UA"],["Sara","F","ES"],["Ana","F","GE"],["Priya","F","IN"]];
+const FAC=["Computer Science","Civil Engineering","Business","Architecture","Electronics","Mechanics"];
 let seed=21;const rnd=()=>{seed=(seed*9301+49297)%233280;return seed/233280};const pick=a=>a[Math.floor(rnd()*a.length)];
 const person=(g,intl)=>{const p=pick(P.filter(x=>x[1]===g&&(!intl||x[2]!=="LT")));return{n:p[0],g,c:p[2],y:1+Math.floor(rnd()*4),f:pick(FAC)}};
 const BL=["A","B"];
@@ -530,195 +533,197 @@ const B=[1,2,3].map(b=>({b,blocks:BL.map((bl,j)=>Array.from({length:10},(_,f)=>A
   if(r===2)tags.push('intl');const g=r<2?(j===0?"F":"M"):(rnd()<0.5?"F":"M"),fixed=r<2?g:null;
   let n=0;for(let k=0;k<cap;k++)if(rnd()<pr)n++;if(r===5&&(f+b)%4===0){tags.push('rep');n=0}
   return{num:bl+'-'+((f+1)*100+r+1),cap,tags,fixed,ppl:Array.from({length:n},()=>person(fixed||g,tags.includes('intl')))}})))}));
-const r1=B[2].blocks[0][2][0];r1.ppl=[{n:"Əli",g:"M",c:"AZ",y:2,f:"Kompüter elmləri"},{n:"Vəli",g:"M",c:"AZ",y:2,f:"İnşaat"},{n:"Samir",g:"M",c:"AZ",y:1,f:"Biznes"}];r1.fixed=null;r1.tags=[];
+const r1=B[2].blocks[0][2][0];r1.ppl=[{n:"Ali",g:"M",c:"AZ",y:2,f:"Computer Science"},{n:"Vali",g:"M",c:"AZ",y:2,f:"Civil Engineering"},{n:"Samir",g:"M",c:"AZ",y:1,f:"Business"}];r1.fixed=null;r1.tags=[];
 const a201=B[2].blocks[0][1][0];a201.cap=3;a201.fixed=null;a201.tags=[];
-a201.ppl=[{n:"Nigar",g:"F",c:"AZ",y:2,f:"Memarlıq"},{n:"Alsu",g:"F",c:"KZ",y:3,f:"Elektronika"}];
+a201.ppl=[{n:"Nigar",g:"F",c:"AZ",y:2,f:"Architecture"},{n:"Alsu",g:"F",c:"KZ",y:3,f:"Electronics"}];
 let myRoom=null,reg=null;
 const findRoom=num=>{for(const x of B)for(const blk of x.blocks)for(const fl of blk)for(const rm of fl)if(rm.num===num&&x===B[2])return rm};
 let cb=2,ck=0,cf=1,selB=null;
-const others=rm=>rm.ppl.filter(x=>x.n!=="Sən");
+const others=rm=>rm.ppl.filter(x=>x.n!=="You");
 const roomG=rm=>{const o=others(rm);return o.length?o[0].g:rm.fixed};
-const GN={F:"qızlar",M:"oğlanlar"};
+const GN={F:"girls",M:"boys"};
 const allowMixed=new Set();let pendingMove=null;
 const genderOnly=rm=>{const g=roomG(rm);return g&&g!==me().g&&!allowMixed.has(rm.num)&&!rm.tags.includes('rep')&&!(rm.tags.includes('intl')&&me().c==='LT')};
-function why(rm){const m=me(),r=[];if(rm.tags.includes('rep'))r.push('otaq təmirdədir');
-  if(rm.tags.includes('intl')&&m.c==='LT')r.push('beynəlxalq tələbələr üçündür');
-  const g=roomG(rm);if(g&&g!==m.g&&!allowMixed.has(rm.num))r.push('bu otaqda '+GN[g]+' qalır — '+(m.g==='F'?'qız yalnız qızla':'oğlan yalnız oğlanla')+' qala bilər');return r}
+function why(rm){const m=me(),r=[];if(rm.tags.includes('rep'))r.push('the room is under repair');
+  if(rm.tags.includes('intl')&&m.c==='LT')r.push('it is for international students');
+  const g=roomG(rm);if(g&&g!==m.g&&!allowMixed.has(rm.num))r.push(GN[g]+' live in this room — '+(m.g==='F'?'girls can only share with girls':'boys can only share with boys'));return r}
 const cps=rm=>others(rm).filter(x=>x.c===me().c).length;
 const openBeds=rooms=>rooms.reduce((a,rm)=>a+(why(rm).length||rm===myRoom?0:rm.cap-rm.ppl.length),0);
 function sbtn(par,html,on,fn){const x=document.createElement('button');x.className='sb'+(on?' on':'');x.innerHTML=html;x.onclick=fn;par.appendChild(x)}
 function recommend(){const m=me();let best=null;
   B.forEach((x,bi)=>x.blocks.forEach((blk,ki)=>blk.forEach((fl,fi)=>fl.forEach(rm=>{if(rm===myRoom||why(rm).length||rm.cap===rm.ppl.length)return;
     const s=(m.p?cps(rm)*10:0)+(rm.cap-rm.ppl.length);if(!best||s>best.s)best={s,rm,bi,ki,fi}}))));
-  const el=$('rec');if(!best){el.textContent='Sənə uyğun boş yer qalmayıb.';return}
+  const el=$('rec');if(!best){el.textContent='There are no free places that fit you.';return}
   const c=cps(best.rm);
-  el.innerHTML='<b>✦ Tövsiyə: '+(best.bi+1)+' nömrəli bina, '+best.rm.num+'</b> <span>'+(c&&m.p?'— burada '+c+' nəfər '+C[m.c]+' vətəndaşı qalır: '+others(best.rm).filter(x=>x.c===m.c).map(x=>esc(x.n)).join(', ')+'.':'— sənə uyğun boş yer var.')+'</span> ';
-  const goB=document.createElement('button');goB.className='small';goB.textContent='Göstər';goB.style.marginLeft='6px';goB.onclick=()=>{cb=best.bi;ck=best.ki;cf=best.fi;selB=null;rRender()};el.appendChild(goB)}
-function personCard(p,rm){const isMe=p.n==="Sən";const show=isMe||$('pShow').checked||true;
-  return '<div class="row"><span class="av">'+esc(isMe?user.name[0]:p.n[0])+'</span><div><b>'+esc(isMe?'Sən ('+user.name+')':p.n)+' · '+rm.num+'</b><div class="muted" style="font-size:13px">'+(show?C[p.c]+' · ':'')+(p.g==='F'?'qız':'oğlan')+' · '+p.y+'-ci kurs · '+esc(p.f)+'</div></div></div>'}
+  el.innerHTML='<b>✦ Suggestion: Building '+(best.bi+1)+', '+best.rm.num+'</b> <span>'+(c&&m.p?'— '+c+' '+(c===1?'person':'people')+' from '+C[m.c]+' live here: '+others(best.rm).filter(x=>x.c===m.c).map(x=>esc(x.n)).join(', ')+'.':'— there is a free place that fits you.')+'</span> ';
+  const goB=document.createElement('button');goB.className='small';goB.textContent='Show';goB.style.marginLeft='6px';goB.onclick=()=>{cb=best.bi;ck=best.ki;cf=best.fi;selB=null;rRender()};el.appendChild(goB)}
+const ord=n=>n+(n%100>=11&&n%100<=13?'th':['th','st','nd','rd'][n%10]||'th');
+function personCard(p,rm){const isMe=p.n==="You";const show=isMe||$('pShow').checked||true;
+  return '<div class="row"><span class="av">'+esc(isMe?user.name[0]:p.n[0])+'</span><div><b>'+esc(isMe?'You ('+user.name+')':p.n)+' · '+rm.num+'</b><div class="muted" style="font-size:13px">'+(show?C[p.c]+' · ':'')+(p.g==='F'?'female':'male')+' · '+ord(p.y)+' year · '+esc(p.f)+'</div></div></div>'}
 function rRender(){const m=me();whoLine();recommend();
-  $('bld').innerHTML='';B.forEach((x,i)=>sbtn($('bld'),x.b+' nömrəli bina<small>'+openBeds(x.blocks.flat(2))+' yer</small>',i===cb,()=>{cb=i;selB=null;rRender()}));
-  $('blk').innerHTML='';B[cb].blocks.forEach((x,j)=>sbtn($('blk'),BL[j]+' bloku<small>'+openBeds(x.flat())+' yer</small>',j===ck,()=>{ck=j;selB=null;rRender()}));
+  $('bld').innerHTML='';B.forEach((x,i)=>sbtn($('bld'),'Building '+x.b+'<small>'+openBeds(x.blocks.flat(2))+' free</small>',i===cb,()=>{cb=i;selB=null;rRender()}));
+  $('blk').innerHTML='';B[cb].blocks.forEach((x,j)=>sbtn($('blk'),'Block '+BL[j]+'<small>'+openBeds(x.flat())+' free</small>',j===ck,()=>{ck=j;selB=null;rRender()}));
   const blk=B[cb].blocks[ck];$('floors').innerHTML='';
-  for(let f=0;f<10;f++){const cp=blk[f].reduce((a,r)=>a+cps(r),0);sbtn($('floors'),(f+1)+'<small>'+openBeds(blk[f])+' yer'+(cp?' · '+cp+' '+m.c:'')+'</small>',f===cf,()=>{cf=f;selB=null;rRender()})}
-  $('where').textContent=(cb+1)+' nömrəli bina · '+BL[ck]+' bloku · '+(cf+1)+'-ci mərtəbə';
+  for(let f=0;f<10;f++){const cp=blk[f].reduce((a,r)=>a+cps(r),0);sbtn($('floors'),(f+1)+'<small>'+openBeds(blk[f])+' free'+(cp?' · '+cp+' '+m.c:'')+'</small>',f===cf,()=>{cf=f;selB=null;rRender()})}
+  $('where').textContent='Building '+(cb+1)+' · Block '+BL[ck]+' · '+ord(cf+1)+' floor';
   const rooms=blk[cf];
   [['rTop',0],['rBot',3]].forEach(([id,o])=>{const el=$(id);el.innerHTML='';
     rooms.slice(o,o+3).forEach(rm=>{const fr=rm.cap-rm.ppl.length,bad=why(rm),cp=cps(rm),g=roomG(rm)||(rm.ppl.length?rm.ppl[0].g:null);
       const r=document.createElement('div');r.className='room';if(rm===myRoom)r.style.borderColor='var(--brand)';
-      r.innerHTML='<h3>'+rm.num+(rm===myRoom?' <span class="chip c-solid">Sənin otağın</span>':'')+'</h3><p class="cap">'+rm.cap+' nəfərlik · '+(fr?fr+' boş':'dolu')+'</p><div class="row" style="gap:4px">'+
-        (g?'<span class="chip '+(g==='F'?'c-girl':'c-boy')+'">'+(g==='F'?'Qız otağı':'Oğlan otağı')+'</span>':'<span class="chip">Boş · ilk gələn seçir</span>')+
-        (rm.tags.includes('intl')?'<span class="chip c-brand">Beynəlxalq</span>':'')+(rm.tags.includes('rep')?'<span class="chip c-warn">Təmirdə</span>':'')+(cp?'<span class="chip c-solid">'+cp+' həmyerli</span>':'')+'</div>';
+      r.innerHTML='<h3>'+rm.num+(rm===myRoom?' <span class="chip c-solid">Your room</span>':'')+'</h3><p class="cap">'+rm.cap+'-bed · '+(fr?fr+' free':'full')+'</p><div class="row" style="gap:4px">'+
+        (g?'<span class="chip '+(g==='F'?'c-girl':'c-boy')+'">'+(g==='F'?'Girls\' room':'Boys\' room')+'</span>':'<span class="chip">Empty · first to arrive decides</span>')+
+        (rm.tags.includes('intl')?'<span class="chip c-brand">International</span>':'')+(rm.tags.includes('rep')?'<span class="chip c-warn">Under repair</span>':'')+(cp?'<span class="chip c-solid">'+cp+' compatriot'+(cp>1?'s':'')+'</span>':'')+'</div>';
       const w=document.createElement('div');w.className='beds';
       for(let k=0;k<rm.cap;k++){const d=document.createElement('button');const key=rm.num+'-'+k;
-        if(k<rm.ppl.length){const p=rm.ppl[k],isMe=p.n==="Sən";d.className='bed'+(isMe?' me':(p.c===m.c?' cp':''));d.textContent=isMe?'Sən':p.c;d.setAttribute('aria-label',(isMe?'Sən':p.n)+', '+C[p.c]);
+        if(k<rm.ppl.length){const p=rm.ppl[k],isMe=p.n==="You";d.className='bed'+(isMe?' me':(p.c===m.c?' cp':''));d.textContent=isMe?'You':p.c;d.setAttribute('aria-label',(isMe?'You':p.n)+', '+C[p.c]);
           d.onclick=()=>{$('rInfo').innerHTML=personCard(p,rm)}}
-        else if(reg&&reg.room===rm&&k===rm.ppl.length){d.className='bed pend';d.textContent='?';d.setAttribute('aria-label',rm.num+' qeydiyyat ərizən üçün saxlanılır');
-          d.onclick=()=>{$('rInfo').innerHTML='<b style="color:var(--warn)">Bu yer qeydiyyat ərizən ('+reg.no+') üçün saxlanılır.</b> Aşağıda ərizəni yüklə, imzala və göndər.';$('regBox').scrollIntoView({behavior:'smooth',block:'start'})}}
-        else if(bad.length||rm===myRoom){d.className='bed lock';d.innerHTML=svg('lock');d.setAttribute('aria-label',rm.num+' bağlı çarpayı');
-          d.onclick=()=>{const info=$('rInfo');info.innerHTML=rm===myRoom?'Bu sənin otağındır.':'<b style="color:var(--warn)">'+rm.num+' sənin üçün bağlıdır:</b> '+bad.join(', ')+'. ';
+        else if(reg&&reg.room===rm&&k===rm.ppl.length){d.className='bed pend';d.textContent='?';d.setAttribute('aria-label',rm.num+' held for your registration application');
+          d.onclick=()=>{$('rInfo').innerHTML='<b style="color:var(--warn)">This place is held for your registration application ('+reg.no+').</b> Download, sign and send the application below.';$('regBox').scrollIntoView({behavior:'smooth',block:'start'})}}
+        else if(bad.length||rm===myRoom){d.className='bed lock';d.innerHTML=svg('lock');d.setAttribute('aria-label',rm.num+' locked bed');
+          d.onclick=()=>{const info=$('rInfo');info.innerHTML=rm===myRoom?'This is your room.':'<b style="color:var(--warn)">'+rm.num+' is locked for you:</b> '+bad.join(', ')+'. ';
             if(rm!==myRoom&&genderOnly(rm)){const t=tickets.find(x=>x.type==='mixed'&&x.to===rm.num&&!x.done&&!x.rejected);
-              if(t){info.innerHTML+='Bu otaq üçün ərizən (#'+t.no+') baxılır.'}
-              else{info.innerHTML+='Birlikdə qalmaq istəyirsinizsə, Tələbə Nümayəndəliyinə ərizə verə bilərsən (§14). ';const b=document.createElement('button');b.className='small';b.textContent='Ərizə ver (§14)';b.onclick=()=>requestMixed(rm);info.appendChild(b)}}}}
-        else{d.className='bed '+(selB===key?'sel':'free');d.innerHTML=svg('bed');d.setAttribute('aria-label',rm.num+' boş çarpayı');
+              if(t){info.innerHTML+='Your application for this room (#'+t.no+') is under review.'}
+              else{info.innerHTML+='If you want to live together, you can apply to the Student Representation (§14). ';const b=document.createElement('button');b.className='small';b.textContent='Apply (§14)';b.onclick=()=>requestMixed(rm);info.appendChild(b)}}}}
+        else{d.className='bed '+(selB===key?'sel':'free');d.innerHTML=svg('bed');d.setAttribute('aria-label',rm.num+' free bed');
           d.onclick=()=>{selB=key;rRender();const info=$('rInfo');
-            info.innerHTML='<b>Seçildi: '+rm.num+'.</b> '+(rm.ppl.length?'Otaq yoldaşların: '+rm.ppl.map(x=>esc(x.n)+' ('+C[x.c]+')').join(', ')+'. ':'Otaq boşdur — təsdiq etsən, '+GN[m.g]+' otağı olacaq. ')+'';
-            if(myRoom){info.innerHTML+='Sən artıq <b>'+myRoom.num+'</b> otağında qeydiyyatdasan. Tətbiqdə otaq dəyişmək yoxdur: yeri administrator təyin edir (§10), lazım olsa ona müraciət et.';return}
-            info.appendChild(document.createTextNode('Qeydiyyat imzalı ərizə ilə olur: formanı yüklə, adını yaz, imzala, skan edib göndər. '));
-            const ok=document.createElement('button');ok.className='primary small';ok.textContent='Qeydiyyat ərizəsi hazırla';ok.onclick=()=>startReg(rm,k);info.appendChild(ok)}}
+            info.innerHTML='<b>Selected: '+rm.num+'.</b> '+(rm.ppl.length?'Your roommates: '+rm.ppl.map(x=>esc(x.n)+' ('+C[x.c]+')').join(', ')+'. ':'The room is empty — if you confirm, it becomes a '+GN[m.g]+'\' room. ')+'';
+            if(myRoom){info.innerHTML+='You are already registered in room <b>'+myRoom.num+'</b>. You can\'t switch rooms in the app: the administrator assigns places (§10), so contact them if needed.';return}
+            info.appendChild(document.createTextNode('You register with a signed application: download the form, write your name, sign it, scan it and send it. '));
+            const ok=document.createElement('button');ok.className='primary small';ok.textContent='Prepare registration application';ok.onclick=()=>startReg(rm,k);info.appendChild(ok)}}
         w.appendChild(d)}
       r.appendChild(w);el.appendChild(r)})})}
 function confirmBed(rm){const m=me();const bad=why(rm);
-  if(bad.length||rm.ppl.length>=rm.cap){$('rInfo').innerHTML='<b style="color:var(--bad)">Qeydiyyat rədd edildi:</b> '+(bad.join(', ')||'otaq doludur')+'.';return}
-  if(myRoom)myRoom.ppl=myRoom.ppl.filter(x=>x.n!=="Sən");const first=!rm.ppl.length;
-  rm.ppl.push({n:"Sən",g:m.g,c:m.c,y:1,f:"Kompüter elmləri"});myRoom=rm;selB=null;rRender();fillPlaces();
-  $('rInfo').innerHTML='<b style="color:var(--good)">✓ Qeydiyyat tamamlandı: '+rm.num+'.</b> '+(first?'Otaqda ilk sən oldun, ona görə bu otaq indi '+GN[m.g]+' otağıdır. ':'')+'Komendanta avtomatik bildiriş getdi.';toast('Yeni yerin: '+rm.num)}
+  if(bad.length||rm.ppl.length>=rm.cap){$('rInfo').innerHTML='<b style="color:var(--bad)">Registration rejected:</b> '+(bad.join(', ')||'the room is full')+'.';return}
+  if(myRoom)myRoom.ppl=myRoom.ppl.filter(x=>x.n!=="You");const first=!rm.ppl.length;
+  rm.ppl.push({n:"You",g:m.g,c:m.c,y:1,f:"Computer Science"});myRoom=rm;selB=null;rRender();fillPlaces();
+  $('rInfo').innerHTML='<b style="color:var(--good)">✓ Registration complete: '+rm.num+'.</b> '+(first?'You were the first in the room, so it is now a '+GN[m.g]+'\' room. ':'')+'The administrator was notified automatically.';toast('Your new place: '+rm.num)}
 
 /* ---------- laundry ---------- */
 let now=new Date().getHours()*60+new Date().getMinutes(),selM=null;
 const hm=x=>String(Math.floor(x/60)%24).padStart(2,'0')+':'+String(x%60).padStart(2,'0');
-const M=[{id:"Yuyan 1",code:"W1",k:"w",s:"free",seen:2},{id:"Yuyan 2",code:"W2",k:"w",s:"busy",who:"Leyla",tot:60,left:6,seen:0},{id:"Quruducu 1",code:"D1",k:"d",s:"free",seen:3},{id:"Quruducu 2",code:"D2",k:"d",s:"free",seen:38}];
-const ago=m=>m<60?m+' dəqiqə':m<1440?Math.floor(m/60)+' saat':Math.floor(m/1440)+' gün';
-const agoDur=m=>m<60?m+' dəqiqədir':m<1440?Math.floor(m/60)+' saatdır':Math.floor(m/1440)+' gündür';
+const M=[{id:"Washer 1",code:"W1",k:"w",s:"free",seen:2},{id:"Washer 2",code:"W2",k:"w",s:"busy",who:"Leyla",tot:60,left:6,seen:0},{id:"Dryer 1",code:"D1",k:"d",s:"free",seen:3},{id:"Dryer 2",code:"D2",k:"d",s:"free",seen:38}];
+const plural=(n,w)=>n+' '+w+(n===1?'':'s');
+const ago=m=>m<60?plural(m,'minute'):m<1440?plural(Math.floor(m/60),'hour'):plural(Math.floor(m/1440),'day');
+const agoDur=m=>'for '+ago(m);
 function lCard(x){const d=document.createElement('button');const unk=x.s==='free'&&x.seen>=30;d.className='mc '+(unk?'unk':x.s)+(selM===x?' selm':'');
   let st,sub;
-  if(x.s==='free'){st=unk?'Boş?':'Boş';sub=unk?agoDur(x.seen)+' heç kim təsdiqləməyib':'təsdiq: '+ago(x.seen)+' əvvəl'}
-  else if(x.s==='done'){st='Bitib';sub='paltar hələ içindədir · '+x.who}
-  else{st=x.left+' dəq qalıb';sub=(x.s==='mine'?'Səninki':x.who)+(x.ai?' · AI ekrandan oxudu':'')+' · '+hm(now+x.left)+'-da bitir'}
-  d.innerHTML='<div class="row" style="justify-content:space-between">'+svg(x.k==='w'?'laundry':'wind')+(x.notify?'<span class="chip c-brand">🔔 xəbər veriləcək</span>':'')+'</div><div style="font-weight:600;margin-top:6px">'+x.id+' <span style="font-family:var(--mono);font-size:11px;opacity:.75">QR·'+x.code+'</span></div><div class="st">'+st+'</div><div style="font-size:12px">'+esc(sub)+'</div>'+((x.s==='busy'||x.s==='mine')?'<div class="pbar"><i style="width:'+Math.round((1-x.left/x.tot)*100)+'%"></i></div>':'');
+  if(x.s==='free'){st=unk?'Free?':'Free';sub=unk?'nobody has confirmed '+agoDur(x.seen):'confirmed '+ago(x.seen)+' ago'}
+  else if(x.s==='done'){st='Done';sub='clothes still inside · '+x.who}
+  else{st=x.left+' min left';sub=(x.s==='mine'?'Yours':x.who)+(x.ai?' · AI read the display':'')+' · ends at '+hm(now+x.left)}
+  d.innerHTML='<div class="row" style="justify-content:space-between">'+svg(x.k==='w'?'laundry':'wind')+(x.notify?'<span class="chip c-brand">🔔 will notify</span>':'')+'</div><div style="font-weight:600;margin-top:6px">'+x.id+' <span style="font-family:var(--mono);font-size:11px;opacity:.75">QR·'+x.code+'</span></div><div class="st">'+st+'</div><div style="font-size:12px">'+esc(sub)+'</div>'+((x.s==='busy'||x.s==='mine')?'<div class="pbar"><i style="width:'+Math.round((1-x.left/x.tot)*100)+'%"></i></div>':'');
   d.onclick=()=>{selM=x;const msg=$('lMsg');msg.innerHTML='';
-    if(x.s==='free'){msg.innerHTML=(unk?'<b style="color:var(--warn)">'+x.id+' boş görünür, amma '+agoDur(x.seen)+' heç kim təsdiqləməyib.</b> ':'<b style="color:var(--good)">'+x.id+' boşdur.</b> ')+'Zirzəmidəsənsə: ';
-      const b1=document.createElement('button');b1.className='small';b1.textContent='QR ilə başlat';b1.onclick=()=>{x.s='mine';x.who='Sən';x.tot=x.k==='w'?60:45;x.left=x.tot;x.seen=0;msg.textContent=x.id+' başladı. Bitəndə xəbər verəcəyik.';lRender()};
-      const b2=document.createElement('button');b2.className='small';b2.style.marginLeft='6px';b2.textContent='Əslində işləyir — ekranın şəklini çək';
-      b2.onclick=()=>{msg.innerHTML='<span style="color:var(--brand)">✦ AI şəkli oxuyur…</span>';setTimeout(()=>{const left=x.real||31;x.s='busy';x.who='naməlum';x.tot=Math.max(left,45);x.left=left;x.ai=true;x.seen=0;x.real=null;msg.innerHTML='<b style="color:var(--brand)">✦ AI ekranda "0:'+String(left).padStart(2,'0')+'" oxudu.</b> '+x.id+' statusu düzəldildi. Təşəkkürlər!';lRender()},900)};
+    if(x.s==='free'){msg.innerHTML=(unk?'<b style="color:var(--warn)">'+x.id+' looks free, but nobody has confirmed it '+agoDur(x.seen)+'.</b> ':'<b style="color:var(--good)">'+x.id+' is free.</b> ')+'If you\'re in the basement: ';
+      const b1=document.createElement('button');b1.className='small';b1.textContent='Start with QR';b1.onclick=()=>{x.s='mine';x.who='You';x.tot=x.k==='w'?60:45;x.left=x.tot;x.seen=0;msg.textContent=x.id+' started. We\'ll let you know when it\'s done.';lRender()};
+      const b2=document.createElement('button');b2.className='small';b2.style.marginLeft='6px';b2.textContent='It\'s actually running — photo the display';
+      b2.onclick=()=>{msg.innerHTML='<span style="color:var(--brand)">✦ AI is reading the photo…</span>';setTimeout(()=>{const left=x.real||31;x.s='busy';x.who='unknown';x.tot=Math.max(left,45);x.left=left;x.ai=true;x.seen=0;x.real=null;msg.innerHTML='<b style="color:var(--brand)">✦ AI read "0:'+String(left).padStart(2,'0')+'" on the display.</b> '+x.id+' status corrected. Thanks!';lRender()},900)};
       msg.appendChild(b1);msg.appendChild(b2)}
-    else if(x.s==='mine'){msg.textContent='Bu sənin maşınındır. '+x.left+' dəqiqə qalıb.'}
-    else{x.notify=!x.notify;msg.innerHTML=x.notify?'<b style="color:var(--brand)">🔔 '+x.id+' boşalanda xəbər verəcəyik.</b>':'Bildiriş ləğv edildi.'}
+    else if(x.s==='mine'){msg.textContent='This is your machine. '+plural(x.left,'minute')+' left.'}
+    else{x.notify=!x.notify;msg.innerHTML=x.notify?'<b style="color:var(--brand)">🔔 We\'ll notify you when '+x.id+' is free.</b>':'Notification cancelled.'}
     lRender()};return d}
 function lRender(){$('wash').innerHTML='';$('dry').innerHTML='';M.forEach(x=>(x.k==='w'?$('wash'):$('dry')).appendChild(lCard(x)));
-  const f=M.filter(x=>x.s==='free').length;$('lSum').textContent=f+' maşın boş';$('lSum').className='chip '+(f?'c-good':'c-warn');
-  $('lWhere').textContent='3 nömrəli bina · zirzəmi · indi '+hm(now)}
+  const f=M.filter(x=>x.s==='free').length;$('lSum').textContent=plural(f,'machine')+' free';$('lSum').className='chip '+(f?'c-good':'c-warn');
+  $('lWhere').textContent='Building 3 · basement · now '+hm(now)}
 function tick(){now++;M.forEach(x=>{x.seen++;if(x.real)x.real--;
-  if(x.s==='busy'||x.s==='mine'){x.left--;if(x.left<=0){if(x.s==='mine'){x.s='free';x.seen=0;toast('🔔 Sənin '+x.id+' bitdi. Paltarını götür.')}else{x.s='done';x.wait=0;if(x.notify)toast('🔔 '+x.id+' bitdi, amma paltar hələ içindədir.')}}}
-  else if(x.s==='done'){x.wait++;if(x.wait>=5){x.s='free';x.seen=0;x.ai=false;if(x.notify){toast('🔔 '+x.id+' boşaldı. İndi gedə bilərsən.');x.notify=false}}}});
+  if(x.s==='busy'||x.s==='mine'){x.left--;if(x.left<=0){if(x.s==='mine'){x.s='free';x.seen=0;toast('🔔 Your '+x.id+' is done. Pick up your clothes.')}else{x.s='done';x.wait=0;if(x.notify)toast('🔔 '+x.id+' is done, but the clothes are still inside.')}}}
+  else if(x.s==='done'){x.wait++;if(x.wait>=5){x.s='free';x.seen=0;x.ai=false;if(x.notify){toast('🔔 '+x.id+' is free. You can go now.');x.notify=false}}}});
   if(page==='laundry')lRender()}
 setInterval(tick,1000);
-$('dA').onclick=()=>{const x=M[0];if(x.s!=='free'){toast('Yuyan 1 artıq doludur');return}x.s='busy';x.who='Əli';x.tot=60;x.left=60;x.seen=0;lRender()};
-$('dB').onclick=()=>{const x=M[3];if(x.s!=='free')return;x.real=45;$('lMsg').innerHTML='<span style="color:var(--warn)">Kənan Quruducu 2-ni QR-sız başlatdı. Tətbiq bunu bilmir — maşın hələ də "Boş?" görünür. Kliklə və ekranın şəklini çək.</span>';lRender()};
-$('dC').onclick=()=>{const x=M[1];if(x.s==='free')return;x.s='free';x.seen=0;if(x.notify){toast('🔔 Yuyan 2 boşaldı. İndi gedə bilərsən.');x.notify=false}lRender()};
+$('dA').onclick=()=>{const x=M[0];if(x.s!=='free'){toast('Washer 1 is already busy');return}x.s='busy';x.who='Ali';x.tot=60;x.left=60;x.seen=0;lRender()};
+$('dB').onclick=()=>{const x=M[3];if(x.s!=='free')return;x.real=45;$('lMsg').innerHTML='<span style="color:var(--warn)">Kanan started Dryer 2 without QR. The app doesn\'t know — the machine still shows "Free?". Click it and photo the display.</span>';lRender()};
+$('dC').onclick=()=>{const x=M[1];if(x.s==='free')return;x.s='free';x.seen=0;if(x.notify){toast('🔔 Washer 2 is free. You can go now.');x.notify=false}lRender()};
 /* QR scan + stickers */
 const qrPayload=x=>'CAMPUSLIFE:LAUNDRY:B3:'+x.code;
 const qrUrl=(x,cell)=>{if(!window.qrcode)return '';const q=window.qrcode(0,'M');q.addData(qrPayload(x));q.make();return q.createDataURL(cell||6,2)};
 let qrSel=null,qrMin=60;
 function qrStickers(){const el=$('qrStickersView');el.innerHTML='';M.forEach(x=>{const b=document.createElement('button');b.type='button';b.className='qrs';
-  const u=qrUrl(x,4);b.innerHTML=(u?'<img alt="" src="'+u+'">':'<span style="font-family:var(--mono);font-size:22px;padding:20px 0">QR</span>')+'<span>'+x.id+'</span>';b.setAttribute('aria-label',x.id+' QR kodunu skan et');
+  const u=qrUrl(x,4);b.innerHTML=(u?'<img alt="" src="'+u+'">':'<span style="font-family:var(--mono);font-size:22px;padding:20px 0">QR</span>')+'<span>'+x.id+'</span>';b.setAttribute('aria-label','Scan '+x.id+' QR code');
   b.onclick=()=>qrScanned(x);el.appendChild(b)})}
 function qrScanned(x){qrSel=x;$('qrStepA').hidden=true;$('qrStepB').hidden=false;$('eQr').textContent='';
   qrMin=x.k==='w'?60:45;
-  const st=x.s==='free'?'<span class="chip c-good">tətbiqdə boş</span>':x.s==='done'?'<span class="chip c-warn">bitib, paltar içindədir</span>':'<span class="chip">tətbiqdə dolu · '+x.left+' dəq</span>';
-  $('qrFound').innerHTML='<b>✓ Skan edildi: '+x.id+'</b> <span class="faint" style="font-family:var(--mono)">'+qrPayload(x)+'</span> '+st;
+  const st=x.s==='free'?'<span class="chip c-good">free in the app</span>':x.s==='done'?'<span class="chip c-warn">done, clothes inside</span>':'<span class="chip">busy in the app · '+x.left+' min</span>';
+  $('qrFound').innerHTML='<b>✓ Scanned: '+x.id+'</b> <span class="faint" style="font-family:var(--mono)">'+qrPayload(x)+'</span> '+st;
   const opts=x.k==='w'?[30,45,60,90]:[30,45,60];const d=$('qrDur');d.innerHTML='';
-  opts.forEach(v=>{const b=document.createElement('button');b.type='button';b.className='opt'+(qrMin===v?' on':'');b.textContent=v+' dəq';b.onclick=()=>{qrMin=v;qrScanned2()};d.appendChild(b)})}
-function qrScanned2(){document.querySelectorAll('#qrDur .opt').forEach(b=>b.classList.toggle('on',b.textContent===qrMin+' dəq'))}
+  opts.forEach(v=>{const b=document.createElement('button');b.type='button';b.className='opt'+(qrMin===v?' on':'');b.textContent=v+' min';b.onclick=()=>{qrMin=v;qrScanned2()};d.appendChild(b)})}
+function qrScanned2(){document.querySelectorAll('#qrDur .opt').forEach(b=>b.classList.toggle('on',b.textContent===qrMin+' min'))}
 $('qrOpen').onclick=()=>{const s=$('qrScan');s.hidden=!s.hidden;$('qrStepA').hidden=false;$('qrStepB').hidden=true;if(!s.hidden)qrStickers()};
 $('qrBack').onclick=()=>{$('qrStepA').hidden=false;$('qrStepB').hidden=true};
 $('qrStart').onclick=()=>{const x=qrSel;if(!x)return;
-  if(x.s==='busy'||x.s==='mine'){$('eQr').textContent=x.id+' tətbiqdə hələ dolu görünür ('+x.left+' dəq). Əvvəlki istifadəçi statusu bağlamayıb. Maşın həqiqətən boşdursa, təsdiq üçün "Başlat"-ı bir daha bas.';if(!$('eQr').dataset.ok){$('eQr').dataset.ok='1';return}}
-  delete $('eQr').dataset.ok;x.s='mine';x.who='Sən';x.tot=qrMin;x.left=qrMin;x.seen=0;x.notify=false;x.ai=false;x.real=null;
-  $('qrScan').hidden=true;lRender();$('lMsg').innerHTML='<b style="color:var(--brand)">'+x.id+' başladı ('+qrMin+' dəq).</b> Bitməyinə 10 dəqiqə qalanda və bitəndə bildiriş gələcək. Hamı maşının dolu olduğunu görür.';toast(x.id+' başladı · '+hm(now+qrMin)+'-da bitəcək')};
-$('qrPdf').onclick=async()=>{$('qrPdfMsg').textContent='';if(!window.qrcode){$('qrPdfMsg').textContent='QR kitabxanası yüklənmədi. İnterneti yoxla.';return}
+  if(x.s==='busy'||x.s==='mine'){$('eQr').textContent=x.id+' still shows as busy in the app ('+x.left+' min). The previous user didn\'t close it. If the machine really is free, press "Start" again to confirm.';if(!$('eQr').dataset.ok){$('eQr').dataset.ok='1';return}}
+  delete $('eQr').dataset.ok;x.s='mine';x.who='You';x.tot=qrMin;x.left=qrMin;x.seen=0;x.notify=false;x.ai=false;x.real=null;
+  $('qrScan').hidden=true;lRender();$('lMsg').innerHTML='<b style="color:var(--brand)">'+x.id+' started ('+qrMin+' min).</b> You\'ll get a notification 10 minutes before the end and when it\'s done. Everyone sees the machine is busy.';toast(x.id+' started · ends at '+hm(now+qrMin))};
+$('qrPdf').onclick=async()=>{$('qrPdfMsg').textContent='';if(!window.qrcode){$('qrPdfMsg').textContent='The QR library didn\'t load. Check your internet connection.';return}
   if(document.fonts&&document.fonts.ready)await document.fonts.ready;
   const W=1240,H=1754,c=document.createElement('canvas');c.width=W;c.height=H;const g=c.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,W,H);
   const F=(s,w)=>(w||400)+' '+s+'px "Noto Sans", Arial, sans-serif';
-  g.fillStyle='#8a5a00';g.font=F(17);g.fillText('Campus Life · demo stikerlər / demo stickers',90,60);
+  g.fillStyle='#8a5a00';g.font=F(17);g.fillText('Campus Life · demo stickers',90,60);
   const imgs=await Promise.all(M.map(x=>new Promise(res=>{const im=new Image();im.onload=()=>res(im);im.src=qrUrl(x,10)})));
   M.forEach((x,i)=>{const cx=90+(i%2)*560,cy=100+Math.floor(i/2)*800,w=500,h=760;
     g.strokeStyle='#111';g.lineWidth=3;g.setLineDash([14,10]);g.strokeRect(cx,cy,w,h);g.setLineDash([]);
     g.fillStyle='#0f1a33';g.fillRect(cx,cy,w,110);g.fillStyle='#ffcf6e';g.font=F(30,700);g.fillText('Campus Life · Laundry',cx+28,cy+68);
-    g.fillStyle='#111';g.font=F(44,700);g.fillText(x.id,cx+28,cy+180);g.font=F(22);g.fillStyle='#444';g.fillText('3 nömrəli bina · zirzəmi · '+x.code,cx+28,cy+218);
+    g.fillStyle='#111';g.font=F(44,700);g.fillText(x.id,cx+28,cy+180);g.font=F(22);g.fillStyle='#444';g.fillText('Building 3 · basement · '+x.code,cx+28,cy+218);
     g.imageSmoothingEnabled=false;g.drawImage(imgs[i],cx+80,cy+250,340,340);
-    g.fillStyle='#111';g.font=F(22,600);['AZ  Başlatmazdan əvvəl skan et','LT  Nuskenuok prieš paleisdamas','EN  Scan before you start'].forEach((t,j)=>g.fillText(t,cx+28,cy+640+j*36))});
+    g.fillStyle='#111';g.font=F(22,600);['EN  Scan before you start','LT  Nuskenuok prieš paleisdamas'].forEach((t,j)=>g.fillText(t,cx+28,cy+640+j*36))});
   let blob,ext;if(window.jspdf&&window.jspdf.jsPDF){const pdf=new window.jspdf.jsPDF({unit:'mm',format:'a4'});pdf.addImage(c.toDataURL('image/png'),'PNG',0,0,210,297);blob=pdf.output('blob');ext='pdf'}
   else{blob=await new Promise(r=>c.toBlob(r,'image/png'));ext='png'}
-  const r=await saveFile('Laundry_QR_stikerler.'+ext,blob);$('qrPdfMsg').textContent=r==='saved'?'Yükləndi. Çap edib hər maşının üzərinə yapışdır.':r==='declined'?'Yükləmə ləğv edildi.':'Bu görünüşdə fayl yükləmək mümkün olmadı.'};
-$('bestTime').onclick=()=>{const b=$('bestBox');b.hidden=false;b.innerHTML='<b>✦ Son 4 həftəyə görə</b> ən boş vaxtlar iş günləri <b>07:00–09:00</b> və <b>13:00–15:00</b>-dır. Ən dolu vaxt bazar <b>18:00–22:00</b>.'};
-$('openPrimus').onclick=()=>toast('Real tətbiqdə ödəniş üçün Primus tətbiqi açılır');
+  const r=await saveFile('Laundry_QR_stickers.'+ext,blob);$('qrPdfMsg').textContent=r==='saved'?'Downloaded. Print it and stick one on each machine.':r==='declined'?'Download cancelled.':'Couldn\'t download the file in this view.'};
+$('bestTime').onclick=()=>{const b=$('bestBox');b.hidden=false;b.innerHTML='<b>✦ Based on the last 4 weeks,</b> the quietest times are weekdays <b>07:00–09:00</b> and <b>13:00–15:00</b>. The busiest is Sunday <b>18:00–22:00</b>.'};
+$('openPrimus').onclick=()=>toast('In the real app, the Primus app opens for payment');
 
 /* ---------- team ---------- */
-const TYPES=[["hack","Hakaton"],["olymp","Olimpiada"],["course","Kurs layihəsi"],["other","Digər"]];
-const SK=["Frontend","Backend","Python","ML / AI","Mobil","Dizayn","Biznes","Pitch","Riyaziyyat","Sənədləşmə"];
+const TYPES=[["hack","Hackathon"],["olymp","Olympiad"],["course","Course project"],["other","Other"]];
+const SK=["Frontend","Backend","Python","ML / AI","Mobile","Design","Business","Pitch","Maths","Documentation"];
 const posts=[
- {t:"hack",title:"VILNIUS TECH AI Hakatonu",date:"15–16 noyabr",who:"Murad",c:"TR",room:"3 · B-504",have:["Backend","Python","ML / AI"],need:["Frontend","Dizayn"],slots:"2/4",near:true},
- {t:"olymp",title:"Riyaziyyat olimpiadası",date:"2 dekabr",who:"Rūta",c:"LT",room:"1 · A-702",have:["Riyaziyyat"],need:["Riyaziyyat"],slots:"1/3",near:false},
- {t:"course",title:"Proqram mühəndisliyi kurs layihəsi",date:"Semestr sonu",who:"Nigar",c:"AZ",room:"3 · A-202",have:["Backend","Sənədləşmə"],need:["Frontend"],slots:"2/4",near:true},
- {t:"hack",title:"Junction Baltic",date:"Yanvar",who:"Lukas",c:"LT",room:"2 · B-210",have:["Biznes","Pitch"],need:["Mobil","Backend","Dizayn"],slots:"1/4",near:false}];
+ {t:"hack",title:"VILNIUS TECH AI Hackathon",date:"15–16 November",who:"Murad",c:"TR",room:"3 · B-504",have:["Backend","Python","ML / AI"],need:["Frontend","Design"],slots:"2/4",near:true},
+ {t:"olymp",title:"Maths Olympiad",date:"2 December",who:"Rūta",c:"LT",room:"1 · A-702",have:["Maths"],need:["Maths"],slots:"1/3",near:false},
+ {t:"course",title:"Software Engineering course project",date:"End of semester",who:"Nigar",c:"AZ",room:"3 · A-202",have:["Backend","Documentation"],need:["Frontend"],slots:"2/4",near:true},
+ {t:"hack",title:"Junction Baltic",date:"January",who:"Lukas",c:"LT",room:"2 · B-210",have:["Business","Pitch"],need:["Mobile","Backend","Design"],slots:"1/4",near:false}];
 let st={t:"hack",have:new Set(),need:new Set()},flt="all";
 function chips(id,set,cls){const el=$(id);el.innerHTML='';SK.forEach(s=>{const x=document.createElement('button');x.type='button';x.className='opt'+(set.has(s)?' '+cls:'');x.textContent=s;x.onclick=()=>{set.has(s)?set.delete(s):set.add(s);if(id==='need')$('eNeed').textContent='';drawForm()};el.appendChild(x)})}
 function drawForm(){$('types').innerHTML='';TYPES.forEach(([k,v])=>{const x=document.createElement('button');x.type='button';x.className='opt'+(st.t===k?' on':'');x.textContent=v;x.onclick=()=>{st.t=k;drawForm()};$('types').appendChild(x)});chips('have',st.have,'onH');chips('need',st.need,'onN')}
-function filters(){const F=[["all","Hamısı"],["mine","Mənim elanlarım"],["hack","Hakaton"],["olymp","Olimpiada"],["course","Kurs"],["near","Mənim binam"]];$('filters').innerHTML='';
+function filters(){const F=[["all","All"],["mine","My posts"],["hack","Hackathon"],["olymp","Olympiad"],["course","Course"],["near","My building"]];$('filters').innerHTML='';
   F.forEach(([k,v])=>{const x=document.createElement('button');x.className='opt'+(flt===k?' on':'');x.textContent=v;x.onclick=()=>{flt=k;filters();list()};$('filters').appendChild(x)})}
 function list(){const L=$('list');L.innerHTML='';const ps=posts.filter(p=>flt==="all"||(flt==="near"?p.near:flt==="mine"?p.mine:p.t===flt));
-  if(!ps.length){L.innerHTML='<div class="card muted">Bu filtrdə elan yoxdur. "Elan yarat" ilə ilk elanını yerləşdir.</div>';return}
+  if(!ps.length){L.innerHTML='<div class="card muted">No posts for this filter. Use "New post" to add your first one.</div>';return}
   ps.forEach(p=>{const d=document.createElement('div');d.className='card';if(p.mine)d.style.borderColor='var(--brand)';
-    d.innerHTML='<div class="row" style="align-items:flex-start;gap:12px;flex-wrap:nowrap"><span class="av">'+esc(p.who[0])+'</span><div style="min-width:0;flex:1"><b style="font-size:15px">'+esc(p.title)+'</b>'+(p.mine?' <span class="chip c-brand">Sənin elanın</span>':'')+
-      '<div class="faint" style="margin:2px 0 8px">'+esc(p.date)+' · '+esc(p.who)+' ('+p.c+') · bina '+esc(p.room)+' · komanda '+p.slots+'</div>'+(p.desc?'<div style="font-size:14px;margin-bottom:8px">'+esc(p.desc)+'</div>':'')+
-      '<div class="row" style="gap:4px">'+p.have.map(x=>'<span class="chip c-good">'+esc(x)+'</span>').join('')+p.need.map(x=>'<span class="chip c-warn">Lazımdır: '+esc(x)+'</span>').join('')+'</div></div></div>';
-    if(p.mine){const m=document.createElement('div');m.style.cssText='font-size:13px;color:var(--brand);margin-top:8px';m.textContent='✦ AI '+p.match+' uyğun tələbə tapdı və onlara bildiriş göndərdi.';d.appendChild(m)}
-    else{const b=document.createElement('button');b.className='small';b.textContent='Çatda yaz';b.style.marginTop='10px';b.onclick=()=>{startDm(p.who,p.title)};d.appendChild(b)}
+    d.innerHTML='<div class="row" style="align-items:flex-start;gap:12px;flex-wrap:nowrap"><span class="av">'+esc(p.who[0])+'</span><div style="min-width:0;flex:1"><b style="font-size:15px">'+esc(p.title)+'</b>'+(p.mine?' <span class="chip c-brand">Your post</span>':'')+
+      '<div class="faint" style="margin:2px 0 8px">'+esc(p.date)+' · '+esc(p.who)+' ('+p.c+') · building '+esc(p.room)+' · team '+p.slots+'</div>'+(p.desc?'<div style="font-size:14px;margin-bottom:8px">'+esc(p.desc)+'</div>':'')+
+      '<div class="row" style="gap:4px">'+p.have.map(x=>'<span class="chip c-good">'+esc(x)+'</span>').join('')+p.need.map(x=>'<span class="chip c-warn">Needs: '+esc(x)+'</span>').join('')+'</div></div></div>';
+    if(p.mine){const m=document.createElement('div');m.style.cssText='font-size:13px;color:var(--brand);margin-top:8px';m.textContent='✦ AI found '+p.match+' matching students and notified them.';d.appendChild(m)}
+    else{const b=document.createElement('button');b.className='small';b.textContent='Message in chat';b.style.marginTop='10px';b.onclick=()=>{startDm(p.who,p.title)};d.appendChild(b)}
     L.appendChild(d)})}
 $('newBtn').onclick=()=>{$('form').hidden=false;$('newBtn').hidden=true;if(!st.have.size)st.have=new Set(user.skills);drawForm();$('fTitle').focus()};
 $('cancel').onclick=()=>{$('form').hidden=true;$('newBtn').hidden=false};
 ['fTitle','fDate'].forEach(id=>$(id).oninput=()=>$('e'+id.slice(1)).textContent='');
 $('aiBtn').onclick=()=>{const s=$('aiTxt').value.toLowerCase(),msg=$('aiMsg');
-  if(!s.trim()){msg.style.color='var(--bad)';msg.textContent='Əvvəlcə bir cümlə yaz.';return}msg.style.color='var(--brand)';
-  if(/hakaton|hackathon/.test(s))st.t='hack';else if(/olimpiad/.test(s))st.t='olymp';else if(/kurs|layihə/.test(s))st.t='course';
-  const map={"frontend":"Frontend","backend":"Backend","python":"Python","ml":"ML / AI","süni":"ML / AI","mobil":"Mobil","dizayn":"Dizayn","biznes":"Biznes","pitch":"Pitch","riyaziyyat":"Riyaziyyat","sənəd":"Sənədləşmə"};
-  const mm=s.match(/mən (.+?) bilirəm/),hv=mm?mm[1]:'';st.need=new Set();st.have=new Set();
+  if(!s.trim()){msg.style.color='var(--bad)';msg.textContent='Write a sentence first.';return}msg.style.color='var(--brand)';
+  if(/hackathon/.test(s))st.t='hack';else if(/olympiad/.test(s))st.t='olymp';else if(/course|project/.test(s))st.t='course';
+  const map={"frontend":"Frontend","backend":"Backend","python":"Python","ml":"ML / AI","machine learning":"ML / AI","mobile":"Mobile","design":"Design","business":"Business","pitch":"Pitch","math":"Maths","doc":"Documentation"};
+  const mm=s.match(/i (?:know|can do|have) (.+?)(?:,|\.|$)/),hv=mm?mm[1]:'';st.need=new Set();st.have=new Set();
   Object.entries(map).forEach(([k,v])=>{if(hv.includes(k))st.have.add(v);else if(s.includes(k))st.need.add(v)});
-  const d=s.match(/(\d{1,2}(?:[–-]\d{1,2})?\s*(?:yanvar|fevral|mart|aprel|may|iyun|iyul|avqust|sentyabr|oktyabr|noyabr|dekabr))/);if(d)$('fDate').value=d[1];
-  const z=s.match(/(\d)\s*nəfər/);if(z)$('fSize').value=z[1];
-  if(!$('fTitle').value)$('fTitle').value=st.t==='hack'?(/\bai\b/.test(s)?'AI Hakatonu':'Hakaton'):st.t==='olymp'?'Olimpiada':'Kurs layihəsi';
-  drawForm();msg.textContent='Doldurdum. Yoxla və lazım olsa düzəlt.'};
+  const d=s.match(/(\d{1,2}(?:[–-]\d{1,2})?\s*(?:january|february|march|april|may|june|july|august|september|october|november|december))/);if(d)$('fDate').value=d[1].replace(/\b\w/g,c=>c.toUpperCase()).replace(/^(\d+(?:[–-]\d+)?)\s*/,'$1 ');
+  const z=s.match(/(?:team of|(\d)\s*(?:people|members))\s*(\d)?/);if(z)$('fSize').value=z[1]||z[2];
+  if(!$('fTitle').value)$('fTitle').value=st.t==='hack'?(/\bai\b/.test(s)?'AI Hackathon':'Hackathon'):st.t==='olymp'?'Olympiad':'Course project';
+  drawForm();msg.textContent='Done. Check the fields and fix anything if needed.'};
 $('pub').onclick=()=>{let ok=true;const title=$('fTitle').value.trim(),date=$('fDate').value.trim();
-  if(!title){$('eTitle').textContent='Yarışın adını yaz.';ok=false}if(!date){$('eDate').textContent='Tarixi yaz.';ok=false}
-  if(!st.need.size){$('eNeed').textContent='Ən azı bir lazım olan rol seç.';ok=false}if(!ok)return;
-  posts.unshift({t:st.t,title,date,who:"Sən",c:me().c,room:myRoom?"3 · "+myRoom.num:"qeydiyyat yoxdur",have:[...st.have],need:[...st.need],slots:"1/"+$('fSize').value,desc:$('fDesc').value.trim(),near:true,mine:true,match:3+st.need.size*2});
+  if(!title){$('eTitle').textContent='Enter the competition name.';ok=false}if(!date){$('eDate').textContent='Enter the date.';ok=false}
+  if(!st.need.size){$('eNeed').textContent='Pick at least one role the team needs.';ok=false}if(!ok)return;
+  posts.unshift({t:st.t,title,date,who:"You",c:me().c,room:myRoom?"3 · "+myRoom.num:"not registered",have:[...st.have],need:[...st.need],slots:"1/"+$('fSize').value,desc:$('fDesc').value.trim(),near:true,mine:true,match:3+st.need.size*2});
   st={t:"hack",have:new Set(),need:new Set()};['fTitle','fDate','fDesc','aiTxt'].forEach(id=>$(id).value='');$('aiMsg').textContent='';
-  $('form').hidden=true;$('newBtn').hidden=false;flt="all";filters();list();toast('Elan dərc edildi')};
-$('ask1').onclick=()=>startDm('Murad','VILNIUS TECH AI Hakatonu');
+  $('form').hidden=true;$('newBtn').hidden=false;flt="all";filters();list();toast('Post published')};
+$('ask1').onclick=()=>startDm('Murad','VILNIUS TECH AI Hackathon');
 $('why1').onclick=()=>{$('whyBox').hidden=!$('whyBox').hidden};
 
 /* ---------- chat ---------- */
 const threads=[
- {id:"room",name:"A-201 otaq çatı",sub:"Nigar, Alsu və sən",kind:"room",unread:1,msgs:[
-   {from:"Nigar",t:"Bu axşam mətbəxi kim təmizləyir?",tm:"17:40"},{from:"Alsu",t:"Mən edərəm, sabah növbə sənindir 🙂",tm:"17:42"}]},
- {id:"floor",name:"A bloku · 2-ci mərtəbə",sub:"28 sakin",kind:"floor",unread:2,msgs:[
-   {from:"Rūta",t:"Ar kas nors turi lygintuvą? Grąžinsiu po valandos.",tm:"16:05",lang:"LT",tr:"Kiminsə ütüsü var? Bir saata qaytararam."},
-   {from:"Emma",t:"Mine is in room A-205, come take it!",tm:"16:09",lang:"EN",tr:"Mənimki A-205 otağındadır, gəl götür!"}]},
- {id:"bld",name:"3 nömrəli bina · elanlar",sub:"Yalnız komendant yazır",kind:"news",unread:1,readonly:true,msgs:[
-   {from:"Komendant",t:"Lapkričio 5 d. nuo 10 iki 14 val. nebus karšto vandens. Atsiprašome už nepatogumus.",tm:"09:00",lang:"LT",tr:"5 noyabr 10:00–14:00 arası isti su olmayacaq. Narahatlığa görə üzr istəyirik."}]},
- {id:"murad",name:"Murad",sub:"B-504 · hakaton komandası",kind:"dm",unread:0,msgs:[
-   {from:"Murad",t:"Salam! Elanımı gördün? Frontend axtarırıq.",tm:"15:20"}]}];
+ {id:"room",name:"Room A-201 chat",sub:"Nigar, Alsu and you",kind:"room",unread:1,msgs:[
+   {from:"Nigar",t:"Who's cleaning the kitchen tonight?",tm:"17:40"},{from:"Alsu",t:"I'll do it, tomorrow it's your turn 🙂",tm:"17:42"}]},
+ {id:"floor",name:"Block A · 2nd floor",sub:"28 residents",kind:"floor",unread:2,msgs:[
+   {from:"Rūta",t:"Ar kas nors turi lygintuvą? Grąžinsiu po valandos.",tm:"16:05",lang:"LT",tr:"Does anyone have an iron? I'll give it back in an hour."},
+   {from:"Emma",t:"Mine is in room A-205, come take it!",tm:"16:09"}]},
+ {id:"bld",name:"Building 3 · announcements",sub:"Only the administrator can post",kind:"news",unread:1,readonly:true,msgs:[
+   {from:"Administrator",t:"Lapkričio 5 d. nuo 10 iki 14 val. nebus karšto vandens. Atsiprašome už nepatogumus.",tm:"09:00",lang:"LT",tr:"On 5 November there will be no hot water from 10:00 to 14:00. Sorry for the inconvenience."}]},
+ {id:"murad",name:"Murad",sub:"B-504 · hackathon team",kind:"dm",unread:0,msgs:[
+   {from:"Murad",t:"Hi! Did you see my post? We're looking for a frontend dev.",tm:"15:20"}]}];
 let curThread="room";
 const unreadTotal=()=>threads.reduce((a,t)=>a+t.unread,0);
 function drawThreads(){const el=$('threads');el.innerHTML='';
@@ -727,80 +732,80 @@ function drawThreads(){const el=$('threads');el.innerHTML='';
     b.innerHTML='<span class="av">'+(t.kind==='dm'?esc(t.name[0]):t.kind==='news'?'!':'#')+'</span><span style="min-width:0;flex:1"><span class="t">'+esc(t.name)+'</span><span class="p">'+(last?esc(last.from)+': '+esc(last.t):'')+'</span></span>'+(t.unread?'<span class="badge">'+t.unread+'</span>':'');
     b.onclick=()=>openThread(t.id);el.appendChild(b)})}
 function drawMsgs(t){const el=$('msgs');el.innerHTML='';
-  t.msgs.forEach(m=>{const mine=m.from==='Sən';const d=document.createElement('div');d.className='msg'+(mine?' mine':'');
+  t.msgs.forEach(m=>{const mine=m.from==='You';const d=document.createElement('div');d.className='msg'+(mine?' mine':'');
     d.innerHTML=(mine?'':'<span class="from">'+esc(m.from)+'</span>')+esc(m.t)+'<span class="tm">'+m.tm+'</span>'+(m.shown?'<span class="tr">✦ '+esc(m.tr)+'</span>':'');
-    if(m.tr&&!m.shown){const b=document.createElement('button');b.className='linkbtn';b.textContent='✦ Azərbaycancaya tərcümə et ('+m.lang+')';b.onclick=()=>{m.shown=true;drawMsgs(t)};d.appendChild(document.createElement('br'));d.appendChild(b)}
+    if(m.tr&&!m.shown){const b=document.createElement('button');b.className='linkbtn';b.textContent='✦ Translate to English ('+m.lang+')';b.onclick=()=>{m.shown=true;drawMsgs(t)};d.appendChild(document.createElement('br'));d.appendChild(b)}
     el.appendChild(d)});el.scrollTop=el.scrollHeight}
 function openThread(id){curThread=id;const t=threads.find(x=>x.id===id);t.unread=0;
   $('cTitle').textContent=t.name;$('cSub').textContent=t.sub;$('compose').hidden=!!t.readonly;
   drawThreads();drawMsgs(t);buildNav()}
 function startDm(name,topic){let t=threads.find(x=>x.kind==='dm'&&x.name===name);
   if(!t){t={id:'dm-'+name,name,sub:topic,kind:'dm',unread:0,msgs:[]};threads.push(t)}
-  t.draft='Salam! "'+topic+'" elanını gördüm, komandaya qoşulmaq istəyirəm.';
+  t.draft='Hi! I saw your "'+topic+'" post and I\'d like to join the team.';
   go('chat');openThread(t.id);$('cInput').value=t.draft;$('cInput').focus()}
 const clock=()=>{const d=new Date();return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')};
 $('compose').addEventListener('submit',e=>{e.preventDefault();const v=$('cInput').value.trim();if(!v)return;const t=threads.find(x=>x.id===curThread);
-  t.msgs.push({from:'Sən',t:v,tm:clock()});$('cInput').value='';drawMsgs(t);drawThreads();
-  if(t.kind==='dm'){setTimeout(()=>{t.msgs.push({from:t.name,t:'Əla! Sabah 19:00-da B-504-də görüşək, ideyanı danışaq.',tm:clock()});if(curThread===t.id&&page==='chat')drawMsgs(t);else{t.unread++;buildNav()}drawThreads()},1500)}});
+  t.msgs.push({from:'You',t:v,tm:clock()});$('cInput').value='';drawMsgs(t);drawThreads();
+  if(t.kind==='dm'){setTimeout(()=>{t.msgs.push({from:t.name,t:'Great! Let\'s meet tomorrow at 19:00 in B-504 and talk about the idea.',tm:clock()});if(curThread===t.id&&page==='chat')drawMsgs(t);else{t.unread++;buildNav()}drawThreads()},1500)}});
 
 /* ---------- complaints ---------- */
-const CATS=[["plumb","Santexnika","santechnikos gedimas"],["elec","Elektrik","elektros gedimas"],["furn","Mebel","sugadinti baldai"],["heat","İstilik","neveikia šildymas"],["wifi","Wi-Fi","neveikia internetas"],["clean","Təmizlik","bendrų patalpų švara"],["noise","Səs-küy","triukšmas naktį"],["other","Digər","kita problema"]];
+const CATS=[["plumb","Plumbing","santechnikos gedimas"],["elec","Electrical","elektros gedimas"],["furn","Furniture","sugadinti baldai"],["heat","Heating","neveikia šildymas"],["wifi","Wi-Fi","neveikia internetas"],["clean","Cleaning","bendrų patalpų švara"],["noise","Noise","triukšmas naktį"],["other","Other","kita problema"]];
 const PLACES_LT={room:"kambaryje",kitchen:"bendroje virtuvėje",bath:"vonios kambaryje",hall:"koridoriuje",laundry:"skalbykloje"};
 let repCat=null,ticketNo=1041;
-const tickets=[{no:1038,cat:"wifi",place:"Mənim otağım",desc:"Axşamlar Wi-Fi tez-tez kəsilir.",stage:3,reply:"Maršrutizatorius pakeistas. Praneškite, jei problema kartosis.",replyAz:"Router dəyişdirildi. Problem təkrarlansa, xəbər verin.",date:"21 oktyabr"}];
-function fillPlaces(){const s=$('repPlace');const v=s.value;s.innerHTML='';[["room",myRoom?"Mənim otağım ("+myRoom.num+")":"Mənim otağım (qeydiyyat hələ yoxdur)"],["kitchen","Mətbəx"],["bath","Hamam / duş"],["hall","Dəhliz"],["laundry","Laundry otağı"]].forEach(([k,t])=>{const o=document.createElement('option');o.value=k;o.textContent=t;s.appendChild(o)});if(v)s.value=v}
+const tickets=[{no:1038,cat:"wifi",place:"My room",desc:"The Wi-Fi keeps dropping in the evenings.",stage:3,reply:"Maršrutizatorius pakeistas. Praneškite, jei problema kartosis.",replyAz:"The router was replaced. Let us know if the problem comes back.",date:"21 October"}];
+function fillPlaces(){const s=$('repPlace');const v=s.value;s.innerHTML='';[["room",myRoom?"My room ("+myRoom.num+")":"My room (not registered yet)"],["kitchen","Kitchen"],["bath","Bathroom / shower"],["hall","Corridor"],["laundry","Laundry room"]].forEach(([k,t])=>{const o=document.createElement('option');o.value=k;o.textContent=t;s.appendChild(o)});if(v)s.value=v}
 function drawCats(){const el=$('repCats');el.innerHTML='';CATS.forEach(([k,v])=>{const b=document.createElement('button');b.type='button';b.className='opt'+(repCat===k?' on':'');b.textContent=v;b.onclick=()=>{repCat=k;$('eCat').textContent='';drawCats()};el.appendChild(b)})}
 function ltText(){const cat=CATS.find(c=>c[0]===repCat),place=$('repPlace').value,urg=$('repUrg').value==='u';
   const rn=myRoom?myRoom.num:'—';const where=place==='room'?rn+' '+PLACES_LT.room:'3 bendrabučio '+PLACES_LT[place];
   return{lt:'Laba diena,\n\npranešu apie problemą: '+(cat?cat[2]:'problema')+' ('+where+').'+(urg?' Prašau sutvarkyti skubiai.':'')+'\nAprašymas: „'+($('repDesc').value.trim()||'—')+'“\n\nAčiū,\n'+user.name+', '+rn,
-    az:'Azərbaycanca: Salam, problem barədə məlumat verirəm: '+(cat?cat[1].toLowerCase():'problem')+' ('+($('repPlace').selectedOptions[0]||{}).textContent+').'+(urg?' Zəhmət olmasa təcili həll edin.':'')+' Təsvir sənin sözlərinlə əlavə olunur — real tətbiqdə AI onu da litvacaya tərcümə edir.'}}
-$('repAi').onclick=()=>{if(!repCat){$('eCat').textContent='Əvvəlcə problemin növünü seç.';return}const r=ltText();$('repLt').hidden=false;$('repAz').hidden=false;$('repLt').textContent=r.lt;$('repAz').textContent=r.az};
+    az:'In English: Hello, I\'m reporting a problem: '+(cat?cat[1].toLowerCase():'problem')+' ('+($('repPlace').selectedOptions[0]||{}).textContent+').'+(urg?' Please fix it urgently.':'')+' Your description is added in your own words — in the real app AI translates it into Lithuanian too.'}}
+$('repAi').onclick=()=>{if(!repCat){$('eCat').textContent='Choose the type of problem first.';return}const r=ltText();$('repLt').hidden=false;$('repAz').hidden=false;$('repLt').textContent=r.lt;$('repAz').textContent=r.az};
 $('repPhoto').onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{$('repThumb').src=rd.result;$('repThumb').hidden=false};rd.readAsDataURL(f)};
 $('repDesc').oninput=()=>$('eDesc').textContent='';
 $('newRep').onclick=()=>{$('guestForm').hidden=true;$('repForm').hidden=false;$('newRep').hidden=true;fillPlaces();drawCats()};
 $('repCancel').onclick=()=>{$('repForm').hidden=true;$('newRep').hidden=false};
 $('repForm').addEventListener('submit',e=>{e.preventDefault();let ok=true;
-  if(!repCat){$('eCat').textContent='Problemin növünü seç.';ok=false}
-  if(!$('repDesc').value.trim()){$('eDesc').textContent='Problemi bir-iki cümlə ilə təsvir et.';ok=false}if(!ok)return;
-  ticketNo++;tickets.unshift({no:ticketNo,cat:repCat,place:$('repPlace').selectedOptions[0].textContent,desc:$('repDesc').value.trim(),urg:$('repUrg').value==='u',stage:1,photo:!$('repThumb').hidden?$('repThumb').src:null,lt:ltText().lt,date:"bu gün"});
+  if(!repCat){$('eCat').textContent='Choose the type of problem.';ok=false}
+  if(!$('repDesc').value.trim()){$('eDesc').textContent='Describe the problem in a sentence or two.';ok=false}if(!ok)return;
+  ticketNo++;tickets.unshift({no:ticketNo,cat:repCat,place:$('repPlace').selectedOptions[0].textContent,desc:$('repDesc').value.trim(),urg:$('repUrg').value==='u',stage:1,photo:!$('repThumb').hidden?$('repThumb').src:null,lt:ltText().lt,date:"today"});
   repCat=null;$('repDesc').value='';$('repPhoto').value='';$('repThumb').hidden=true;$('repLt').hidden=true;$('repAz').hidden=true;$('repUrg').value='n';
-  $('repForm').hidden=true;$('newRep').hidden=false;drawTickets();toast('Müraciət #'+ticketNo+' komendanta göndərildi')});
-const STAGES=["Göndərildi","Baxılır","Həll olundu"];
-const RSTAGES={reg:["Ərizə yükləndi","İmzalandı və göndərildi","Qeydiyyat təsdiqləndi"],move:["Göndərildi","Administrator baxır","Təsdiqləndi"],mixed:["Göndərildi","Otaq yoldaşlarının razılığı","Tələbə Nümayəndəliyinin qərarı"],guest:["Göndərildi","Administrasiya baxır","Təsdiqləndi"],guestDay:["Qeydiyyatda"]};
-function requestMixed(rm){ticketNo++;const t={type:'mixed',no:ticketNo,to:rm.num,room:rm,stage:1,consents:others(rm).map(x=>x.n),date:'bu gün'};tickets.unshift(t);drawTickets();
-  $('rInfo').innerHTML='<b style="color:var(--good)">✓ Ərizə #'+t.no+' Tələbə Nümayəndəliyinə göndərildi.</b> Əvvəlcə otaqdakıların razılığı istənir: '+t.consents.map(esc).join(', ')+'.';toast('Ərizə #'+t.no+' göndərildi')}
+  $('repForm').hidden=true;$('newRep').hidden=false;drawTickets();toast('Request #'+ticketNo+' sent to the administrator')});
+const STAGES=["Sent","In review","Resolved"];
+const RSTAGES={reg:["Application downloaded","Signed and sent","Registration confirmed"],move:["Sent","Administrator reviewing","Approved"],mixed:["Sent","Roommates' consent","Student Representation decision"],guest:["Sent","Administration reviewing","Approved"],guestDay:["Registered"]};
+function requestMixed(rm){ticketNo++;const t={type:'mixed',no:ticketNo,to:rm.num,room:rm,stage:1,consents:others(rm).map(x=>x.n),date:'today'};tickets.unshift(t);drawTickets();
+  $('rInfo').innerHTML='<b style="color:var(--good)">✓ Application #'+t.no+' sent to the Student Representation.</b> First, the current residents are asked for consent: '+t.consents.map(esc).join(', ')+'.';toast('Application #'+t.no+' sent')}
 function finalize(t){
-  if(t.type==='move'){const rm=t.room;if(why(rm).length||rm.ppl.length>=rm.cap){t.rejected=true;t.note='Yer artıq tutulub və ya sənə uyğun deyil.';pendingMove=null;return}
-    pendingMove=null;confirmBed(rm);t.note='Köçdün: yeni yerin '+rm.num+'. Köhnə otağın açarını administratora təhvil ver.'}
-  else if(t.type==='mixed'){allowMixed.add(t.to);t.note=t.to+' indi sənin üçün açıqdır. Köçmək üçün ayrıca köçmə müraciəti göndər.';rRender()}
-  else if(t.type==='guest'){t.code='Q-'+Math.floor(1000+Math.random()*9000);t.note='Növbətçiyə bu kodu göstər: '+t.code+'.'}}
+  if(t.type==='move'){const rm=t.room;if(why(rm).length||rm.ppl.length>=rm.cap){t.rejected=true;t.note='The place is already taken or doesn\'t fit you.';pendingMove=null;return}
+    pendingMove=null;confirmBed(rm);t.note='You moved: your new place is '+rm.num+'. Return your old room key to the administrator.'}
+  else if(t.type==='mixed'){allowMixed.add(t.to);t.note=t.to+' is now open for you. Send a separate move request to move in.';rRender()}
+  else if(t.type==='guest'){t.code='Q-'+Math.floor(1000+Math.random()*9000);t.note='Show this code at the front desk: '+t.code+'.'}}
 function reqCard(t){const d=document.createElement('div');d.className='card stack';d.style.gap='8px';
   const st=t.type==='guest'&&!t.night?RSTAGES.guestDay:RSTAGES[t.type];
-  const title={reg:'Otaq qeydiyyatı · '+t.to,mixed:'Birlikdə qalma ərizəsi · '+t.to,guest:'Qonaq · '+t.guest}[t.type];
+  const title={reg:'Room registration · '+t.to,mixed:'Shared room application · '+t.to,guest:'Guest · '+t.guest}[t.type];
   const rule={reg:'§8–11',mixed:'§14',guest:'§16'}[t.type];
-  const who={reg:'Administrator',mixed:'Tələbə Nümayəndəliyi',guest:t.night?'Administrasiya':'Növbətçi'}[t.type];
-  let info=t.type==='reg'?'Ərizə '+esc(t.appNo)+' · imzalı fayl: '+esc(t.file):t.type==='mixed'?'Razılıq istənənlər: '+t.consents.map(esc).join(', '):t.type==='guest'?esc(t.when)+(t.night?' · gecə qalır':''):t.done?'Yeni yer: '+t.to:t.rejected?'Yer artıq saxlanılmır':'Yer sənin üçün saxlanılır';
+  const who={reg:'Administrator',mixed:'Student Representation',guest:t.night?'Administration':'Front desk'}[t.type];
+  let info=t.type==='reg'?'Application '+esc(t.appNo)+' · signed file: '+esc(t.file):t.type==='mixed'?'Consent requested from: '+t.consents.map(esc).join(', '):t.type==='guest'?esc(t.when)+(t.night?' · overnight':''):t.done?'New place: '+t.to:t.rejected?'The place is no longer held':'The place is held for you';
   d.innerHTML='<div class="row" style="justify-content:space-between"><b>#'+t.no+' · '+esc(title)+'</b><span class="faint">'+t.date+'</span></div>'+
-    '<div class="row" style="gap:4px"><span class="chip">'+rule+'</span><span class="chip">'+who+'</span>'+(t.rejected?'<span class="chip c-bad">Rədd edildi</span>':t.done?'<span class="chip c-good">Tamamlandı</span>':'')+'</div>'+
+    '<div class="row" style="gap:4px"><span class="chip">'+rule+'</span><span class="chip">'+who+'</span>'+(t.rejected?'<span class="chip c-bad">Rejected</span>':t.done?'<span class="chip c-good">Completed</span>':'')+'</div>'+
     '<div style="font-size:14px">'+info+'</div>'+
     '<div class="steps">'+st.map((s,i)=>'<span class="step '+(t.rejected?'':i+1<t.stage||t.done?'done':i+1===t.stage?'cur':'')+'">'+((i+1<t.stage||t.done)&&!t.rejected?'✓ ':'')+s+'</span>').join('')+'</div>'+
     (t.note?'<div class="lt">'+esc(t.note)+'</div>':'');
   if(!t.done&&!t.rejected){const row=document.createElement('div');row.className='row';
-    const b=document.createElement('button');b.className='small';b.textContent='Demo: növbəti addım';
-    b.onclick=()=>{t.stage++;if(t.stage>=st.length){t.done=true;finalize(t);toast('#'+t.no+' tamamlandı')}drawTickets()};row.appendChild(b);
-    const r=document.createElement('button');r.className='small';r.textContent='Demo: rədd et';
-    r.onclick=()=>{t.rejected=true;t.note={move:'Administrator: bu yer başqa tələbəyə ayrılıb.',mixed:'Tələbə Nümayəndəliyi: otaq yoldaşlarından biri razılıq vermədi.',guest:'Administrasiya: bu tarixdə gecə qonaq qəbul edilmir.'}[t.type];if(t===pendingMove){pendingMove=null;rRender()}drawTickets()};row.appendChild(r);
+    const b=document.createElement('button');b.className='small';b.textContent='Demo: next step';
+    b.onclick=()=>{t.stage++;if(t.stage>=st.length){t.done=true;finalize(t);toast('#'+t.no+' completed')}drawTickets()};row.appendChild(b);
+    const r=document.createElement('button');r.className='small';r.textContent='Demo: reject';
+    r.onclick=()=>{t.rejected=true;t.note={move:'Administrator: this place has been given to another student.',mixed:'Student Representation: one of the roommates did not consent.',guest:'Administration: overnight guests are not accepted on this date.'}[t.type];if(t===pendingMove){pendingMove=null;rRender()}drawTickets()};row.appendChild(r);
     d.appendChild(row)}
   return d}
 function drawTickets(){const el=$('tickets');el.innerHTML='';
   tickets.forEach(t=>{if(t.type&&t.type!=='complaint'){el.appendChild(reqCard(t));return}const cat=CATS.find(c=>c[0]===t.cat);const d=document.createElement('div');d.className='card stack';d.style.gap='8px';
     d.innerHTML='<div class="row" style="justify-content:space-between"><b>#'+t.no+' · '+cat[1]+'</b><span class="faint">'+t.date+'</span></div>'+
-      '<div class="row" style="gap:4px"><span class="chip">'+esc(t.place)+'</span>'+(t.urg?'<span class="chip c-bad">Təcili</span>':'')+'</div>'+
-      '<div style="display:flex;gap:10px;align-items:flex-start">'+(t.photo?'<img class="thumb" alt="Müraciətin şəkli" src="'+t.photo+'">':'')+'<div style="font-size:14px;min-width:0">'+esc(t.desc)+'</div></div>'+
+      '<div class="row" style="gap:4px"><span class="chip">'+esc(t.place)+'</span>'+(t.urg?'<span class="chip c-bad">Urgent</span>':'')+'</div>'+
+      '<div style="display:flex;gap:10px;align-items:flex-start">'+(t.photo?'<img class="thumb" alt="Request photo" src="'+t.photo+'">':'')+'<div style="font-size:14px;min-width:0">'+esc(t.desc)+'</div></div>'+
       '<div class="steps">'+STAGES.map((s,i)=>'<span class="step '+(i+1<t.stage?'done':i+1===t.stage?(t.stage===3?'done':'cur'):'')+'">'+(i+1<=t.stage?'✓ ':'')+s+'</span>').join('')+'</div>'+
-      (t.reply?'<div class="lt"><b>Komendant:</b> '+esc(t.reply)+'<br><span class="muted">✦ '+esc(t.replyAz)+'</span></div>':'');
-    if(t.stage<3){const b=document.createElement('button');b.className='small';b.textContent='Demo: komendant cavab versin';b.style.alignSelf='flex-start';
-      b.onclick=()=>{if(t.stage===1){t.stage=2;t.reply='Gavome. Rytoj 10 val. atvyks meistras.';t.replyAz='Qəbul etdik. Sabah saat 10:00-da usta gələcək.'}else{t.stage=3;t.reply='Problema išspręsta. Ačiū, kad pranešėte.';t.replyAz='Problem həll olundu. Xəbər verdiyiniz üçün təşəkkürlər.'}drawTickets();toast('Komendant #'+t.no+' müraciətinə cavab verdi')};d.appendChild(b)}
+      (t.reply?'<div class="lt"><b>Administrator:</b> '+esc(t.reply)+'<br><span class="muted">✦ '+esc(t.replyAz)+'</span></div>':'');
+    if(t.stage<3){const b=document.createElement('button');b.className='small';b.textContent='Demo: administrator replies';b.style.alignSelf='flex-start';
+      b.onclick=()=>{if(t.stage===1){t.stage=2;t.reply='Gavome. Rytoj 10 val. atvyks meistras.';t.replyAz='Received. A technician will come tomorrow at 10:00.'}else{t.stage=3;t.reply='Problema išspręsta. Ačiū, kad pranešėte.';t.replyAz='The problem is fixed. Thank you for letting us know.'}drawTickets();toast('The administrator replied to request #'+t.no)};d.appendChild(b)}
     el.appendChild(d)})}
 
 /* ---------- boot ---------- */
@@ -809,9 +814,9 @@ const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth
 function startReg(rm,bed){const fl=Math.floor(parseInt(rm.num.slice(2))/100);
   reg={room:rm,bed:rm.ppl.length+1,no:'CL-'+new Date().getFullYear()+'-'+Math.floor(1000+Math.random()*9000),bld:cb+1,blk:rm.num[0],floor:fl,date:today(),downloaded:false,file:null};
   $('regLang').value=me().c==='LT'?'lt':'en';selB=null;rRender();drawReg();$('regImg').hidden=true;$('regBox').scrollIntoView({behavior:'smooth',block:'start'});
-  $('rInfo').innerHTML='<b>'+rm.num+' səndə saxlanılır.</b> Aşağıdakı 4 addımı tamamla.'}
+  $('rInfo').innerHTML='<b>'+rm.num+' is held for you.</b> Complete the 4 steps below.'}
 function drawReg(){const box=$('regBox');box.hidden=!reg;if(!reg)return;
-  $('regMeta').textContent=reg.no+' · '+reg.bld+' nömrəli bina · '+reg.blk+' bloku · '+reg.room.num+' · '+reg.bed+'-ci çarpayı';
+  $('regMeta').textContent=reg.no+' · Building '+reg.bld+' · Block '+reg.blk+' · '+reg.room.num+' · bed '+reg.bed;
   const s=[reg.downloaded,reg.downloaded,!!reg.file,false];const cur=s.indexOf(false);
   [1,2,3,4].forEach(i=>$('rs'+i).className='rs'+(s[i-1]?' done':i-1===cur?' cur':''))}
 function wrapText(x,t,x0,y,maxW,lh){const words=t.split(' ');let line='';for(const w of words){const test=line?line+' '+w:w;if(x.measureText(test).width>maxW&&line){x.fillText(line,x0,y);y+=lh;line=w}else line=test}if(line){x.fillText(line,x0,y);y+=lh}return y}
@@ -858,25 +863,25 @@ const showPrev=()=>{$('regImg').src=formCanvas(reg,$('regLang').value).toDataURL
 $('regPrev').onclick=()=>{showPrev();$('regImg').hidden=!$('regImg').hidden};
 $('regLang').onchange=()=>{if(reg&&!$('regImg').hidden)showPrev()};
 $('regDl').onclick=async()=>{$('eDl').textContent='';const lang=$('regLang').value;const f=await makePdf(lang);const fn=FORM_TXT[lang].file+'_'+reg.no+'_'+lang.toUpperCase()+'.'+f.ext;const r=await saveFile(fn,f.blob);
-  if(r==='saved'){reg.downloaded=true;reg.lang=lang;drawReg();toast('Forma yükləndi: '+fn)}
-  else if(r==='declined'){$('eDl').textContent='Yükləməni ləğv etdin. Formanı almaq üçün yenidən bas.'}
-  else{$('eDl').textContent='Bu görünüşdə fayl yükləmək mümkün olmadı. "Önizləmə" ilə formanı aç və ekran şəklini çap et.';reg.downloaded=true;drawReg()}};
+  if(r==='saved'){reg.downloaded=true;reg.lang=lang;drawReg();toast('Form downloaded: '+fn)}
+  else if(r==='declined'){$('eDl').textContent='You cancelled the download. Press again to get the form.'}
+  else{$('eDl').textContent='Couldn\'t download the file in this view. Open the form with "Preview" and print a screenshot.';reg.downloaded=true;drawReg()}};
 $('regFile').onchange=e=>{const f=e.target.files[0];$('eFile').textContent='';$('regFilePrev').innerHTML='';if(!f){reg.file=null;drawReg();return}
-  if(!/^image\//.test(f.type)&&f.type!=='application/pdf'){$('eFile').textContent='Yalnız şəkil (JPG, PNG) və ya PDF yüklə.';e.target.value='';reg.file=null;drawReg();return}
-  if(f.size>15*1024*1024){$('eFile').textContent='Fayl 15 MB-dan böyükdür. Daha kiçik şəkil çək.';e.target.value='';reg.file=null;drawReg();return}
+  if(!/^image\//.test(f.type)&&f.type!=='application/pdf'){$('eFile').textContent='Upload an image (JPG, PNG) or a PDF only.';e.target.value='';reg.file=null;drawReg();return}
+  if(f.size>15*1024*1024){$('eFile').textContent='The file is larger than 15 MB. Take a smaller photo.';e.target.value='';reg.file=null;drawReg();return}
   reg.file=f;drawReg();
-  if(/^image\//.test(f.type)){const rd=new FileReader();rd.onload=()=>{$('regFilePrev').innerHTML='<img class="thumb" alt="İmzalı ərizənin şəkli" src="'+rd.result+'"><span class="faint">'+esc(f.name)+'</span>'};rd.readAsDataURL(f)}
+  if(/^image\//.test(f.type)){const rd=new FileReader();rd.onload=()=>{$('regFilePrev').innerHTML='<img class="thumb" alt="Photo of the signed application" src="'+rd.result+'"><span class="faint">'+esc(f.name)+'</span>'};rd.readAsDataURL(f)}
   else $('regFilePrev').innerHTML='<span class="chip">PDF</span><span class="faint">'+esc(f.name)+'</span>'};
 $('regAgree').onchange=()=>$('eAgree').textContent='';
 $('regSend').onclick=()=>{let ok=true;
-  if(!reg.downloaded){$('eDl').textContent='Əvvəlcə formanı yüklə.';ok=false}
-  if(!reg.file){$('eFile').textContent='İmzalanmış formanın şəklini və ya PDF-ini yüklə.';ok=false}
-  if(!$('regAgree').checked){$('eAgree').textContent='Ərizəni özün imzaladığını təsdiqlə.';ok=false}if(!ok)return;
-  const rm=reg.room;if(why(rm).length||rm.ppl.length>=rm.cap){$('eAgree').textContent='Bu yer artıq tutulub. Başqa yer seç.';return}
-  ticketNo++;tickets.unshift({type:'reg',no:ticketNo,to:rm.num,appNo:reg.no,file:reg.file.name,stage:3,done:true,date:'bu gün',note:'İmzalı ərizə administratora göndərildi. Qeydiyyatın təsdiqləndi: '+rm.num+', '+reg.bed+'-ci çarpayı. Açar kartını resepsiyadan götür.'});
+  if(!reg.downloaded){$('eDl').textContent='Download the form first.';ok=false}
+  if(!reg.file){$('eFile').textContent='Upload a photo or PDF of the signed form.';ok=false}
+  if(!$('regAgree').checked){$('eAgree').textContent='Confirm that you signed the application yourself.';ok=false}if(!ok)return;
+  const rm=reg.room;if(why(rm).length||rm.ppl.length>=rm.cap){$('eAgree').textContent='This place is already taken. Pick another one.';return}
+  ticketNo++;tickets.unshift({type:'reg',no:ticketNo,to:rm.num,appNo:reg.no,file:reg.file.name,stage:3,done:true,date:'today',note:'The signed application was sent to the administrator. Your registration is confirmed: '+rm.num+', bed '+reg.bed+'. Pick up your key card at reception.'});
   const no=reg.no;reg=null;$('regFile').value='';$('regAgree').checked=false;$('regFilePrev').innerHTML='';confirmBed(rm);drawReg();drawTickets();whoLine();
-  $('rInfo').innerHTML='<b style="color:var(--good)">✓ Qeydiyyat təsdiqləndi: '+rm.num+'.</b> Ərizə '+no+' administratora getdi. Statusu Müraciətlər bölməsində görə bilərsən.';toast('Qeydiyyat təsdiqləndi: '+rm.num)};
-$('regCancel').onclick=()=>{reg=null;$('regFile').value='';$('regFilePrev').innerHTML='';drawReg();rRender();$('rInfo').textContent='Ərizə ləğv edildi. Yer artıq saxlanılmır.'};
+  $('rInfo').innerHTML='<b style="color:var(--good)">✓ Registration confirmed: '+rm.num+'.</b> Application '+no+' went to the administrator. You can see its status in Requests.';toast('Registration confirmed: '+rm.num)};
+$('regCancel').onclick=()=>{reg=null;$('regFile').value='';$('regFilePrev').innerHTML='';drawReg();rRender();$('rInfo').textContent='Application cancelled. The place is no longer held.'};
 
 /* ---------- guests (§16) ---------- */
 (function(){for(let h=7;h<=22;h++){const v=String(h).padStart(2,'0')+':00';if(h<22){const o=document.createElement('option');o.value=h;o.textContent=v;$('gFrom').appendChild(o)}if(h>7){const o=document.createElement('option');o.value=h;o.textContent=v;$('gTo').appendChild(o)}}
@@ -887,83 +892,104 @@ $('gGuar').onchange=()=>$('eGuar').textContent='';
 $('newGuest').onclick=()=>{$('guestForm').hidden=false;$('repForm').hidden=true;$('newRep').hidden=false;$('gName').focus()};
 $('gCancel').onclick=()=>{$('guestForm').hidden=true};
 $('guestForm').addEventListener('submit',e=>{e.preventDefault();let ok=true;const n=$('gName').value.trim(),night=$('gNight').checked,f=+$('gFrom').value,to=+$('gTo').value;
-  if(n.length<3){$('eGName').textContent='Qonağın adını və soyadını yaz.';ok=false}
-  if(!night&&to<=f){$('eGTime').textContent='Gediş vaxtı gəlişdən sonra olmalıdır.';ok=false}
-  if(!$('gGuar').checked){$('eGuar').textContent='Qaydalara görə qonağına zəmanət verməlisən (§16).';ok=false}if(!ok)return;
-  ticketNo++;const when=$('gDate').value+' · '+String(f).padStart(2,'0')+':00'+(night?' → səhər':'–'+String(to).padStart(2,'0')+':00');
-  const t={type:'guest',no:ticketNo,guest:n,when,night,stage:1,date:'bu gün'};
+  if(n.length<3){$('eGName').textContent='Enter the guest\'s name and surname.';ok=false}
+  if(!night&&to<=f){$('eGTime').textContent='The leaving time must be after the arrival time.';ok=false}
+  if(!$('gGuar').checked){$('eGuar').textContent='The rules require you to vouch for your guest (§16).';ok=false}if(!ok)return;
+  ticketNo++;const when=$('gDate').value+' · '+String(f).padStart(2,'0')+':00'+(night?' → morning':'–'+String(to).padStart(2,'0')+':00');
+  const t={type:'guest',no:ticketNo,guest:n,when,night,stage:1,date:'today'};
   if(!night){t.done=true;finalize(t)}tickets.unshift(t);
   $('guestForm').reset();$('gFrom').value=18;$('gTo').value=21;$('gTo').disabled=false;$('guestForm').hidden=true;drawTickets();
-  toast(night?'Gecə qonaq ərizəsi #'+t.no+' administrasiyaya getdi':'Qonaq qeydiyyatdan keçdi · kod '+t.code)});
+  toast(night?'Overnight guest request #'+t.no+' sent to the administration':'Guest registered · code '+t.code)});
 
 /* ---------- quiet hours (§17) ---------- */
 let quietWas=null;
 function quietUpdate(force){const h=new Date().getHours(),q=h>=22||h<7,p=$('quietPill');
-  p.textContent=q?'🌙 Sakitlik saatı · 07:00-a qədər':'Sakitlik 22:00–07:00';p.className='chip '+(q?'c-warn':'');
-  $('cInput').placeholder=q?'Mesaj yaz · sakitlik saatıdır, səsli zəng etmə':'Mesaj yaz';
-  if((force||(quietWas===false&&q))&&$('quietRem').checked)toast('🌙 Saat 22:00 — sakitlik saatları başladı. 07:00-a qədər səs-küy qadağandır (§17).');quietWas=q}
+  p.textContent=q?'🌙 Quiet hours · until 07:00':'Quiet hours 22:00–07:00';p.className='chip '+(q?'c-warn':'');
+  $('cInput').placeholder=q?'Write a message · quiet hours, no voice calls':'Write a message';
+  if((force||(quietWas===false&&q))&&$('quietRem').checked)toast('🌙 It\'s 22:00 — quiet hours have started. No noise until 07:00 (§17).');quietWas=q}
 setInterval(()=>quietUpdate(false),30000);
 $('quietDemo').onclick=()=>quietUpdate(true);
 
-/* ---------- auth ---------- */
-const ALLOWED=["stud.vilniustech.lt","vilniustech.lt"];
-const LANGS=["Azərbaycan","Türk","İngilis","Litva","Rus","Ukrayna"];
-let code="",resendLeft=0,resendT=null,oG=null,oLangs=new Set(["Azərbaycan","İngilis"]),oSkills=new Set();
-(function skyline(){const sk=$('skyline');[["BİNA 1",9],["BİNA 2",10],["BİNA 3",8]].forEach(([n,rows])=>{const b=document.createElement('div');b.className='bld';
+/* ---------- auth (server: server/serve.ps1, e-mail codes via Resend) ---------- */
+let ALLOWED=["stud.vilniustech.lt","vilniustech.lt"];
+const LANGS=["Azerbaijani","Turkish","English","Lithuanian","Russian","Ukrainian"];
+let mode="signup",token=null,resendLeft=0,resendT=null,busy=false,oG=null,oLangs=new Set(["Azerbaijani","English"]),oSkills=new Set();
+async function api(path,body){const h={'Content-Type':'application/json'};if(token)h.Authorization='Bearer '+token;
+  let r;try{r=await fetch('/api/'+path,{method:body?'POST':'GET',headers:h,body:body?JSON.stringify(body):undefined})}
+  catch(e){return{ok:false,status:0,data:{error:'Can\'t reach the server. Start it with server/serve.ps1 and open http://localhost:5173.'}}}
+  let data={};try{data=await r.json()}catch(e){}return{ok:r.ok,status:r.status,data}}
+api('config').then(r=>{if(r.ok&&r.data.domains)ALLOWED=[].concat(r.data.domains)});
+const setToken=t=>{token=t;try{t?localStorage.setItem('cl-token',t):localStorage.removeItem('cl-token')}catch(e){}};
+(function skyline(){const sk=$('skyline');[["BUILDING 1",9],["BUILDING 2",10],["BUILDING 3",8]].forEach(([n,rows])=>{const b=document.createElement('div');b.className='bld';
   let h='<div class="roof">'+n+'</div><div class="grid">';for(let i=0;i<rows*6;i++)h+='<span class="w'+(Math.random()<.45?' on':'')+'"></span>';b.innerHTML=h+'</div>';sk.appendChild(b)});
   if(!matchMedia('(prefers-reduced-motion: reduce)').matches)setInterval(()=>{const ws=sk.querySelectorAll('.w');for(let i=0;i<3;i++)ws[Math.floor(Math.random()*ws.length)].classList.toggle('on')},700)})();
-function step(n){['aEmail','aCode','aProfile'].forEach((id,i)=>$(id).hidden=i+1!==n);[1,2,3].forEach(i=>$('st'+i).className=i<=n?'on':'')}
-function otpBoxes(){const el=$('otp');el.innerHTML='';for(let i=0;i<6;i++){const x=document.createElement('input');x.type='text';x.inputMode='numeric';x.maxLength=1;x.id='otp'+i;x.setAttribute('aria-label',(i+1)+'-ci rəqəm');x.autocomplete=i?'off':'one-time-code';
+const MODE_TXT={signup:{title:'Create your account',lead:'Sign up with your university e-mail. No password: we send a one-time code to your inbox.',foot:'Already have an account? Choose Sign in.'},
+  signin:{title:'Welcome back',lead:'Sign in with your university e-mail. We\'ll send a one-time code to your inbox.',foot:'New to Campus Life? Choose Sign up.'}};
+function setMode(m){mode=m;document.querySelectorAll('#aMode button').forEach(b=>{b.classList.toggle('on',b.dataset.m===m);b.setAttribute('aria-selected',b.dataset.m===m)});
+  $('aTitle').textContent=MODE_TXT[m].title;$('aLead').textContent=MODE_TXT[m].lead;$('aFoot').textContent=MODE_TXT[m].foot+' Only VILNIUS TECH students and staff can join.';$('eMail').textContent='';step(1)}
+document.querySelectorAll('#aMode button').forEach(b=>b.onclick=()=>setMode(b.dataset.m));
+function step(n){['aEmail','aCode','aProfile'].forEach((id,i)=>$(id).hidden=i+1!==n);[1,2,3].forEach(i=>$('st'+i).className=i<=n?'on':'');$('st3').hidden=mode==='signin'}
+function otpBoxes(){const el=$('otp');el.innerHTML='';for(let i=0;i<6;i++){const x=document.createElement('input');x.type='text';x.inputMode='numeric';x.maxLength=1;x.id='otp'+i;x.setAttribute('aria-label','Digit '+(i+1));x.autocomplete=i?'off':'one-time-code';
   x.oninput=()=>{x.value=x.value.replace(/\D/g,'').slice(-1);clearOtpErr();if(x.value&&i<5)$('otp'+(i+1)).focus();if(otpVal().length===6)$('aCode').requestSubmit()};
   x.onkeydown=e=>{if(e.key==='Backspace'&&!x.value&&i>0)$('otp'+(i-1)).focus()};
   x.onpaste=e=>{const t=(e.clipboardData.getData('text')||'').replace(/\D/g,'').slice(0,6);if(!t)return;e.preventDefault();t.split('').forEach((d,j)=>$('otp'+j).value=d);$('otp'+Math.min(t.length,5)).focus();if(t.length===6)$('aCode').requestSubmit()};
   el.appendChild(x)}}
 const otpVal=()=>[0,1,2,3,4,5].map(i=>$('otp'+i).value).join('');
 function clearOtpErr(){$('eCode').textContent='';document.querySelectorAll('.otp input').forEach(x=>x.classList.remove('bad'))}
-function sendCode(){code=String(Math.floor(100000+Math.random()*900000));$('demoCode').textContent=code.slice(0,3)+' '+code.slice(3);resendLeft=30;clearInterval(resendT);
-  const upd=()=>{$('aResend').textContent=resendLeft>0?'Yeni kod: '+resendLeft+' san':'Kodu yenidən göndər';$('aResend').disabled=resendLeft>0;$('aResend').style.color=resendLeft>0?'var(--faint)':''};upd();
+function resendTimer(s){resendLeft=s;clearInterval(resendT);
+  const upd=()=>{$('aResend').textContent=resendLeft>0?'New code in '+resendLeft+' s':'Resend code';$('aResend').disabled=resendLeft>0;$('aResend').style.color=resendLeft>0?'var(--faint)':''};upd();
   resendT=setInterval(()=>{resendLeft--;upd();if(resendLeft<=0)clearInterval(resendT)},1000)}
+async function sendCode(){const r=await api('send-code',{email:user.mail,mode});
+  if(r.ok){const c=r.data.devCode;$('demoBox').hidden=!c;if(c)$('demoCode').textContent=c.slice(0,3)+' '+c.slice(3);resendTimer(r.data.wait||30)}
+  else if(r.data.wait)resendTimer(r.data.wait);
+  return r}
 $('aMail').oninput=()=>$('eMail').textContent='';
-$('aEmail').addEventListener('submit',e=>{e.preventDefault();const v=$('aMail').value.trim().toLowerCase();
-  if(!v){$('eMail').textContent='E-poçtunu yaz.';return}
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){$('eMail').textContent='Bu, e-poçt ünvanına oxşamır. Məsələn: vardas.pavarde@stud.vilniustech.lt';return}
-  if(!ALLOWED.some(d=>v.endsWith('@'+d))){$('eMail').textContent='Bu ünvan VILNIUS TECH-ə aid deyil. Universitetin sənə verdiyi e-poçtu yaz.';return}
-  user.mail=v;$('aSentTo').textContent=v;otpBoxes();sendCode();step(2);$('otp0').focus()});
+$('aEmail').addEventListener('submit',async e=>{e.preventDefault();if(busy)return;const v=$('aMail').value.trim().toLowerCase();
+  if(!v){$('eMail').textContent='Enter your e-mail.';return}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){$('eMail').textContent='That doesn\'t look like an e-mail address. For example: vardas.pavarde@stud.vilniustech.lt';return}
+  if(!ALLOWED.some(d=>v.endsWith('@'+d))){$('eMail').textContent='This address isn\'t a VILNIUS TECH one. Use the e-mail your university gave you.';return}
+  busy=true;$('aSend').disabled=true;$('aSend').textContent='Sending…';user.mail=v;const r=await sendCode();busy=false;$('aSend').disabled=false;$('aSend').textContent='Send code';
+  if(!r.ok){$('eMail').textContent=r.data.error||'Something went wrong. Try again.';
+    if(r.data.code==='exists'||r.data.code==='missing'){const to=r.data.code==='exists'?'signin':'signup';const b=document.createElement('button');b.type='button';b.className='ghost';b.style.marginLeft='6px';b.textContent=to==='signin'?'Go to Sign in':'Go to Sign up';b.onclick=()=>setMode(to);$('eMail').appendChild(b)}
+    return}
+  $('aSentTo').textContent=v;otpBoxes();step(2);$('otp0').focus()});
 $('aBack').onclick=()=>{step(1);$('aMail').focus()};
-$('aResend').onclick=()=>{if(resendLeft>0)return;sendCode();clearOtpErr();otpBoxes();$('otp0').focus();toast('Yeni kod göndərildi')};
-$('aCode').addEventListener('submit',e=>{e.preventDefault();const v=otpVal();
-  if(v.length<6){$('eCode').textContent='6 rəqəmin hamısını yaz.';return}
-  if(v!==code){$('eCode').textContent='Kod səhvdir. Yenidən yoxla və ya yeni kod istə.';document.querySelectorAll('.otp input').forEach(x=>x.classList.add('bad'));return}
-  clearInterval(resendT);let saved=null;try{saved=JSON.parse(localStorage.getItem('cl-profile:'+user.mail)||'null')}catch(err){}
-  if(saved){applyProfile(saved);enterApp('Yenidən xoş gəldin, '+user.name);return}
+$('aResend').onclick=async()=>{if(resendLeft>0)return;clearOtpErr();const r=await sendCode();if(!r.ok){$('eCode').textContent=r.data.error||'Couldn\'t send a new code.';return}otpBoxes();$('otp0').focus();toast('New code sent')};
+$('aCode').addEventListener('submit',async e=>{e.preventDefault();if(busy)return;const v=otpVal();
+  if(v.length<6){$('eCode').textContent='Enter all 6 digits.';return}
+  busy=true;const r=await api('verify-code',{email:user.mail,code:v});busy=false;
+  if(!r.ok){$('eCode').textContent=r.data.error||'Something went wrong. Try again.';document.querySelectorAll('.otp input').forEach(x=>x.classList.add('bad'));return}
+  clearInterval(resendT);setToken(r.data.token);
+  if(r.data.profile){applyProfile(JSON.parse(r.data.profile));enterApp('Welcome back, '+user.name);return}
   const guess=user.mail.split('@')[0].split(/[._]/)[0];$('oName').value=guess?guess[0].toUpperCase()+guess.slice(1):'';drawOnb();step(3);$('oName').focus()});
 function drawOnb(){if(!$('oC').options.length)Object.entries(C).forEach(([k,v])=>{const o=document.createElement('option');o.value=k;o.textContent=v;$('oC').appendChild(o)});
   document.querySelectorAll('#oG button').forEach(b=>{b.classList.toggle('on',b.dataset.g===oG);b.onclick=()=>{oG=b.dataset.g;$('eG').textContent='';drawOnb()}});
   const ch=(id,list,set,cls)=>{const el=$(id);el.innerHTML='';list.forEach(s=>{const x=document.createElement('button');x.type='button';x.className='opt'+(set.has(s)?' '+cls:'');x.textContent=s;x.onclick=()=>{set.has(s)?set.delete(s):set.add(s);drawOnb()};el.appendChild(x)})};
   ch('oLang',LANGS,oLangs,'on');ch('oSkills',SK,oSkills,'onH')}
 $('oName').oninput=()=>$('eName').textContent='';
-$('aProfile').addEventListener('submit',e=>{e.preventDefault();let ok=true;const n=$('oName').value.trim();
-  if(!n){$('eName').textContent='Başqalarının səni necə görəcəyini yaz.';ok=false}else if(n.length>30){$('eName').textContent='30 simvoldan qısa olsun.';ok=false}
-  if(!oG){$('eG').textContent='Seç: otaq qaydası buna görə işləyir.';ok=false}if(!ok)return;
+$('aProfile').addEventListener('submit',async e=>{e.preventDefault();if(busy)return;let ok=true;const n=$('oName').value.trim();$('eProf').textContent='';
+  if(!n){$('eName').textContent='Enter how others will see you.';ok=false}else if(n.length>30){$('eName').textContent='Keep it under 30 characters.';ok=false}
+  if(!oG){$('eG').textContent='Choose one: room rules depend on it.';ok=false}if(!ok)return;
   const prof={name:n,c:$('oC').value,g:oG,show:$('oShow').checked,langs:[...oLangs],skills:[...oSkills]};
-  try{localStorage.setItem('cl-profile:'+user.mail,JSON.stringify(prof))}catch(err){}
-  applyProfile(prof);enterApp('Xoş gəldin, '+n+'! İndi yataqxanada yerini seç.')});
+  busy=true;const r=await api('profile',{profile:prof});busy=false;
+  if(!r.ok){$('eProf').textContent=r.data.error||'Couldn\'t save your profile. Try again.';if(r.status===401){setToken(null);setMode('signin')}return}
+  applyProfile(prof);enterApp('Welcome, '+n+'! Your account is ready. Now pick your place in the dormitory.')});
 function applyProfile(p){user.name=p.name;user.langs=p.langs||[];user.skills=p.skills||[];$('pC').value=p.c;$('pG').value=p.g;$('pShow').checked=p.show!==false;
   if(!myRoom)return;
-  const meP=myRoom.ppl.find(x=>x.n==="Sən");if(meP){meP.g=p.g;meP.c=p.c}
+  const meP=myRoom.ppl.find(x=>x.n==="You");if(meP){meP.g=p.g;meP.c=p.c}
   const g=roomG(myRoom);if(g&&g!==p.g){let target=null;
     for(const blk of B[2].blocks)for(const fl of blk)for(const rm of fl)if(!target&&rm!==myRoom&&!why(rm).length&&rm.ppl.length<rm.cap)target=rm;
-    if(target){myRoom.ppl=myRoom.ppl.filter(x=>x.n!=="Sən");target.ppl.push({n:"Sən",g:p.g,c:p.c,y:1,f:"Kompüter elmləri"});myRoom=target}}}
-function enterApp(msg){try{localStorage.setItem('cl-session',user.mail)}catch(e){}
-  $('auth').hidden=true;$('appRoot').hidden=false;
+    if(target){myRoom.ppl=myRoom.ppl.filter(x=>x.n!=="You");target.ppl.push({n:"You",g:p.g,c:p.c,y:1,f:"Computer Science"});myRoom=target}}}
+function enterApp(msg){$('auth').hidden=true;$('appRoot').hidden=false;
   $('whoAv').textContent=$('profAv').textContent=user.name[0].toUpperCase();$('profName').textContent=user.name;$('profMail').textContent=user.mail;
-  $('profLangs').textContent=user.langs.length?'Dillər: '+user.langs.join(', ')+(user.skills.length?' · Bacarıqlar: '+user.skills.join(', '):''):'';
+  $('profLangs').textContent=user.langs.length?'Languages: '+user.langs.join(', ')+(user.skills.length?' · Skills: '+user.skills.join(', '):''):'';
   fillPlaces();cb=2;ck=myRoom?BL.indexOf(myRoom.num[0]):0;cf=myRoom?Math.floor(parseInt(myRoom.num.slice(2))/100)-1:1;
   let start="rooms";try{const s=localStorage.getItem('dm-page');if(s&&PAGES.some(p=>p[0]===s))start=s}catch(e){}
   go(start);if(msg)toast(msg)}
-$('logout').onclick=()=>{try{localStorage.removeItem('cl-session')}catch(e){}$('appRoot').hidden=true;$('auth').hidden=false;$('aMail').value='';$('eMail').textContent='';step(1);window.scrollTo(0,0)};
+$('logout').onclick=async()=>{await api('logout',{});setToken(null);$('appRoot').hidden=true;$('auth').hidden=false;$('aMail').value='';setMode('signin');window.scrollTo(0,0)};
 
 drawCats();drawTickets();filters();list();lRender();drawThreads();quietUpdate(false);
-(function boot(){let mail=null,prof=null;try{mail=localStorage.getItem('cl-session');if(mail)prof=JSON.parse(localStorage.getItem('cl-profile:'+mail)||'null')}catch(e){}
-  if(mail&&prof){user.mail=mail;applyProfile(prof);enterApp()}else{$('auth').hidden=false;step(1)}})();
+(async function boot(){try{token=localStorage.getItem('cl-token')}catch(e){}
+  if(token){const r=await api('me');if(r.ok){user.mail=r.data.email;applyProfile(JSON.parse(r.data.profile));enterApp();return}if(r.status===401)setToken(null)}
+  $('auth').hidden=false;setMode('signup')})();
 </script>
